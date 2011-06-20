@@ -1,0 +1,15 @@
+extern void rt_run()		;
+extern void rt_stape()		;
+extern void rt_keep();
+extern void rt_copy(long val)	;
+extern void rt_push(long val)	;
+extern long rt_pop()		;
+extern void rt_stack_frame()	;
+extern void rt_frame(long val)	;
+extern long rt_clear()		;
+extern void rt_tape(long val)	;
+extern TAPE rt_qtape()		;
+extern TAPE rt_turing()		;
+extern TAPE save_cell()		;
+extern void stuff_ip_at(long *px)	;
+extern void runtime_init();

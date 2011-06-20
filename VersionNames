@@ -1,0 +1,17 @@
+CLeanCompile	For Basic Feature Set
+Constants	added constants to builtins
+FileReader	now have ablilty to read input file names.
+Compiler	satisfied with code emitting in compiler.
+CyclingRuntime	First one, lots of detritus.
+ProtoEmitter	prototype code emitter
+CompileOutline	Outline the steps in the compiler
+Attributable	added attributable function simplifying parser
+CompilerNum2	removed bug in parser PARENs Stack Nesting
+NamedVersions	Added this file, "VersionNames", a LIFO, and "primary" function
+CompilerShell	Not yet compiling code; stepping through a "define" word
+AnyNonZeroAttrib
+WalkThruCompiler
+AddedDefine
+BeforeCompiler
+FirstDictionary
+WorkingParser

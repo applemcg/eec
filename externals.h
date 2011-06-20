@@ -1,0 +1,7 @@
+#include "extern_compiler.h"
+#include "extern_dictionary.h"
+#include "extern_main.h"
+#include "extern_options.h"
+#include "extern_parserobj.h"
+#include "extern_runtime.h"
+#include "extern_word.h"

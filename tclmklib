@@ -1,0 +1,44 @@
+
+
+proc comment { args }		{ puts stderr $args }
+proc indir { dir args }		{ set here [pwd]; cd $dir; eval $args; cd $here }
+
+  comment $tcl_platform(platform)
+
+set buildiingLog	building.csv
+
+proc listof { name args }	{ global $name; set $name [list $args]; }
+proc state { {ns making} }	{ global STATE; set STATE $ns; }
+proc obsolete { name }		{ comment OBSOLETE $name; }
+proc annotation { args }	{ comment $args; }
+proc doit { args }		{ comment $args; eval $args; }
+proc do_append { fp msg }	{ puts $fp $msg; close $fp }
+proc appendto { file msg }	{ comment "appendto { $file $msg }";  do_append [open $file a+] $msg }
+proc cvsDate {}			{ clock format [clock seconds] -format  "%m/%d/%y, %H:%M:%S" }
+proc building { state item }	{ global buildingLog; appendto $buildingLog "$state\( \, $item\, [cvsDate]\, \)" }
+proc newest { target args }	{ if { ! [file exists $target] } { return 0 }
+     	      	     	  	  set mt [file mtime $target]
+				  foreach dep $args { 
+				  	  if { ! [file exists $dep] 
+					      || [file mtime  $dep] < $mt } continue
+					 return 0
+     	      	     	  	  	 }
+				  return 1
+				}
+
+proc contents {f}		{ set fr [open $f r]; set ct [read $fr]; close $fr; return $ct; }
+proc identicalConents {fa fb}	{ if  { ! [file exists $fa] } { return 0 }
+     		      	          if  { ! [file exists $fb] } { return 0 }
+				  return { [contents $fa] == [contents $fb] }
+}
+
+proc buildingState name	   	{ eval "proc $name { { nx  ...} } { building $name \$nx }" }
+
+    buildingState opened
+    buildingState closed
+    buildingState making
+    buildingState editing
+    buildingState punchin
+    buildingState punchout
+
+

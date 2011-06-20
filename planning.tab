@@ -1,0 +1,22 @@
+PlannedTask	schedule	complete	entered
+"check the ""builtin"""		1	3/9/08
+rehearse the existing test cases		1	3/9/08
+"add a simple set( x, y) test"		1	3/9/08
+awk-like typedefs		2	3/9/08
+simplify the data structures		2	3/9/08
+dictionary upgrade w/slots for Mine		2	3/9/08
+BasicFeatureSet implement		3	3/25/07
+"add the list feature: define, set, .."		3	3/9/08
+DisplayPlanning table	3/8/07	3/10/07	3/8/07
+InstrumentCompile interval	3/10/07	3/11/07	3/10/07
+TrackChanges in Wiki	3/10/07	3/18/07	3/10/07
+CleanCompile of object model	3/25/07	3/25/07	3/5/07
+BasicFeatureSet document	3/18/07	3/25/07	3/10/07
+BasicFeatureSet implement	4/1/07		3/5/07
+printing code-emitting steps	4/22/07		3/5/07
+emitting code	5/13/07		3/5/07
+writing simple program	5/20/07		3/5/07
+feature freeze	6/6/07		3/5/07
+WorkingInterpreter	7/7/07		3/5/07
+SimpleShell	9/7/07		3/5/07
+make program	11/7/07		3/5/07

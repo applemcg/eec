@@ -1,0 +1,89 @@
+# comment, ifdiff,  FROM:
+comment()	{ echo $* 1>&2; }
+_doif_diff()	{ tee $2 |
+		  diff - $1 >/dev/null &&
+		    rm -f $2 ||
+		    mv $2 $1; 
+		}
+existing()	{ [[ -f $1 ]]; }
+state()		{ STATE=${1:-making}; }; state
+obsolete()	{ comment OBSOLETE $*; }
+
+annotation()	{ comment $@; }   # see below, after PRIMARY
+doit()		{ comment $@; $@; }
+shift2()	{ shift; shift; echo $*; }
+shifted()	{ shift; echo $*; }
+funct_def()	{ eval "$1() { echo \$1 | sed \"$2\"; }"; }
+savetype()	{ comment $*; }
+
+depends()	{ newest $* || doit mv $1 ar; }
+stdout()	{ doit newest $1 $(shift2 "$@") || doit $(shifted "$@") |ifdiff $1; } # ~ out cmd in ...
+
+# stdout()	{ doit newest $1 $(shift2 "$@") || doit $(shifted "$@") > $1; } # ~ out cmd in ...
+
+printable()	{ grep -v '\.html' .files; } 
+uc()		{ echo $1|tr '[a-z]' '[A-Z]'; }
+funct_def	 file_re	's/\//\\\\&/g'		# a/very/fooey/path -> a\/very\/fooey\/path
+OBJECT_LIST=
+HEADER_LIST=
+CSOURCE_LIST=
+object()	{ comment OBJECT $1; OBJECT_LIST="$OBJECT_LIST $1.o"; }
+header()	{ comment HEADER $1; primary $1.h; HEADER_LIST="$HEADER_LIST $1.h"; }
+primary()	{ comment PRIMARY $1; PRIMARY_LIST="$PRIMARY_LIST $1"; }
+srcdir()	{ echo ../$1; }
+lm4()    { m4 eedefs.m4 $1; }
+
+fm_m4() { lm4 $2_$1.m4 2>$2.err | cb > $(srcdir $2.$1); }
+mkops() { header eec_$1_builtin;
+ 	   m4 -D$(uc $1) $2 | ifdiff $(srcdir eec_$1_builtin.h);
+	 }
+
+is_defined ()	{ 
+
+    grep USER *.c	|
+	grep '(.*)'	|
+	sed '
+		s/:USER//
+		s/(.*//
+		s/ \*/ /'	|
+	awk 'NF > 2 { print $3, $1}'	|
+	sort
+}
+is_used ()	{ 
+
+    egrep -f .fnames *.c	|
+	egrep -v ':(USER|LOCAL)'	|
+	sed '
+		s/\/\*.*//
+		s/(.*//
+		s/".*"//
+		s/\*.*//
+		s/:./ /
+		s/[  *].*=//
+		s/, */ /g'	|
+	awk 'NF >1 { for ( i =2; i <= NF; i++) print $i, $1 }'	|
+	sort
+}
+is_metric ()	{ 
+
+    join .defined .used	|
+	awk '$2 != $3 { print $2, $3 }'	|
+	sort	|
+	uniq -c
+}
+newer()
+{
+	comment See BELOW;
+}					     
+indir()		{ comment See BELOW; }					     
+newest()	{ comment See BELOW; }					     
+ifdiff()	{ existing $1 ||
+		  touch $1;
+		  _doif_diff $1 .${1##*/}.tmp;
+}
+# ---------------------------------------------------------- un-indexed	--
+newer()		{ set -x; ls -dt $* | sed "/^$(file_re $1)\$/,\$d"; set +x; }
+indir()		{
+		( cd $1; shift; eval $*; )
+}
+newest()	{ savetype $*; set -- $(newer $*); doit return $#; }

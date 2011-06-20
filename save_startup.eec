@@ -1,0 +1,4 @@
+
+define ( include ( fname),
+	file_parser( eec_fread ( fname)))
+

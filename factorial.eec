@@ -1,0 +1,10 @@
+define( factorial( n),
+	 return( 
+	 	 if( less(n,2), 1,
+		     multiply( n,
+		     	       factorial( subtract( n, 1))
+		 	     )
+		)
+	)
+)
+

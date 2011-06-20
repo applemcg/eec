@@ -1,0 +1,26 @@
+This is the cummings source repostitory.  
+
+Cummings is a computer language in development.
+
+It's two chief new characteristics are:
+
+ * any string, blanks included may be a token, and
+ * its purely functional, so that add( $(this), $(that))
+   does what you'd expect
+
+At this moment, I'm commiting to github to take advantage of 
+_the_cloud_ for three reasons:
+
+ * security, 
+ * motivation, and
+ * hope/plan for partners
+
+Motivation now includes
+
+ * a solid architectural definition in the face of it's ancestors
+   and challenges of modern scripting, 
+ * a tight and small source engine, code and binary, 
+ * time
+
+I'm marty, with email   mcgowan AT alum DOT mit DOT edu
+

@@ -1,0 +1,121 @@
+
+source localMklib
+
+prn()		{ pr -n $1 *.[ch] | ifdiff listing$1.txt; }
+prllx()		{ eval "prl$1() { pr -n -l$1 \$*; }"; }
+
+#  define ( cio(file), ci(,file), co( -l, file))
+# grcdiff()	{ co -p $1|diff - $1; }
+
+# edit_ci()	{ ci $1; closed $1; co       $1; }
+# edit_co()	{ ci $1; opened $1; co -l -T $1; }
+# cio()		{ grcdiff $1 || edit_co $1; }
+# cio()		{ grcdiff $1 || edit_ci $1; }
+# cds()		{ datestamp >> $1; vi $1; cio $1; }
+csvDate()	{ date '+%m/%d/%y, %H:%M:%S'; }
+building() 	{ echo "$1(, $2, $(csvDate) , )" >> building.csv; }
+csvShow()	{ date "+${5:-%m}/${4:-%d}/${6:-%y}, ${3:-%H}:${2:-%M}:${1:-%S}"; }
+punchott() 	{ echo "punchout(, ..., $(csvst $*) , )" >> building.csv; }
+
+csvst()  	{ case $# in 
+(0)	csvShow 00;; (5)  csvShow 00 $5 $4 $3 $2 $1;;
+(1)	csvShow 00 $1;; (4)  csvShow 00 $4 $3 $2 $1;;
+(2)	csvShow 00 $2 $1;; (3)	csvShow 00 $3 $2 $1;;
+esac; }
+
+buildingState() { eval "$1() { building $1 \${1:-...}; }"; }
+
+    buildingState opened
+    buildingState closed
+    buildingState making
+    buildingState editing
+    buildingState punchin
+    buildingState punchout
+
+mkcio()		{ [ "${STATE}" = "making" ] && cio $*; }
+
+mkstart()	{ sed 's/.*/	"&",/' $1.eec | ifdiff $1.h; }
+
+non_blank_lines()	{  grep -v '^[ 	]*$' $*; }
+clean_cpp()	{ cpp ${CPP_FLAGS} $1 | non_blank_lines; }
+
+optional()	{ ${OPTIONAL:-eval} $*; }
+u2extern()	{ grep '^USER' $1 |
+		  sed '
+		      s/USER/extern/
+		      s/{.*//
+		      s/$/;/
+		      s/; *;$/;/
+		      '
+		}
+
+getexterns()	{ ls $* | sed 's/.c$//; s/.*/#include "extern_&.h"/'; } 
+manufacture()	{ newest $1 mkd $(shift2 $*) || { $(shifted $*) | ifdiff $1; }; }
+object_file_err() { making $1;  doit cc -c $CFLAGS $1 2>&1; }
+setdebug()	{ [[ -f .debugON ]] || { rm -f *.err; touch .debugON; }; CFLAGS=-g; }
+clrdebug()	{ [[ -f .debugON ]] && { rm -f *.err .debugON; } }
+showerr()	{ [ -s $1.err ] && { cat $1.err; exit; }; }
+htmlwrap()	{ echo "<html><body><pre>"; eval $*; echo "</pre></body></html>"; }
+_csv2html()	{ fmmac $1 |sed 's/,\([^, ]*\)/,<a href="eeCummings.html#\1">\1<\/a>/' ; }
+csv2html()	{ htmlwrap _csv2html $1; }
+csv()		{ stdout $1.html csv2html $1.csv; primary $1.csv; }
+Csource()	{ 
+	stdout extern_$1.h	 u2extern $1.c 
+	# return  # or NOT, for bootstrap
+	doit  stdout	$1.cpp		clean_cpp $1.c; 
+}
+compiler()	{	
+	doit depends $1.err ${HEADER_LIST}
+	doit stdout  $1.err object_file_err	$1.c; 
+	optional  showerr 1$
+}
+compilation() 	{ 
+		for f in $*; do 
+		doit compiler ${f%.c}; done
+}
+csource()	{ 
+	comment CSOURCE $1; CSOURCE_LIST="$CSOURCE_LIST $1.c";
+	Csource $1
+	object $1; primary $1.c
+}
+cprogram()	{ doit compilation $CSOURCE_LIST; newest $* || cc -o $*; }
+mk2html()	{ echo "<html><pre>"; cat $1 | awk '
+function href( t, n) { 	printf "%s\t<a href=\"%s\" target=%s>%s</a>\t%s\n",$1, t, n, n, $3 $4; }
+	$1 ~ /^annotation/ { href( "eeCummings.html#" $2, $2); next; }
+	$1 ~ /^csource/	{ href( $2 ".c", $2); next; }
+	$1 ~ /^Csource/	{ href( $2 ".C", $2); next; }
+	$1 ~ /^eectest/	{ href( $2 ".eec", $2); next; }
+	$1 ~ /^csv/	{ href( $2 ".html", $2); next; }
+	$1 ~ /^header/	{ href( $2 ".h", $2); next; }
+	$1 ~ /^mkops/	{ href( "eec_" $2 "_builtin.h", $2);  next; }
+	$1 ~ /^mkstart/	{ href( $2 ".h", $2); next; }
+	$1 ~ /^primary/	{ href( $2, 	$2); next; }
+	$1 ~ /^source/	{ href( $2,     $2); next; }
+		{ print }'; 
+	echo "</pre></html>"; 
+	}
+
+# ------------------------------------------------------ Local Commands	--
+docummings()	{ doit cat $1 | cummings 2>&1; }
+eectest()	{ primary $1.eec; doit stdout $1.out docummings $1.eec; }
+
+# depends		mkd.html eecMkLib	
+stdout		mkd.html mk2html mkd
+primary	mkd
+primary	eecMklib
+
+prllx 65
+prllx 70
+prllx 72
+prllx 76
+prllx 80
+
+mkeof()		{ # "Text Edit -> PDF "
+	rm -f listing-l*.txt
+
+	stdout	listing-l80.txt  prl80 ${PRIMARY_LIST}
+	stdout	listing-l72.txt  prl72 ${PRIMARY_LIST}
+	stdout	listing-l70.txt  prl70 ${PRIMARY_LIST}
+	stdout	listing-l65.txt  prl65 ${PRIMARY_LIST}
+	stdout	listing-l76.txt  prl76 ${PRIMARY_LIST}
+}
