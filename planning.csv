@@ -1,9 +1,0 @@
-relation(,PlannedTask,schedule,complete,entered,)
-item(,"check the ""builtin""",,1,3/9/08,)
-item(,rehearse the existing test cases,,1,3/9/08,)
-item(,"add a simple set( x, y) test",,1,3/9/08,)
-item(,awk-like typedefs,,2,3/9/08,)
-item(,simplify the data structures,,2,3/9/08,)
-item(,dictionary upgrade w/slots for Mine,,2,3/9/08,)
-item(,BasicFeatureSet implement,,3,3/25/07,)
-item(,"add the list feature: define, set, 

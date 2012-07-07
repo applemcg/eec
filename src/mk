@@ -1,0 +1,11 @@
+pushd ~/bin > /dev/null; source qvslib 2>/dev/null; ignore popd
+# bkup: appleton.home./Users/applemcg/src/eect 2012_0704 170135;
+
+   tclsh test.tcl   2> eecparse.err | tee eecparse.out
+ # tclsh test.tcl   2>&1
+  
+ bkfiles > .bkfiles
+ comment compare local to backup
+ ls | comm -3 - .bkfiles
+
+#  bkup $(bkfiles)

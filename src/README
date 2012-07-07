@@ -1,0 +1,60 @@
+# README -- Copyright (C) 2012 -- JYATL, Just Yet Another Testing Lab
+# bkup: appleton.home./Users/applemcg/src/eect 2012_0704 085849;
+
+ eect -- eec in Tcl, using regular expressions. a whole new start
+
+  the current problem is "what is the execution environment" for 
+variable storage.  the easy way out is to make everything global.
+
+  before taking that plunge, i think it's good to understand how
+the "uplevel" command works.
+
+
+e.g.    set ( a, 1)            =>    set a 1
+	set ( b, 5)            =>    set b 5
+
+        add ( a, b)            =>    expr $a + $b 
+
+        sub ( a, b)            =>    expr $a - $b
+
+        $( a)                  =>         $a
+
+        &( a)                  =>          a
+
+        get( a)                =>         $a
+
+	print ( a)             =>   puts stdout $a 
+
+	print ( add (a, b))    =>   puts stdout [add (a , b)] 
+
+	print (   a trimmed string )    => puts stdout {a trimmed string}
+
+	print (stderr, another string ) => puts stderr {another string}
+
+	function( name, x y z, 
+
+	    add ( x, y, z)
+
+	)                      =>  proc name {x y x} { expr $x + $y + $z }
+
+	if ( boolean , [then,] , , , else , , , )
+
+	     	               => if { boolean } then { ... } else {    }
+
+	while ( boolean, ... , , , )
+
+	                       => while { boolean } { , , , ... }
+			       	  	
+	foreach ( item .. , in-list , command , ,,, )
+	
+                               => foreach { item .., in-list, , , , }
+
+challenges arising:
+
+    print (a ) vs print (  a trimmed .. ) 
+
+          if the arg is an "lvalue", assume the value-of
+	  if not, then either the literal, or the function.
+
+    multiple argument functions will have to be aware of their responsiblity.
+
