@@ -88,7 +88,3 @@ eec_biop:6.28318,*,12.
 set WITH: {Circumfrence of the circle} 75.39815999999999
 print WITH: {Circumfrence of the circle}
 eec_info:Circumfrence of the circle.
-can not find channel named "fp"
-    while executing
-"close fp"
-    (file "test.tcl" line 71)

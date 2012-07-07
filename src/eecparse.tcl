@@ -1,5 +1,5 @@
 # eecparse -- Copyright (C) 2012 -- JYATL, Just Yet Another Testing Lab
-# bkup: appleton.home./Users/applemcg/src/eect 2012_0704 170135;
+# bkup: appleton.home./Users/applemcg/eec/src 2012_0707 114501;
 #  
 proc doeec {eec} { 
 
@@ -73,6 +73,12 @@ proc eec_biop {a op b} {
     puts stderr eec_biop:$a,$op,$b.
     expr $a $op $b 
 }
+proc eec_include name {
+
+    set fp [open $name r]
+    doeec [read $fp]
+    close $fp
+}
 proc EEC {cmd args} {
 
     global eec_memory
@@ -81,6 +87,8 @@ proc EEC {cmd args} {
     puts stderr "$cmd WITH: $args"
     set sla  [llength $args]
 
+    # IDEA:   switch on SLA with N args expanded, then switch on command.
+
     switch -regex -- $cmd.$sla {
 
 	comment.* { return }
@@ -88,6 +96,10 @@ proc EEC {cmd args} {
 	set.2   {
 	    $cmd eec_memory([lindex $args 0]) [lindex $args 1]
 	}
+    include.1 {
+
+        eec_include [lindex $args 0]
+    }
 	print.1 {
 	    puts [eec_info [lindex $args 0]]
 	}

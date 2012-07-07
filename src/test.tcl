@@ -65,15 +65,5 @@ comment  {
     
     puts "NOT Yet: -------------"
 }
-set fp [open firstCircle.eec r]
-set eec [read $fp]
-doeec $eec
-close fp
-
-
-
-
-
-
-
+eec_include firstCircle.eec
 

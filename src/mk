@@ -1,5 +1,5 @@
 pushd ~/bin > /dev/null; source qvslib 2>/dev/null; ignore popd
-# bkup: appleton.home./Users/applemcg/src/eect 2012_0704 170135;
+# bkup: appleton.home./Users/applemcg/eec/src 2012_0707 114501;
 
    tclsh test.tcl   2> eecparse.err | tee eecparse.out
  # tclsh test.tcl   2>&1
