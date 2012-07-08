@@ -2,8 +2,21 @@
 
 source eecwords.tcl
 source eecparse.tcl
+source eecmachine.tcl
 
-foreach file $argv {
+puts stderr eec:[llength $argv],$argv.
 
-	eec_include $file
+foreach arg $argv {
+    
+    puts stderr eec,argv:$arg.
+
+    switch -glob -- $arg {
+
+	-*      { 
+	    puts stderr "eec has no arguments yet."n
+	    puts stderr " check your command line: $argv"
+	    exit 
+	}
+	default { eec_include $arg }
+    }
 }

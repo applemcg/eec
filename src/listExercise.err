@@ -1,3 +1,5 @@
+eec:1,listExercise.eec.
+eec,argv:listExercise.eec.
 eec_parse:comment ( listExercise -- 7/8/2012 -- Copyright @ 2012, JYATL )
 
 comment ( in a moment of defference to clyde w tombaugh, who discovered pluto)

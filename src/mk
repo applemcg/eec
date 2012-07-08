@@ -1,23 +1,25 @@
-# pushd ~/bin > /dev/null; source qvslib 2>/dev/null; ignore popd
-# bkup: appleton.home./Users/applemcg/eec/src 2012_0707 114501;
-
+# mk -- make and test current cummings
 (
 echo "proc eec_wordlist {} {  return {wordlist "
-cat eecparse.tcl |
+cat eecmachine.tcl |
      sed -n '/^# BEGIN visible/,/^# END visible/p' |
      awk '$1 ~ /proc/ { print $2 }' | 
      sed 's/eec_/, /' | sort 
      echo "} }"
- 
-
 ) > eecwords.tcl
-
 
  f=firstCircle
  f=listExercise
 
- ./eec $f.eec 2> $f.err | tee $f.out ;
+tc=any
+tc=flag
+tc=file
 
-#  ./eec $f.eec
+case $tc in 
 
-# ./eec foo
+file)  ./eec $f.eec 2> $f.err | tee $f.out ;;
+flag)  ./eec -f foo;;
+*)     ./eec $f.eec;;
+
+esac
+
