@@ -1,0 +1,37 @@
+eec_parse:comment ( listExercise -- 7/7/2012 -- Copyright @ 2012, JYATL )
+
+comment ( in a moment of defference to clyde w tombaugh, who discovered pluto)
+
+set ( solar system, list( mercury, venus, earth, mars, jupiter, saturn, uranus, neptune, pluto))
+
+print ( solar system is: )
+print ( solar system).
+comment ( listExercise -- 7/7/2012 -- Copyright @ 2012, JYATL )
+
+comment ( in a moment of defference to clyde w tombaugh, who discovered pluto)
+
+set ( solar system, list( mercury, venus, earth, mars, jupiter, saturn, uranus, neptune, pluto))
+
+print ( solar system is: )
+print ( solar system) =>
+ {EEC} {comment} {listExercise -- 7/7/2012 -- Copyright} @ {2012} {JYATL};
+
+ {EEC} {comment} {in a moment of defference to clyde w tombaugh} {who discovered pluto};
+
+ {EEC} {set} {solar system} [ {EEC} {list} {mercury} {venus} {earth} {mars} {jupiter} {saturn} {uranus} {neptune} {pluto} ];
+
+ {EEC} {print} {solar system is:};
+ {EEC} {print} {solar system};
+comment WITH: {listExercise -- 7/7/2012 -- Copyright} @ 2012 JYATL
+comment WITH: {in a moment of defference to clyde w tombaugh} {who discovered pluto}
+eec_info:in a moment of defference to clyde w tombaugh.
+eec_info:who discovered pluto.
+list WITH: mercury venus earth mars jupiter saturn uranus neptune pluto
+eec_list:1<{{mercury venus earth mars jupiter saturn uranus neptune pluto}}>
+set WITH: {solar system} {{{mercury venus earth mars jupiter saturn uranus neptune pluto}}}
+eec_info:solar system.
+eec_info:{{mercury venus earth mars jupiter saturn uranus neptune pluto}}.
+print WITH: {solar system is:}
+eec_info:solar system is:.
+print WITH: {solar system}
+eec_info:solar system.
