@@ -6,5 +6,4 @@ source eecparse.tcl
 foreach file $argv {
 
 	eec_include $file
-
 }

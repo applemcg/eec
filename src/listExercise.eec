@@ -11,10 +11,3 @@ comment ( testing a zero-arg function )
 
     print ( we now have a wordlist: )
     print ( wordlist () )
-
-
-
-
-
-
-

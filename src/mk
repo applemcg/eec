@@ -16,7 +16,6 @@ cat eecparse.tcl |
  f=firstCircle
  f=listExercise
 
-
  ./eec $f.eec 2> $f.err | tee $f.out ;
 
 #  ./eec $f.eec

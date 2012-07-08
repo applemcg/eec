@@ -158,5 +158,4 @@ proc EEC {cmd args} {
 	default { eec_any $cmd $args }
     }
 }
-
 eec_init
