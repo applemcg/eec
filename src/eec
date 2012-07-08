@@ -13,7 +13,7 @@ foreach arg $argv {
     switch -glob -- $arg {
 
 	-*      { 
-	    puts stderr "eec has no arguments yet."n
+	    puts stderr "eec has no arguments yet."
 	    puts stderr " check your command line: $argv"
 	    exit 
 	}

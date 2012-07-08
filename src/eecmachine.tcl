@@ -4,6 +4,13 @@ proc eec_does {eec} {
 
     eval [eec_parse [string trim $eec]]
 }
+proc eec_biop {a op b} { 
+    
+    puts stderr eec_biop:$a,$op,$b.
+    expr $a $op $b 
+}
+# -------------------------------------------------- eec_memory	--
+#
 proc eec_info arg {
     
     global eec_memory
@@ -17,12 +24,14 @@ proc eec_info arg {
     }
     return $res
 }
-proc eec_biop {a op b} { 
-    
-    puts stderr eec_biop:$a,$op,$b.
-    expr $a $op $b 
-}
 # BEGIN visible
+proc eec_set {a b} {
+
+    global eec_memory
+
+    set eec_memory($a) $b
+}
+# ---------------------------------------------- END eec_memory	--
 proc eec_include name {
     
     if { ![file exists $name ]} {
@@ -32,12 +41,6 @@ proc eec_include name {
     set fp [open $name r]
     eec_does [read $fp]
     close $fp
-}
-proc eec_set {a b} {
-
-    global eec_memory
-
-    set eec_memory($a) $b
 }
 # END visible
 
