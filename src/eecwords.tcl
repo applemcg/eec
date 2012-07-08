@@ -1,7 +1,4 @@
-solar system is:
-{{mercury venus earth mars jupiter saturn uranus neptune pluto}}
-we now have a wordlist:
-wordlist 
+proc eec_wordlist {} {  return {wordlist 
 , add
 , and
 , comment
@@ -17,4 +14,4 @@ wordlist
 , print
 , set
 , subtract
-
+} }

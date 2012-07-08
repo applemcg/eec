@@ -24,58 +24,71 @@ proc eec_init {} {
 proc eec_parse { eec } { 
 
     puts stderr eec_parse:$eec.
-
+    
     global eec_Token
     global eec_firstSub
 
+    set eec_REa  {, *EEC}     
+    set eec_REb  "(\}) *EEC"
+
     # set up the sub-expresssions
     
-    regsub -all $eec_firstSub $eec { EEC {\1} }        res
-    regsub -all {, EEC}   $res { SubExpressionEEC} res
+    regsub -all $eec_firstSub $eec { EEC {\1} }       res
     
     # --- opportunity for a little RE learning ---
     
-    regsub -all {SubExpressionEEC ([^)]+)\)} $res {[EEC \1]} res
-    regsub -all {SubExpressionEEC ([^)]+)\)} $res {[EEC \1]} res
+    puts stderr [format "\nBEFORE  SubExpression:\n%s<" $res]
     
+    regsub -all $eec_REa           $res {    SubExpressionEEC} res
+    regsub -all $eec_REb           $res {\1  SubExpressionEEC} res
+
+    regsub -all {SubExpressionEEC ([^)]+)\)} $res {[EEC \1]} res
+    regsub -all {SubExpressionEEC ([^)]+)\)} $res {[EEC \1]} res
+
+    puts stderr [format "\nAFTER .. SubExpression:\n%s<" $res]
+
+    eec_remain $res
+
+} 
+proc eec_remain {res} { 
+
+    global eec_Token 
+
     # protect the blank-embedded EEC tokens
     
     regsub -all $eec_Token  $res { {\1} } res
     regsub -all "{ {($eec_Token)} }" $res {{\1}} res
     
     # trim the remaining stuff from the EEC syntax
-
-    # puts stderr [format "BEFORE Paren Strip:\n%s<" $res]
+    
+    puts stderr [format "\nBEFORE Paren Strip:\n%s<" $res]
     regsub -all { *\) *}  $res ";"  res       ;# N.B.   Investigate Tcl Newline treatment
-    # puts stderr [format "AFTER  Paren Strip:\n%s<" $res]
-
+    puts stderr [format "\nAFTER  Paren Strip:\n%s<" $res]
     regsub -all { *, *}    $res " " res
-
-    puts stderr [format "%-54s =>\n%s" $eec $res]
-
+    
     return $res
 }
 proc eec_info arg {
-
+    
     global eec_memory
-
+    
     puts stderr eec_info:$arg.
-
+    
     set res $arg
     if {[info exists eec_memory($arg)]} {
-
+	
 	set res $eec_memory($arg)
     }
     return $res
 }
 proc eec_biop {a op b} { 
-
+    
     puts stderr eec_biop:$a,$op,$b.
     expr $a $op $b 
 }
 # BEGIN visible
 proc eec_include name {
-
+    
     if { ![file exists $name ]} {
 	puts stderr "can't include $name, it's NOT a FILE."
 	return
@@ -92,6 +105,7 @@ proc eec_set {a b} {
 }
 # END visible
 
+proc eec_zero     {cmd}        { eec_$cmd }
 proc eec_one      {cmd a}      { eec_$cmd $a }
 proc eec_two      {cmd a b}    { eec_$cmd $a $b       }
 proc eec_three    {cmd a b c}  { eec_$cmd $a $b $c    }
@@ -129,6 +143,8 @@ proc EEC {cmd args} {
     set sla  [llength $args]
 
     switch -- $sla {
+
+	0   { eec_zero  $cmd                             }
 
 	1   { eec_one   $cmd [eec_info [lindex $args 0]] }
 

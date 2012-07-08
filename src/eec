@@ -1,5 +1,6 @@
 #!/usr/local/bin/tclsh
 
+source eecwords.tcl
 source eecparse.tcl
 
 foreach file $argv {

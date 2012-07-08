@@ -1,14 +1,24 @@
 # pushd ~/bin > /dev/null; source qvslib 2>/dev/null; ignore popd
 # bkup: appleton.home./Users/applemcg/eec/src 2012_0707 114501;
 
+(
+echo "proc eec_wordlist {} {  return {wordlist "
+cat eecparse.tcl |
+     sed -n '/^# BEGIN visible/,/^# END visible/p' |
+     awk '$1 ~ /proc/ { print $2 }' | 
+     sed 's/eec_/, /' | sort 
+     echo "} }"
+ 
+
+) > eecwords.tcl
+
+
  f=firstCircle
  f=listExercise
-     ./eec $f.eec 2> $f.err | tee $f.out
-   # ./eec $f.eec #
-   # ./eec foo
-  
-#  bkfiles > .bkfiles
-#  comment compare local to backup
-#  ls | comm -3 - .bkfiles
 
-#  bkup $(bkfiles)
+
+ ./eec $f.eec 2> $f.err | tee $f.out ;
+
+#  ./eec $f.eec
+
+# ./eec foo

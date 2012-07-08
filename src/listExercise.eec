@@ -1,11 +1,17 @@
-comment ( listExercise -- 7/7/2012 -- Copyright @ 2012, JYATL )
+comment ( listExercise -- 7/8/2012 -- Copyright @ 2012, JYATL )
 
 comment ( in a moment of defference to clyde w tombaugh, who discovered pluto)
 
-set ( solar system, list( mercury, venus, earth, mars, jupiter, saturn, uranus, neptune, pluto))
+    set ( solar system, list( mercury, venus, earth, mars, jupiter, saturn, uranus, neptune, pluto))
 
-print ( solar system is: )
-print ( solar system)
+    print ( solar system is: )
+    print ( solar system)
+
+comment ( testing a zero-arg function )
+
+    print ( we now have a wordlist: )
+    print ( wordlist () )
+
 
 
 
