@@ -73,6 +73,7 @@ proc eec_biop {a op b} {
     puts stderr eec_biop:$a,$op,$b.
     expr $a $op $b 
 }
+# BEGIN visible
 proc eec_include name {
 
     if { ![file exists $name ]} {
@@ -89,16 +90,26 @@ proc eec_set {a b} {
 
     set eec_memory($a) $b
 }
+# END visible
 
 proc eec_one      {cmd a}      { eec_$cmd $a }
 proc eec_two      {cmd a b}    { eec_$cmd $a $b       }
 proc eec_three    {cmd a b c}  { eec_$cmd $a $b $c    }
 proc eec_any      {cmd args}   { eec_$cmd $args       }
 
-proc eec_add      {a b}        { eec_biop $a + $b }
-proc eec_subtract {a b}        { eec_biop $a - $b }
-proc eec_multiply {a b}        { eec_biop $a * $b }
-proc eec_divide   {a b}        { eec_biop $a / $b }
+# BEGIN visible
+
+proc eec_add      {a b}        { eec_biop $a +  $b }
+proc eec_subtract {a b}        { eec_biop $a -  $b }
+proc eec_multiply {a b}        { eec_biop $a *  $b }
+proc eec_divide   {a b}        { eec_biop $a /  $b }
+proc eec_greater  {a b}        { eec_biop $a >  $b }
+proc eec_lessthan {a b}        { eec_biop $a <  $b }
+proc eec_equal    {a b}        { eec_biop $a == $b }
+proc eec_and      {a b}        { eec_biop $a && $b }
+proc eec_or       {a b}        { eec_biop $a || $b }
+
+proc eec_not      {a}          { expr ! $a         }
 
 proc eec_print    a            { puts $a }
 proc eec_comment  args         { return } 
@@ -109,7 +120,7 @@ proc eec_list     args         {
     puts stderr eec_list:[llength $args]<$args>
     return $args
 }
-
+# END visible
 proc EEC {cmd args} {
 
     global eec_Token
@@ -119,9 +130,14 @@ proc EEC {cmd args} {
 
     switch -- $sla {
 
-	1   { eec_one $cmd [eec_info [lindex $args 0]]  }
+	1   { eec_one   $cmd [eec_info [lindex $args 0]] }
 
-	2   { eec_two $cmd [eec_info [lindex $args 0]]  [eec_info [lindex $args 1]] }
+	2   { eec_two   $cmd [eec_info [lindex $args 0]] \
+                             [eec_info [lindex $args 1]] }
+
+	3   { eec_three $cmd [eec_info [lindex $args 0]] \
+                             [eec_info [lindex $args 1]] \
+		             [eec_info [lindex $args 2]] }
 
 	default { eec_any $cmd $args }
     }

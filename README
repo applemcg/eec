@@ -1,11 +1,11 @@
 This is the cummings source repostitory.  
 
-Cummings is a computer language in development.
+cummings is a computer language in development.
 
 It's two chief new characteristics are:
 
  * any string, blanks included may be a token, and
- * its purely functional, so that add( $(this), $(that))
+ * its purely functional, so that add( this, that)
    does what you'd expect
 
 At this moment, I'm commiting to github to take advantage of 
@@ -17,10 +17,10 @@ _the_cloud_ for three reasons:
 
 Motivation now includes
 
- * bringing in the working kernel, describe in the link.
+ * bringing in the working kernel, described in the link.
  * time
 
 I'm marty, whose email address is  mcgowan AT alum DOT mit DOT edu
-The uber-readme is in the link on the master page:  mcgowans.org/eec/eeCummings.html
+See   mcgowans.org/eec/eeCummings.html for the master README.
 
 
