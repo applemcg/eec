@@ -9,7 +9,7 @@ comment ( in a moment of defference to clyde w tombaugh, who discovered pluto)
     print ( solar system is: )
     print ( solar system)
 
-comment ( testing a zero-arg function )
+print ( stdout, testing a zero-arg function )
 
     print ( we now have a wordlist: )
     print ( wordlist () ).
@@ -24,7 +24,7 @@ BEFORE  SubExpression:
  EEC {print}  solar system is: )
  EEC {print}  solar system)
 
- EEC {comment}  testing a zero-arg function )
+ EEC {print}  stdout, testing a zero-arg function )
 
  EEC {print}  we now have a wordlist: )
  EEC {print}  EEC {wordlist} ) )<
@@ -39,7 +39,7 @@ AFTER .. SubExpression:
  EEC {print}  solar system is: )
  EEC {print}  solar system)
 
- EEC {comment}  testing a zero-arg function )
+ EEC {print}  stdout, testing a zero-arg function )
 
  EEC {print}  we now have a wordlist: )
  EEC {print}  [EEC {wordlist} ] )<
@@ -54,7 +54,7 @@ BEFORE Paren Strip:
  {EEC} {print} {solar system is:} )
  {EEC} {print} {solar system} )
 
- {EEC} {comment} {testing a zero-arg function} )
+ {EEC} {print} {stdout} , {testing a zero-arg function} )
 
  {EEC} {print} {we now have a wordlist:} )
  {EEC} {print}  [ {EEC} {wordlist} ] )<
@@ -69,7 +69,7 @@ AFTER  Paren Strip:
  {EEC} {print} {solar system is:};
  {EEC} {print} {solar system};
 
- {EEC} {comment} {testing a zero-arg function};
+ {EEC} {print} {stdout} , {testing a zero-arg function};
 
  {EEC} {print} {we now have a wordlist:};
  {EEC} {print}  [ {EEC} {wordlist} ];<
@@ -86,7 +86,9 @@ print WITH: {solar system is:}
 eec_info:solar system is:.
 print WITH: {solar system}
 eec_info:solar system.
-comment WITH: {testing a zero-arg function}
+print WITH: stdout {testing a zero-arg function}
+eec_info:stdout.
+eec_info:testing a zero-arg function.
 eec_info:testing a zero-arg function.
 print WITH: {we now have a wordlist:}
 eec_info:we now have a wordlist:.

@@ -13,8 +13,8 @@ proc eec_init {} {
 
     set eec_Token { *([_a-zA-Z0-9.:;$&*/+-]([ _a-zA-Z0-9.:;*/+-]*[_a-zA-Z0-9.:;])*) *} 
     
-    set    eec_firstSub $eec_Token   ;# puts EEC<$exp>
-    append eec_firstSub "\\("        ;# puts EEC<$exp>
+    set    eec_firstSub $eec_Token
+    append eec_firstSub "\\("
 }
 proc eec_parse { eec } { 
 
@@ -63,5 +63,4 @@ proc eec_remain {res} {
     
     return $res
 }
-
 eec_init

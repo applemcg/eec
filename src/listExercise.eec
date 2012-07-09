@@ -7,7 +7,7 @@ comment ( in a moment of defference to clyde w tombaugh, who discovered pluto)
     print ( solar system is: )
     print ( solar system)
 
-comment ( testing a zero-arg function )
+print ( stdout, testing a zero-arg function )
 
     print ( we now have a wordlist: )
     print ( wordlist () )

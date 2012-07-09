@@ -1,5 +1,6 @@
 solar system is:
-{{mercury venus earth mars jupiter saturn uranus neptune pluto}}
+mercury venus earth mars jupiter saturn uranus neptune pluto
+testing a zero-arg function
 we now have a wordlist:
 wordlist 
 , add

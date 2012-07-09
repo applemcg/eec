@@ -1,5 +1,12 @@
 # eecmachine -- Copyright (C) 2012 -- JYATL, Just Yet Another Testing Lab
 #  
+proc eec_machinit {} {
+    # TODO: find a use for the eec_var
+
+    global eec_var
+
+    # set eec_var(OUTPUT) stdout; bad idea!
+}
 proc eec_does {eec} { 
 
     eval [eec_parse [string trim $eec]]
@@ -22,7 +29,7 @@ proc eec_info arg {
 	
 	set res $eec_memory($arg)
     }
-    return $res
+    return [string trim $res "{}"]
 }
 # BEGIN visible
 proc eec_set {a b} {
@@ -64,7 +71,21 @@ proc eec_or       {a b}        { eec_biop $a || $b }
 
 proc eec_not      {a}          { expr ! $a         }
 
-proc eec_print    a            { puts $a }
+proc eec_print    {a args}     { 
+    # TODO:  get the \X by the parser,
+    #   so among others \n works
+
+    global eec_var
+
+    if {[llength $args]} {
+
+	puts $a [eec_info [lindex $args 0]]
+
+    } else {
+
+	puts $a
+    }
+}
 proc eec_comment  args         { return } 
 proc eec_list     args         {
     # TODO:  this needs eec_Token treatment, probably
@@ -97,4 +118,4 @@ proc EEC {cmd args} {
 	default { eec_any $cmd $args }
     }
 }
-eec_init
+eec_machinit
