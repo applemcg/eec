@@ -1,12 +1,20 @@
 # mk -- make and test current cummings
+field ()   { awk "{ print \$$1 }"; }
+eeprocs () {  grep '^proc eec_' | field 2 | sed 's/eec_//' | sort ; } 
 (
 echo "proc eec_wordlist {} {  return {wordlist "
 cat eecmachine.tcl |
      sed -n '/^# BEGIN visible/,/^# END visible/p' |
-     awk '$1 ~ /proc/ { print $2 }' | 
-     sed 's/eec_/, /' | sort 
+     eeprocs | tee .procs_visible | sed 's/^/, /' 
      echo "} }"
+echo "proc eec_avoidlist {} {  return {avoidlist "
+
+cat eec*.tcl | eeprocs | comm -23 - .procs_visible  
+     echo "} }"
+
 ) > eecwords.tcl
+
+
 
  f=firstCircle
  f=listExercise
