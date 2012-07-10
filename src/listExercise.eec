@@ -2,7 +2,7 @@ comment ( listExercise -- 7/8/2012 -- Copyright @ 2012, JYATL )
 
 comment ( in a moment of defference to clyde w tombaugh, who discovered pluto)
 
-    set ( solar system, list( mercury, venus, earth, mars, jupiter, saturn, uranus, neptune, pluto))
+    set ( solar system, list( mercury, venus, earth moon, mars, asteroid belt, jupiter, saturn, uranus, neptune, pluto))
 
     print ( solar system is: )
     print ( solar system)

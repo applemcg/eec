@@ -90,17 +90,17 @@ proc eec_comment  args         { return }
 proc eec_list     args         {
     # TODO:  this needs eec_Token treatment, probably
     # at the EEC or eec_any level, before it gets here.
-    # and probably a join args ","
+
     puts stderr eec_list:[llength $args]<$args>
-    return $args
+    join $args ,
 }
 # END visible
 proc EEC {cmd args} {
 
     global eec_Token
 
-    puts stderr "$cmd WITH: $args"
     set sla  [llength $args]
+    puts stderr EEC.$cmd.n:$sla:$args
 
     switch -- $sla {
 
@@ -115,7 +115,7 @@ proc EEC {cmd args} {
                              [eec_info [lindex $args 1]] \
 		             [eec_info [lindex $args 2]] }
 
-	default { eec_any $cmd $args }
+	default { eec_any $cmd [join $args ,]}
     }
 }
 eec_machinit

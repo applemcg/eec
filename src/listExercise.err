@@ -4,7 +4,7 @@ eec_parse:comment ( listExercise -- 7/8/2012 -- Copyright @ 2012, JYATL )
 
 comment ( in a moment of defference to clyde w tombaugh, who discovered pluto)
 
-    set ( solar system, list( mercury, venus, earth, mars, jupiter, saturn, uranus, neptune, pluto))
+    set ( solar system, list( mercury, venus, earth moon, mars, asteroid belt, jupiter, saturn, uranus, neptune, pluto))
 
     print ( solar system is: )
     print ( solar system)
@@ -19,7 +19,7 @@ BEFORE  SubExpression:
 
  EEC {comment}  in a moment of defference to clyde w tombaugh, who discovered pluto)
 
- EEC {set}  solar system, EEC {list}  mercury, venus, earth, mars, jupiter, saturn, uranus, neptune, pluto))
+ EEC {set}  solar system, EEC {list}  mercury, venus, earth moon, mars, asteroid belt, jupiter, saturn, uranus, neptune, pluto))
 
  EEC {print}  solar system is: )
  EEC {print}  solar system)
@@ -34,7 +34,7 @@ AFTER .. SubExpression:
 
  EEC {comment}  in a moment of defference to clyde w tombaugh, who discovered pluto)
 
- EEC {set}  solar system    [EEC {list}  mercury, venus, earth, mars, jupiter, saturn, uranus, neptune, pluto])
+ EEC {set}  solar system    [EEC {list}  mercury, venus, earth moon, mars, asteroid belt, jupiter, saturn, uranus, neptune, pluto])
 
  EEC {print}  solar system is: )
  EEC {print}  solar system)
@@ -49,7 +49,7 @@ BEFORE Paren Strip:
 
  {EEC} {comment} {in a moment of defference to clyde w tombaugh} , {who discovered pluto} )
 
- {EEC} {set} {solar system} [ {EEC} {list} {mercury} , {venus} , {earth} , {mars} , {jupiter} , {saturn} , {uranus} , {neptune} , {pluto} ])
+ {EEC} {set} {solar system} [ {EEC} {list} {mercury} , {venus} , {earth moon} , {mars} , {asteroid belt} , {jupiter} , {saturn} , {uranus} , {neptune} , {pluto} ])
 
  {EEC} {print} {solar system is:} )
  {EEC} {print} {solar system} )
@@ -64,7 +64,7 @@ AFTER  Paren Strip:
 
  {EEC} {comment} {in a moment of defference to clyde w tombaugh} , {who discovered pluto};
 
- {EEC} {set} {solar system} [ {EEC} {list} {mercury} , {venus} , {earth} , {mars} , {jupiter} , {saturn} , {uranus} , {neptune} , {pluto} ];
+ {EEC} {set} {solar system} [ {EEC} {list} {mercury} , {venus} , {earth moon} , {mars} , {asteroid belt} , {jupiter} , {saturn} , {uranus} , {neptune} , {pluto} ];
 
  {EEC} {print} {solar system is:};
  {EEC} {print} {solar system};
@@ -73,27 +73,27 @@ AFTER  Paren Strip:
 
  {EEC} {print} {we now have a wordlist:};
  {EEC} {print}  [ {EEC} {wordlist} ];<
-comment WITH: {listExercise -- 7/8/2012 -- Copyright} @ 2012 JYATL
-comment WITH: {in a moment of defference to clyde w tombaugh} {who discovered pluto}
+EEC.comment.n:4:{listExercise -- 7/8/2012 -- Copyright} @ 2012 JYATL
+EEC.comment.n:2:{in a moment of defference to clyde w tombaugh} {who discovered pluto}
 eec_info:in a moment of defference to clyde w tombaugh.
 eec_info:who discovered pluto.
-list WITH: mercury venus earth mars jupiter saturn uranus neptune pluto
-eec_list:1<{{mercury venus earth mars jupiter saturn uranus neptune pluto}}>
-set WITH: {solar system} {{{mercury venus earth mars jupiter saturn uranus neptune pluto}}}
+EEC.list.n:10:mercury venus {earth moon} mars {asteroid belt} jupiter saturn uranus neptune pluto
+eec_list:1<{{mercury,venus,earth moon,mars,asteroid belt,jupiter,saturn,uranus,neptune,pluto}}>
+EEC.set.n:2:{solar system} {{mercury,venus,earth moon,mars,asteroid belt,jupiter,saturn,uranus,neptune,pluto}}
 eec_info:solar system.
-eec_info:{{mercury venus earth mars jupiter saturn uranus neptune pluto}}.
-print WITH: {solar system is:}
+eec_info:{mercury,venus,earth moon,mars,asteroid belt,jupiter,saturn,uranus,neptune,pluto}.
+EEC.print.n:1:{solar system is:}
 eec_info:solar system is:.
-print WITH: {solar system}
+EEC.print.n:1:{solar system}
 eec_info:solar system.
-print WITH: stdout {testing a zero-arg function}
+EEC.print.n:2:stdout {testing a zero-arg function}
 eec_info:stdout.
 eec_info:testing a zero-arg function.
 eec_info:testing a zero-arg function.
-print WITH: {we now have a wordlist:}
+EEC.print.n:1:{we now have a wordlist:}
 eec_info:we now have a wordlist:.
-wordlist WITH: 
-print WITH: {wordlist 
+EEC.wordlist.n:0:
+EEC.print.n:1:{ wordlist 
 , add
 , and
 , comment
@@ -110,7 +110,7 @@ print WITH: {wordlist
 , set
 , subtract
 }
-eec_info:wordlist 
+eec_info: wordlist 
 , add
 , and
 , comment
