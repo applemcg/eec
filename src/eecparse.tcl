@@ -55,9 +55,9 @@ proc eec_remain {res} {
     regsub -all "{ {($eec_Token)} }" $res {{\1}} res
     
     # trim the remaining stuff from the EEC syntax
-    
+    # TODO 4: Investigate Tcl Newline treatment, make multi-line cmmds.
     puts stderr [format "\nBEFORE Paren Strip:\n%s<" $res]
-    regsub -all { *\) *}  $res ";"  res       ;# N.B.   Investigate Tcl Newline treatment
+    regsub -all { *\) *}  $res ";"  res    
     puts stderr [format "\nAFTER  Paren Strip:\n%s<" $res]
     regsub -all { *, *}    $res " " res
     

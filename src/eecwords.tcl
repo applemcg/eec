@@ -6,13 +6,16 @@ proc eec_wordlist {} {  return { wordlist
 , equal
 , greater
 , include
+, increment
 , lessthan
 , list
+, literal
 , multiply
 , not
 , or
 , print
 , set
+, string
 , subtract
 } }
 proc eec_avoidlist {} {  return { avoidlist 
@@ -23,11 +26,12 @@ proc eec_avoidlist {} {  return { avoidlist
 , info
 , init
 , machinit
+, mem
 , one
 , parse
+, perf
 , remain
 , three
 , two
-, wordlist
 , zero
 } }

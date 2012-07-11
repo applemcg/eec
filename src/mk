@@ -7,17 +7,20 @@ visible () { sed -n '/^# BEGIN visible/,/^# END visible/p' $*; }
 bgnList () { echo "proc eec_$1 {} {  return { $1 "; }
 endList () { echo "} }"; }
 eecList () { bgnList $1; shift; eval $*; endList; }
-visList () { visible $1 | eeprocs | tee        .vis_procs | com_and; }
-allList () { cat     $* | eeprocs | comm -23 - .vis_procs | com_and; }
+visList () { visible $* | eeprocs | tee        .vis_proc | com_and; }
+allList () { cat     $* | eeprocs | comm -23 - .vis_proc | com_and; }
+
+rm -f .vis_*
 
 (
-     eecList wordlist  visList eecmachine.tcl
+     eecList wordlist  visList eecmachine.tcl  eecstring.tcl
      eecList avoidlist allList eec*.tcl
 
 ) > eecwords.tcl
 
  f=firstCircle
  f=listExercise
+ f=incrtest
 
 tc=flag
 tc=any
@@ -25,9 +28,16 @@ tc=file
 
 case $tc in 
 
-file)  ./eec $f.eec 2> $f.err | tee $f.out ;;
+file)  ./eec $f.eec 2> err/$f.err | tee out/$f.out ;;
 flag)  ./eec -f foo;;
 *)     ./eec $f.eec;;
 
 esac
 
+grep TODO *.tcl | 
+     awk ' { 
+
+       n=$4; $2 = $3 = $4 = ""
+       printf "%3d\t%s\n", n, $0 
+
+     }' | sort -n
