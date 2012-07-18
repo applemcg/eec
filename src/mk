@@ -42,4 +42,6 @@ grep TODO *.tcl |
        n=$4; $2 = $3 = $4 = ""
        printf "%3d\t%s\n", n, $0 
 
-     }' | sort -n
+     }' | sort -n | tee todo.txt
+
+

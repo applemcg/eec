@@ -56,7 +56,15 @@ proc eec_mem {cmd arg {a ""}} {
 }
 proc eec_info       arg       { eec_mem info $arg}
 # BEGIN visible
-
+proc dictionary    {a b}      {
+    # TODO 5: dictionary, see comments
+    #  + its a stack,
+    #  global ( sectional)
+    #  dictionary ( [ global ,] sectional
+    #    pops the stack to the outer level
+    # function address, sectional vars
+    #    set ( name, "")
+}
 proc eec_set       {a b}      { eec_mem set  $a $b }
 proc {eec_check memory} {}    { eec_mem chk  "" "" }
 proc eec_increment {a {b 1}}  { eec_mem incr $a $b }

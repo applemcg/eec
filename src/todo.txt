@@ -1,0 +1,6 @@
+  1	eecmachine.tcl:    increment isn't working, fix shud B simpel
+  2	eecmachine.tcl:    get the \X by the parser, so among others \n works
+  3	eecstring.tcl:    string will need testing, and "more meat"
+  4	eecparse.tcl:    Investigate Tcl Newline treatment, make multi-line cmmds.
+  5	eecmachine.tcl:    dictionary, see comments
+  9	eecmachine.tcl:    find a use for the eec_var
