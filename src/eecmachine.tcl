@@ -1,5 +1,11 @@
 # eecmachine -- Copyright (C) 2012 -- JYATL, Just Yet Another Testing Lab
 #  
+#    starts with
+#         eec ... file ...
+#                  eec_include   file ...
+#                  ... eec_does
+#                      ... eval  eec_parse
+#
 proc eec_machinit {} {
     # TODO 9: find a use for the eec_var
 
@@ -35,7 +41,7 @@ proc eec_mem {cmd arg {a ""}} {
     
     switch -- $cmd {
 	
-	set    { set  eec_memory($arg) $a }
+	chk    { parray eec_memory }
 	incr   { incr eec_memory($arg) $a }
 	info   {
 	    set res $arg
@@ -45,11 +51,14 @@ proc eec_mem {cmd arg {a ""}} {
 	    }
 	    return [string trim $res "{}"]
 	}
+	set    { set  eec_memory($arg) $a }
     }
 }
 proc eec_info       arg       { eec_mem info $arg}
 # BEGIN visible
+
 proc eec_set       {a b}      { eec_mem set  $a $b }
+proc {eec_check memory} {}    { eec_mem chk  "" "" }
 proc eec_increment {a {b 1}}  { eec_mem incr $a $b }
 # ---------------------------------------------- END eec_memory	--
 proc eec_include name {

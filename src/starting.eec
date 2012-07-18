@@ -1,0 +1,23 @@
+comment ( starting -- set starting conditions, Copyright @ 2012, JYATL )
+
+  set ( version of memory,   simplest )
+
+  set ( current name scope,  global)
+
+  set ( source language,     american english)
+  set ( input language,      american english)
+
+  set ( character set,       ascii)
+
+comment ( these variables may be changed)
+
+  set ( numeric precision,   8)
+
+  set ( all variable names,  version of memory)
+
+  set ( all function names, set)
+
+  set ( included file list, starting.eec)
+
+  check memory () 
+
