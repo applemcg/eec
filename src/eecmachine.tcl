@@ -7,7 +7,7 @@
 #                      ... eval  eec_parse
 #
 proc eec_machinit {} {
-    # TODO 9: find a use for the eec_var
+    # TODO 7: find a use for the eec_var
 
     global eec_var
 
@@ -56,18 +56,21 @@ proc eec_mem {cmd arg {a ""}} {
 }
 proc eec_info       arg       { eec_mem info $arg}
 # BEGIN visible
-proc dictionary    {a b}      {
-    # TODO 5: dictionary, see comments
+proc vocabulary    {a b}      {
+    # TODO 4: vocabulary, see comments
     #  + its a stack,
     #  global ( sectional)
-    #  dictionary ( [ global ,] sectional
+    #  vocabulary ( [ global ,] sectional
     #    pops the stack to the outer level
     # function address, sectional vars
     #    set ( name, "")
 }
 proc eec_set       {a b}      { eec_mem set  $a $b }
 proc {eec_check memory} {}    { eec_mem chk  "" "" }
-proc eec_increment {a {b 1}}  { eec_mem incr $a $b }
+proc eec_increment {a {b 1}}  { 
+    puts stderr eec_increment:a=$a,b=$b.
+    eec_mem incr $a $b 
+}
 # ---------------------------------------------- END eec_memory	--
 proc eec_include name {
     eec_perf include
@@ -103,7 +106,7 @@ proc eec_not       {a}          { expr ! $a        }
 proc eec_literal    a           { return $a }
 
 proc eec_print    {a args}     { 
-    # TODO  2:  get the \X by the parser, so among others \n works
+    # TODO  1:  get the \X by the parser, so among others \n works
 
     eec_perf print
 
@@ -133,27 +136,38 @@ proc EEC {cmd args} {
     set sla  [llength $args]
     puts stderr EEC.$cmd.n:$sla:$args
 
-    switch -glob -- cmd.$sla {
+    switch -- $sla {
+	1   { set a [lindex $args 0] }
+	2   {
+	    set a [lindex $args 0]
+	    set b [lindex $args 1]
+	}
+	3   {
+	    set a [lindex $args 0]
+	    set b [lindex $args 1]
+	    set c [lindex $args 2]
+	}	
+    }
+
+    switch -glob -- $cmd.$sla {
 
 	*.0   { eec_zero  $cmd                             }
 
 	literal.1 {
-	    eec_one   $cmd [lindex $args 0]
+	    eec_one   $cmd $a
 	}
-	# TODO 1: increment isn't working, fix shud B simpel
-	increment.1 { eec_increment      [lindex $args 0]  }
+	increment.1 { eec_increment $a              }
 
-	increment.2 { eec_increment      [lindex $args 0] 
-                               [eec_info [lindex $args 1]] } 
+	increment.2 { eec_increment $a  [eec_info $b]}
 
-	*.1   { eec_one   $cmd [eec_info [lindex $args 0]] }
+	*.1   { eec_one   $cmd [eec_info $a]         }
 
-	*.2   { eec_two   $cmd [eec_info [lindex $args 0]] \
-                             [eec_info [lindex $args 1]] }
+	*.2   { eec_two   $cmd [eec_info $a]         \
+                               [eec_info $b]         }
 
-	*.3   { eec_three $cmd [eec_info [lindex $args 0]] \
-                             [eec_info [lindex $args 1]] \
-		             [eec_info [lindex $args 2]] }
+	*.3   { eec_three $cmd [eec_info $a]         \
+		               [eec_info $b]         \
+   		               [eec_info $c]         }
 
 	default { eec_any $cmd [join $args ,]}
     }

@@ -26,13 +26,12 @@ rm -f .vis_*
 tc=flag
 tc=any
 tc=file
-tc=start
+
 case $tc in 
 
-file)  ./eec $f.eec 2> err/$f.err | tee out/$f.out ;;
+file)  ./eec starting.eec $f.eec 2> err/$f.err | tee out/$f.out ;;
 flag)  ./eec -f foo;;
-start) ./eec starting.eec $f.eec;;
-*)     ./eec $f.eec;;
+*)     ./eec starting.eec $f.eec;;
 
 esac
 
