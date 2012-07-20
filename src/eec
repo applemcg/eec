@@ -6,7 +6,7 @@ source eecmachine.tcl
 
 puts stderr eec:[llength $argv],$argv.
 
-foreach arg $argv {
+foreach arg [linsert argv 0 starting.eec] {
     
     puts stderr eec,argv:$arg.
 
