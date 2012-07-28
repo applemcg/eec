@@ -33,6 +33,9 @@ proc eec_biop {a op b} {
 # -------------------------------------------------- eec_memory	--
 #
 proc eec_mem {cmd arg {a ""}} {
+    # TODO 6: model eec_mem after lspproc's "storage" model,
+    #  and add an inital value, e.g. storage name value,
+    #  and create an "integer"  based on storage.
 
     eec_perf mem
     puts stderr eec_mem:$cmd,$arg,$a.
@@ -151,7 +154,7 @@ proc EEC {cmd args} {
 
     switch -glob -- $cmd.$sla {
 
-	*.0   { eec_zero  $cmd                             }
+	*.0   { eec_zero  $cmd                      }
 
 	literal.1 {
 	    eec_one   $cmd $a

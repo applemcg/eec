@@ -20,7 +20,6 @@ proc eec_parse { eec } {
 
     puts stderr eec_parse:$eec.
     
-    global eec_Token
     global eec_firstSub
 
     set eec_REa  {, *EEC}     

@@ -1,0 +1,8 @@
+*~
+.bak
+src/err/
+src/out/
+src/.*
+src/*sublime*
+src/*.log
+

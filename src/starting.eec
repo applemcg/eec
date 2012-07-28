@@ -7,7 +7,7 @@ comment ( starting -- set starting conditions, Copyright @ 2012, JYATL )
   set ( source language,     american english)
   set ( input language,      american english)
 
-  set ( character set,       ascii)
+  set ( character set,       UTF-8  )
 
 comment ( these variables may be changed)
 
