@@ -1,0 +1,18 @@
+
+comment(  Test the "function" builtin. N.B. "'s aren't special!  )
+
+comment( bar:   { a + b } / { c - d } )
+
+function( bar( a, b, c, d), return( divide( add(a,b), subtract( c, d))))
+function( zot( x), return( subract( x, 1)))
+function( gum( x), return( add( x, 1)))
+
+function( foo( a, b, c, d),
+	return( bar(a, zot(b), gum(c), d)))
+
+comment( this is a long-winded\,
+	multi-line comment.
+	It shows what's possible in a cummings 
+	comment.)
+
+run( foo(4,3,4,3))

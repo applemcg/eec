@@ -1,0 +1,59 @@
+<html><pre>
+ss
+source	<a href="eecMklib" target=eecMklib>eecMklib</a>	
+
+indir		../m4	./mk
+
+state		making
+annotation	<a href="eeCummings.html#state" target=state>state</a>	
+newest		mkd *.c *.h || state debugging
+
+# clrdebug			# OR	.
+setdebug
+comment	        setdebug
+
+header	<a href="cummings.h" target=cummings>cummings</a>	
+obsolete		header		c_objects
+
+comment mkops
+primary	<a href="hi_level_startup.eec" target=hi_level_startup.eec>hi_level_startup.eec</a>	
+csv	<a href="planning.html" target=planning>planning</a>	
+
+obsolete	getexterns *.c		# bootstrap!`mk
+obsolete	csource		turing  # moving to runtime!
+obsolete	primary		changes
+
+annotation	<a href="eeCummings.html#xSource" target=xSource>xSource</a>	
+
+csource	<a href="compiler.c" target=compiler>compiler</a>	
+csource	<a href="parserobj.c" target=parserobj>parserobj</a>	
+csource	<a href="dictionary.c" target=dictionary>dictionary</a>	
+csource	<a href="main.c" target=main>main</a>	
+csource	<a href="options.c" target=options>options</a>	
+csource	<a href="runtime.c" target=runtime>runtime</a>	
+csource	<a href="word.c" target=word>word</a>	
+
+obsolete		csource		builtin
+obsolete		csource		compileobj
+obsolete		csource		string
+obsolete		csource		wsalloc
+obsolete		csource		parser
+obsolete		csource		cobjects
+obsolete		csource		cstack
+
+manufacture	externals.h	getexterns ${CSOURCE_LIST}
+
+# primary		VersionNames
+
+# primary		template	# template foo  > foo.c
+
+cprogram	cummings $OBJECT_LIST
+eectest	<a href="bfs_test.eec" target=bfs_test>bfs_test</a>	
+
+# eectest		testdata001
+# eectest		testdata002
+
+# foreach		mkcio ${PRIMARY_LIST}
+
+# mkeof
+</pre></html>

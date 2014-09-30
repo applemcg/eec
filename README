@@ -1,6 +1,6 @@
 This is the cummings source repostitory.  
 
-cummings is a computer language in development.
+cummings is an interpreted computer language.
 
 It's two chief new characteristics are:
 
@@ -21,6 +21,5 @@ Motivation now includes
  * time
 
 I'm marty, whose email address is  mcgowan AT alum DOT mit DOT edu
-See   mcgowans.org/eec/eeCummings.html for the master README.
-
+See   mcgowans.org/eec/cummings.html for the master README.
 
