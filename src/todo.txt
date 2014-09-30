@@ -1,5 +1,0 @@
-  1	eecmachine.tcl:    get the \X by the parser, so among others \n works
-  2	eecstring.tcl:    string will need testing, and "more meat"
-  3	eecparse.tcl:    Investigate Tcl Newline treatment, make multi-line cmmds.
-  4	eecmachine.tcl:    vocabulary, see comments
-  7	eecmachine.tcl:    find a use for the eec_var
