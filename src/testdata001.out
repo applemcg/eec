@@ -1,185 +1,186 @@
-TOKEN   1        empty comment
-OPEN    1        empty 
+[[['python', 0, <function interpreter at 0x100595b90>]]]
+TOKEN   0 <function empty at 0x1005957d0> comment
+OPEN    1 <function empty at 0x1005957d0> 
 TOKEN   1              The cummings version of the cummings parser
-CLOSE   1        empty 
-TOKEN   1        empty comment
-OPEN    1        empty 
+CLOSE   1 <function empty at 0x1005957d0> 
+TOKEN   0 <function empty at 0x1005957d0> comment
+OPEN    1 <function empty at 0x1005957d0> 
 TOKEN   1              Commas are optional at the zero-nesting level. 
-CLOSE   1        empty 
-TOKEN   1   definition set
-OPEN    1        empty 
+CLOSE   1 <function empty at 0x1005957d0> 
+TOKEN   0 <function definition at 0x100595758> variable
+OPEN    1 <function empty at 0x1005957d0> 
 TOKEN   1              lparen
-SEPAR   1        empty 
-TOKEN   2              (
-OPEN    2        empty 
-TOKEN   2        empty 
-CLOSE   2        empty 
-TOKEN   1        empty 
-SEPAR   1        empty 
-TOKEN   2   definition set
-OPEN    2        empty 
+SEPAR   1 <function empty at 0x1005957d0> 
+TOKEN   1              (
+OPEN    2 <function empty at 0x1005957d0> 
+TOKEN   2 <function empty at 0x1005957d0> 
+CLOSE   2 <function empty at 0x1005957d0> 
+TOKEN   1 <function empty at 0x1005957d0> 
+SEPAR   1 <function empty at 0x1005957d0> 
+TOKEN   1 <function definition at 0x100595758> variable
+OPEN    2 <function empty at 0x1005957d0> 
 TOKEN   2              L_PAREN
-SEPAR   2        empty 
+SEPAR   2 <function empty at 0x1005957d0> 
 TOKEN   2              lparen
-CLOSE   2        empty 
-TOKEN   2   definition set
-OPEN    2        empty 
+CLOSE   2 <function empty at 0x1005957d0> 
+TOKEN   1 <function definition at 0x100595758> variable
+OPEN    2 <function empty at 0x1005957d0> 
 TOKEN   2              rparen
-SEPAR   2        empty 
+SEPAR   2 <function empty at 0x1005957d0> 
 TOKEN   2              )
-CLOSE   2        empty 
-TOKEN   1        empty 
-CLOSE   1        empty 
-TOKEN   0        empty 
-SEPAR   0        empty 
-TOKEN   1   definition set
-OPEN    1        empty 
+CLOSE   2 <function empty at 0x1005957d0> 
+TOKEN   1 <function empty at 0x1005957d0> 
+CLOSE   1 <function empty at 0x1005957d0> 
+TOKEN   0 <function empty at 0x1005957d0> 
+SEPAR   0 <function empty at 0x1005957d0> 
+TOKEN   0 <function definition at 0x100595758> variable
+OPEN    1 <function empty at 0x1005957d0> 
 TOKEN   1              R_PAREN
-SEPAR   1        empty 
+SEPAR   1 <function empty at 0x1005957d0> 
 TOKEN   1              rparen
-CLOSE   1        empty 
-TOKEN   1   definition set
-OPEN    1        empty 
+CLOSE   1 <function empty at 0x1005957d0> 
+TOKEN   0 <function definition at 0x100595758> variable
+OPEN    1 <function empty at 0x1005957d0> 
 TOKEN   1              comma
-SEPAR   1        empty 
+SEPAR   1 <function empty at 0x1005957d0> 
 TOKEN   1              ,
-SEPAR   1        empty 
-TOKEN   1        empty 
-CLOSE   1        empty 
-TOKEN   0        empty 
-SEPAR   0        empty 
-TOKEN   1   definition set
-OPEN    1        empty 
+SEPAR   1 <function empty at 0x1005957d0> 
+TOKEN   1 <function empty at 0x1005957d0> 
+CLOSE   1 <function empty at 0x1005957d0> 
+TOKEN   0 <function empty at 0x1005957d0> 
+SEPAR   0 <function empty at 0x1005957d0> 
+TOKEN   0 <function definition at 0x100595758> variable
+OPEN    1 <function empty at 0x1005957d0> 
 TOKEN   1              COMMA
-SEPAR   1        empty 
+SEPAR   1 <function empty at 0x1005957d0> 
 TOKEN   1              comma
-CLOSE   1        empty 
-TOKEN   1              function 
-OPEN    1        empty 
+CLOSE   1 <function empty at 0x1005957d0> 
+TOKEN   0              function 
+OPEN    1 <function empty at 0x1005957d0> 
 TOKEN   1              parser
-SEPAR   1        empty 
-TOKEN   2    localexec return
-OPEN    2        empty 
-TOKEN   3   definition set
-OPEN    3        empty 
+SEPAR   1 <function empty at 0x1005957d0> 
+TOKEN   1 <function localexec at 0x100595938> return
+OPEN    2 <function empty at 0x1005957d0> 
+TOKEN   2 <function definition at 0x100595758> variable
+OPEN    3 <function empty at 0x1005957d0> 
 TOKEN   3              c
-SEPAR   3        empty 
+SEPAR   3 <function empty at 0x1005957d0> 
 TOKEN   3              GETC
-CLOSE   3        empty 
-TOKEN   2        empty 
-SEPAR   2        empty 
-TOKEN   3     decision while
-OPEN    3        empty 
+CLOSE   3 <function empty at 0x1005957d0> 
+TOKEN   2 <function empty at 0x1005957d0> 
+SEPAR   2 <function empty at 0x1005957d0> 
+TOKEN   2 <function decision at 0x1005956e0> while
+OPEN    3 <function empty at 0x1005957d0> 
 TOKEN   3              1
-SEPAR   3        empty 
-TOKEN   4   definition set
-OPEN    4        empty 
+SEPAR   3 <function empty at 0x1005957d0> 
+TOKEN   3 <function definition at 0x100595758> variable
+OPEN    4 <function empty at 0x1005957d0> 
 TOKEN   4              rval
-SEPAR   4        empty 
-TOKEN   5              doparse
-OPEN    5        empty 
+SEPAR   4 <function empty at 0x1005957d0> 
+TOKEN   4              doparse
+OPEN    5 <function empty at 0x1005957d0> 
 TOKEN   5              c
-CLOSE   5        empty 
-TOKEN   4        empty 
-CLOSE   4        empty 
-TOKEN   3        empty 
-CLOSE   3        empty 
-TOKEN   2        empty 
-SEPAR   2        empty 
+CLOSE   5 <function empty at 0x1005957d0> 
+TOKEN   4 <function empty at 0x1005957d0> 
+CLOSE   4 <function empty at 0x1005957d0> 
+TOKEN   3 <function empty at 0x1005957d0> 
+CLOSE   3 <function empty at 0x1005957d0> 
+TOKEN   2 <function empty at 0x1005957d0> 
+SEPAR   2 <function empty at 0x1005957d0> 
 TOKEN   2              rval
-CLOSE   2        empty 
-TOKEN   1        empty 
-CLOSE   1        empty 
-TOKEN   1        empty comment
-OPEN    1        empty 
+CLOSE   2 <function empty at 0x1005957d0> 
+TOKEN   1 <function empty at 0x1005957d0> 
+CLOSE   1 <function empty at 0x1005957d0> 
+TOKEN   0 <function empty at 0x1005957d0> comment
+OPEN    1 <function empty at 0x1005957d0> 
 TOKEN   1              there was bug,
-SEPAR   1        empty 
+SEPAR   1 <function empty at 0x1005957d0> 
 TOKEN   1              two actually: 
 	1. let the parser handle the balanced parens and turning off
 	   the "attributed" state.
 	2. the compiler needs to reset the local variable list.
-CLOSE   1        empty 
-TOKEN   1        empty comment
-OPEN    1        empty 
+CLOSE   1 <function empty at 0x1005957d0> 
+TOKEN   0 <function empty at 0x1005957d0> comment
+OPEN    1 <function empty at 0x1005957d0> 
 TOKEN   1              PARSER in the bag,
-SEPAR   1        empty 
+SEPAR   1 <function empty at 0x1005957d0> 
 TOKEN   1              now let's get DOPARSE! 
-CLOSE   1        empty 
-TOKEN   1   definition define
-OPEN    1        empty 
+CLOSE   1 <function empty at 0x1005957d0> 
+TOKEN   0 <function definition at 0x100595758> function
+OPEN    1 <function empty at 0x1005957d0> 
 TOKEN   1              doparse
-SEPAR   1        empty 
-TOKEN   2    localargs args
-OPEN    2        empty 
+SEPAR   1 <function empty at 0x1005957d0> 
+TOKEN   1 <function localargs at 0x1005958c0> args
+OPEN    2 <function empty at 0x1005957d0> 
 TOKEN   2              c
-CLOSE   2        empty 
-TOKEN   1        empty 
-SEPAR   1        empty 
-TOKEN   2    localexec return
-OPEN    2        empty 
-TOKEN   3   definition set
-OPEN    3        empty 
+CLOSE   2 <function empty at 0x1005957d0> 
+TOKEN   1 <function empty at 0x1005957d0> 
+SEPAR   1 <function empty at 0x1005957d0> 
+TOKEN   1 <function localexec at 0x100595938> return
+OPEN    2 <function empty at 0x1005957d0> 
+TOKEN   2 <function definition at 0x100595758> variable
+OPEN    3 <function empty at 0x1005957d0> 
 TOKEN   3              C
-SEPAR   3        empty 
-TOKEN   4              skipspace
-OPEN    4        empty 
+SEPAR   3 <function empty at 0x1005957d0> 
+TOKEN   3              skipspace
+OPEN    4 <function empty at 0x1005957d0> 
 TOKEN   4              c
-CLOSE   4        empty 
-TOKEN   3        empty 
-CLOSE   3        empty 
-TOKEN   2        empty 
-SEPAR   2        empty 
-TOKEN   3     decision if
-OPEN    3        empty 
-TOKEN   4      boolean equal
-OPEN    4        empty 
+CLOSE   4 <function empty at 0x1005957d0> 
+TOKEN   3 <function empty at 0x1005957d0> 
+CLOSE   3 <function empty at 0x1005957d0> 
+TOKEN   2 <function empty at 0x1005957d0> 
+SEPAR   2 <function empty at 0x1005957d0> 
+TOKEN   2 <function decision at 0x1005956e0> if
+OPEN    3 <function empty at 0x1005957d0> 
+TOKEN   3 <function boolean at 0x100595578> equal
+OPEN    4 <function empty at 0x1005957d0> 
 TOKEN   4              c
-SEPAR   4        empty 
+SEPAR   4 <function empty at 0x1005957d0> 
 TOKEN   4              lParen
-CLOSE   4        empty 
-TOKEN   3        empty 
-SEPAR   3        empty 
+CLOSE   4 <function empty at 0x1005957d0> 
+TOKEN   3 <function empty at 0x1005957d0> 
+SEPAR   3 <function empty at 0x1005957d0> 
 TOKEN   3              L_PAREN
-SEPAR   3        empty 
-TOKEN   4     decision if
-OPEN    4        empty 
-TOKEN   5      boolean equal
-OPEN    5        empty 
+SEPAR   3 <function empty at 0x1005957d0> 
+TOKEN   3 <function decision at 0x1005956e0> if
+OPEN    4 <function empty at 0x1005957d0> 
+TOKEN   4 <function boolean at 0x100595578> equal
+OPEN    5 <function empty at 0x1005957d0> 
 TOKEN   5              c
-SEPAR   5        empty 
+SEPAR   5 <function empty at 0x1005957d0> 
 TOKEN   5              rParen
-CLOSE   5        empty 
-TOKEN   4        empty 
-SEPAR   4        empty 
+CLOSE   5 <function empty at 0x1005957d0> 
+TOKEN   4 <function empty at 0x1005957d0> 
+SEPAR   4 <function empty at 0x1005957d0> 
 TOKEN   4              R_PAREN
-SEPAR   4        empty 
-TOKEN   5     decision if
-OPEN    5        empty 
-TOKEN   6      boolean equal
-OPEN    6        empty 
+SEPAR   4 <function empty at 0x1005957d0> 
+TOKEN   4 <function decision at 0x1005956e0> if
+OPEN    5 <function empty at 0x1005957d0> 
+TOKEN   5 <function boolean at 0x100595578> equal
+OPEN    6 <function empty at 0x1005957d0> 
 TOKEN   6              c
-SEPAR   6        empty 
+SEPAR   6 <function empty at 0x1005957d0> 
 TOKEN   6              comma
-CLOSE   6        empty 
-TOKEN   5        empty 
-SEPAR   5        empty 
+CLOSE   6 <function empty at 0x1005957d0> 
+TOKEN   5 <function empty at 0x1005957d0> 
+SEPAR   5 <function empty at 0x1005957d0> 
 TOKEN   5              COMMA
-SEPAR   5        empty 
-TOKEN   6              gettoken
-OPEN    6        empty 
+SEPAR   5 <function empty at 0x1005957d0> 
+TOKEN   5              gettoken
+OPEN    6 <function empty at 0x1005957d0> 
 TOKEN   6              c
-CLOSE   6        empty 
-TOKEN   5        empty 
-CLOSE   5        empty 
-TOKEN   4        empty 
-CLOSE   4        empty 
-TOKEN   3        empty 
-CLOSE   3        empty 
-TOKEN   2        empty 
-CLOSE   2        empty 
-TOKEN   1        empty 
-CLOSE   1        empty 
-TOKEN   1        empty comment
-OPEN    1        empty 
+CLOSE   6 <function empty at 0x1005957d0> 
+TOKEN   5 <function empty at 0x1005957d0> 
+CLOSE   5 <function empty at 0x1005957d0> 
+TOKEN   4 <function empty at 0x1005957d0> 
+CLOSE   4 <function empty at 0x1005957d0> 
+TOKEN   3 <function empty at 0x1005957d0> 
+CLOSE   3 <function empty at 0x1005957d0> 
+TOKEN   2 <function empty at 0x1005957d0> 
+CLOSE   2 <function empty at 0x1005957d0> 
+TOKEN   1 <function empty at 0x1005957d0> 
+CLOSE   1 <function empty at 0x1005957d0> 
+TOKEN   0 <function empty at 0x1005957d0> comment
+OPEN    1 <function empty at 0x1005957d0> 
 TOKEN   1              ... 
-CLOSE   1        empty 
+CLOSE   1 <function empty at 0x1005957d0> 

@@ -1,9 +1,6 @@
 *~
-.bak
-src/ar/
 src/err/
 src/out/
-src/.*
-src/*sublime*
-src/*.log
-
+.dotlib
+.byebye
+.git_usage

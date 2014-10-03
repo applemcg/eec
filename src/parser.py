@@ -150,7 +150,9 @@ cummings = {
     'constant'         : [ [2],   definition], # immutable
     'variable'         : [ [2],   definition],
     'function'         : [ [2,3], definition], # name[, args], return
+
     'args'             : [ [0,],  localargs],  # variable #
+
     'return'           : [ [0,],  localexec],  # stmt, stmt, ...
 
     'equal'            : [ [2],   boolean],    # a == b
@@ -159,16 +161,18 @@ cummings = {
     'greater than'     : [ [2],   boolean],    # a > b
     'greater or equal' : [ [2],   boolean],    # a >= b: 
     'less or equal'    : [ [2],   boolean],    # a <= b: 
-    'comment'          : [ [0,],  empty],      # gobble input
+
     'if'               : [ [2,3], decision],   # boolean ,iftrue[, else]
     'while'            : [ [2],   decision],   # boolean, codeblock, e.g. return
     'for'              : [ [3],   decision],   # arg, list, body, .. return
+
     'list'             : [ [0,],  collection], # [ itema, itemb, ... ]
 
     'expr'             : [ [1],   evaluation],  # arithmatic expression
 
     'concatenate'      : [ [2,],  evaluation],  # strings, .. a, b, c,
 
+    'comment'          : [ [0,],  empty],      # gobble input
     ''                 : [ [0],   empty]        # end of list place-holder
     }
 
@@ -255,14 +259,26 @@ def interpreter(line):
         collect += c
 
 g_runtime = []		# stack: runtime nesting
+g_frame = []            # frames are pushed on the runtime
+
+
+def rt_close( ):
+    g_frame = [] 
+    g_runtime.pop()
+    print g_runtime
+
+def rt_frameArg( arg ):
+    g_frame.append( arg)
+    print g_runtime
 
 def rt_stack( cmmd, args, handler):
     """
-    push cmmd, args, handler on the runtime stack,
-    holding a place for the args,
-    returning the frame pointer
+    push cmmd, args, handler on the frame list,
+    holding a place in the fram for the args,
+    push the frame stack on the runtime
     """
-    g_runtime.append( [cmmd, args, handler])
+    g_frame.append( [cmmd, args, handler])
+    g_runtime.append( g_frame)
     print g_runtime
 
 def rt_init():
