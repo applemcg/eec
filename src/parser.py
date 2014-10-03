@@ -145,47 +145,50 @@ def localexec( cmmd, nargs):
 #
 #                         #args     handler       characteristics
 
+handler = {
+
+    'definition' : definition,
+    'localargs'  : localargs,
+    'localexec'  : localexec,
+    'boolean'    : boolean,
+    'decision'   : decision,
+    'collection' : collection,
+    'evaluation' : evaluation,
+    'empty'      : empty
+}
+
 cummings = {
 
-    'constant'         : [ [2],   definition], # immutable
-    'variable'         : [ [2],   definition],
-    'function'         : [ [2,3], definition], # name[, args], return
-
-    'args'             : [ [0,],  localargs],  # variable #
-
-    'return'           : [ [0,],  localexec],  # stmt, stmt, ...
-
-    'equal'            : [ [2],   boolean],    # a == b
-    'not equal'        : [ [2],   boolean],    # a != b, string or number
-    'less than'        : [ [2],   boolean],    # a < b
-    'greater than'     : [ [2],   boolean],    # a > b
-    'greater or equal' : [ [2],   boolean],    # a >= b: 
-    'less or equal'    : [ [2],   boolean],    # a <= b: 
-
-    'if'               : [ [2,3], decision],   # boolean ,iftrue[, else]
-    'while'            : [ [2],   decision],   # boolean, codeblock, e.g. return
-    'for'              : [ [3],   decision],   # arg, list, body, .. return
-
-    'list'             : [ [0,],  collection], # [ itema, itemb, ... ]
-
-    'expr'             : [ [1],   evaluation],  # arithmatic expression
-
-    'concatenate'      : [ [2,],  evaluation],  # strings, .. a, b, c,
-
-    'comment'          : [ [0,],  empty],      # gobble input
-    ''                 : [ [0],   empty]        # end of list place-holder
+    'constant'         : [ [2],   'definition'], # immutable
+    'variable'         : [ [2],   'definition'], # 
+    'function'         : [ [2,3], 'definition'], # name[, args], return
+    'args'             : [ [0,],  'localargs'],  # variable number
+    'return'           : [ [0,],  'localexec'],  # stmt, stmt, ...
+    'equal'            : [ [2],   'boolean'],    # a == b
+    'not equal'        : [ [2],   'boolean'],    # a != b, string or number
+    'less than'        : [ [2],   'boolean'],    # a < b
+    'greater than'     : [ [2],   'boolean'],    # a > b
+    'greater or equal' : [ [2],   'boolean'],    # a >= b: 
+    'less or equal'    : [ [2],   'boolean'],    # a <= b: 
+    'if'               : [ [2,3], 'decision'],   # boolean ,iftrue[, else]
+    'while'            : [ [2],   'decision'],   # boolean, codeblock, e.g. return
+    'for'              : [ [3],   'decision'],   # arg, list, body, .. return
+    'list'             : [ [0,],  'collection'], # [ itema, itemb, ... ]
+    'expr'             : [ [1],   'evaluation'], # arithmatic expression
+    'concatenate'      : [ [2,],  'evaluation'], # strings, .. a, b, c,
+    'comment'          : [ [0,],  'empty'],      # gobble input
+    ''                 : [ [0],   'empty']       # end of list place-holder
     }
 
 g_mem = []              # memory: constants, variables (incl lists), functions
 
-def handler(collect):
+def handlerFor(collect):
 
-    # print 'handler( ' + collect + ')'
     if collect in cummings:
-        # print cummings[collect]
         argc = cummings[collect][0]
-        hdlr = cummings[collect][1]
-        return hdlr
+        name = cummings[collect][1]
+        hdlr = handler[name]
+        return name
     else:
         return ''
 
@@ -200,7 +203,8 @@ def nests(n):
 
 def deliver( element, collect):
 
-    print '%-6s %2d %12s %s' % ( element, nests(0), handler(collect), collect)
+    print '%-6s %2d %12s %s' % ( element, nests(0), handlerFor(collect), collect)
+
 
 def tokenis( collect, n, next):
 
@@ -208,13 +212,21 @@ def tokenis( collect, n, next):
 
     # the TOKEN lives at the Current level
 
-    if n>0:    
+    if collect in cummings:
+        argc = cummings[collect][0]
+        name = cummings[collect][1]
+        rt_stack( collect, argc, name)
+
+    if n>0:
         nests(n)
+    elif n == 0:
+        rt_frameArg( collect)
 
     deliver( next,    '')
 
     # this is the place to POP the runtime stack
     if n<0:
+        rt_close()
         nests(n)
 
     return ''
@@ -262,14 +274,23 @@ g_runtime = []		# stack: runtime nesting
 g_frame = []            # frames are pushed on the runtime
 
 
+def rt_frame ():
+    print '========='
+    print g_frame
+    print '========='
+
+def rt_runtime ():
+    print "*************************"
+    print len(g_runtime)
+    print "*************************"
+
 def rt_close( ):
-    g_frame = [] 
-    g_runtime.pop()
-    print g_runtime
+    g_frame =  g_runtime.pop()
+    rt_frame()
 
 def rt_frameArg( arg ):
     g_frame.append( arg)
-    print g_runtime
+    rt_frame ()
 
 def rt_stack( cmmd, args, handler):
     """
@@ -279,7 +300,7 @@ def rt_stack( cmmd, args, handler):
     """
     g_frame.append( [cmmd, args, handler])
     g_runtime.append( g_frame)
-    print g_runtime
+    rt_runtime ()
 
 def rt_init():
 
