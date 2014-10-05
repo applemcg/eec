@@ -1,0 +1,9 @@
+git status
+PREPY_PATH=${PREPY_PATH:=$PATH}
+PATH=$PWD/bin:$PREPY_PATH
+export PREPY_PATH
+byebye	() { source .byebye; }
+eec	() { cat $1 | python ../src/parser.py; }
+[[ $(basename $PWD) == "src" ]] || cd src
+set -- testdata*.eec
+ea
