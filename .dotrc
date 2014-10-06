@@ -1,9 +1,100 @@
-git status
-PREPY_PATH=${PREPY_PATH:=$PATH}
-PATH=$PWD/bin:$PREPY_PATH
-export PREPY_PATH
 byebye	() { source .byebye; }
 eec	() { cat $1 | python ../src/parser.py; }
-[[ $(basename $PWD) == "src" ]] || cd src
-set -- testdata*.eec
-ea
+dot_init ()
+{
+    git status
+    PREPY_PATH=${PREPY_PATH:=$PATH}
+    PATH=$PWD/bin:$PREPY_PATH
+    export PREPY_PATH
+    doit ls src/testdata*.eec
+
+    functions ./.dotrc | grep -v _init
+}
+dot_init 1>&2
+git () 
+{ 
+    function findClean () 
+    { 
+        grep "$1" - | sed "s/.*$1 *//"
+    };
+    function subcmmd () 
+    { 
+        grep '^ *[a-z[a-z]*)$' | sed 's/)$//; s/ */git /' $*
+    };
+    function mygithub () 
+    { 
+        echo ${1}github.com:$(git_user)/$(basename $PWD).git
+    };
+    function cgit () 
+    { 
+        command git $*
+    };
+    trace_call $*;
+    case $1 in 
+        modified)
+            cgit status | awk '
+            /not staged/      {ready++};
+            /to be committed/ {ready++}; 
+                        # { print "debug: ", ready, $2 }
+            ready && /modified:/ { print $2 }
+            ready && /deleted:/  { print $2 }
+            ready && /file:/     { print $3 }
+           '
+        ;;
+        mods)
+            cgit status | findClean modified:;
+            git status | findClean "new file:"
+        ;;
+        hub)
+            mygithub git@
+        ;;
+        ssh)
+            mygithub https://
+        ;;
+        remo)
+            cgit remote add origin $(git hub);
+            cgit push -u origin master
+        ;;
+        push)
+            cgit push $(git hub);
+            cgit pull $(git hub)
+        ;;
+        add)
+            shift;
+            quietly chmod 775 bin/*;
+            cgit add $(git modified) $*
+        ;;
+        name)
+            ignore pushd .;
+            while [[ $PWD != "/" ]]; do
+                [[ -d .git ]] && { 
+                    basename $PWD;
+                    break
+                };
+                cd ..;
+            done;
+            ignore popd
+        ;;
+        list)
+            indir $HOME ls -d */.git src/*/.git git/*/.git | sed 's/..git$//'
+        ;;
+        help)
+            shift;
+            cgit help $*;
+            echo FUNCTIONS;
+            functions ~/Dropbox/git/bash-functions/bin/gitlib;
+            echo SUB-FUNCTIONS;
+            fbdy git | subcmmd | sort
+        ;;
+        files)
+            shift;
+            cgit ls-files $*
+        ;;
+        untracked)
+            cgit status | sed '1,/Untracked files:/d; s/^#[ 	]*//' | tail +3
+        ;;
+        *)
+            command git "$@"
+        ;;
+    esac
+}

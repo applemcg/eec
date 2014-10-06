@@ -173,7 +173,8 @@ cummings = {
     'if'               : [ [2,3], 'decision'],   # boolean ,iftrue[, else]
     'while'            : [ [2],   'decision'],   # boolean, codeblock, e.g. return
     'for'              : [ [3],   'decision'],   # arg, list, body, .. return
-    'list'             : [ [0,],  'collection'], # [ itema, itemb, ... ]
+    'assert'           : [ [2,4,],'decision'],   # boolean, false message, ...
+    'list'             : [ [0,],  'collection'], # itema, itemb, ...
     'expr'             : [ [1],   'evaluation'], # arithmatic expression
     'concatenate'      : [ [2,],  'evaluation'], # strings, .. a, b, c,
     'comment'          : [ [0,],  'empty'],      # gobble input
