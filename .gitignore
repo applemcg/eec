@@ -3,3 +3,5 @@ src/err/
 src/out/
 .byebye
 .git_usage
+.*.err
+*.err

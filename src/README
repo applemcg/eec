@@ -1,14 +1,14 @@
 # README -- Copyright (C) 2012 -- JYATL, Just Yet Another Testing Lab
 # bkup: appleton.home./Users/applemcg/eec/src 2012_0707 114500;
 
- eect -- eec in Tcl, using regular expressions. a whole new start
+  eec -- eec in Python
 
   the current problem is "what is the execution environment" for 
 variable storage.  the easy way out is to make everything global.
 
-  before taking that plunge, i think it's good to understand how
-the "uplevel" command works.
+  some ideas survive from Tcl:
 
+                               =>   equivalent
 
 e.g.    set ( a, 1)            =>    set a 1
 	set ( b, 5)            =>    set b 5
@@ -17,21 +17,13 @@ e.g.    set ( a, 1)            =>    set a 1
 
         sub ( a, b)            =>    expr $a - $b
 
-        $( a)                  =>         $a
-
-        &( a)                  =>          a
-
-        get( a)                =>         $a
-
-	print ( a)             =>   puts stdout $a 
-
-	print ( add (a, b))    =>   puts stdout [add (a , b)] 
+	print ( add (a, b))    =>    puts stdout [add (a , b)] 
 
 	print (   a trimmed string )    => puts stdout {a trimmed string}
 
 	print (stderr, another string ) => puts stderr {another string}
 
-	function( name, x y z, 
+	function( name, args(x y z), 
 
 	    add ( x, y, z)
 
