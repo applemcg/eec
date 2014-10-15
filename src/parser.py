@@ -141,15 +141,6 @@ def localexec( cmmd, nargs):
 #
 # ------------------------------------------------------------ builtins	--
 #
-#   args:
-#       N   means the fixed # or permissible argument count
-#    ----   -----
-#       0    0
-#       n    n
-#     n,m    n, ..., m
-#       n,   n, n+1, ...
-#
-
 
 handler = {
 #     Name          handler
@@ -191,7 +182,10 @@ cummings = {
     ''                 : [ [0],   'empty']       # end of list place-holder
     }
 
+#  where #args are describe in machine.py
+
 g_mem = []              # memory: constants, variables (incl lists), functions
+g_nest = 0
 
 def handlerFor(collect):
 
@@ -203,7 +197,7 @@ def handlerFor(collect):
     else:
         return ''
 
-g_nest = 0
+
 def nests(n):
 
     global g_nest
@@ -281,9 +275,7 @@ def interpreter(line):
 
         collect += c
 
-g_runtime = []		# stack: runtime nesting
-g_frame = []            # frames are pushed on the runtime
-
+g_frame   = Stack()      # the runtime stack
 
 def rt_frame ():
     print '========='
@@ -309,8 +301,8 @@ def rt_stack( cmmd, args, handler):
     holding a place in the fram for the args,
     push the frame stack on the runtime
     """
-    g_frame.append( [cmmd, args, handler])
-    g_runtime.append( g_frame)
+    actual = []     # the actual args
+    g_frame.insert( [cmmd, args, handler])
     rt_runtime ()
 
 def rt_init():

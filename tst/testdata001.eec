@@ -1,0 +1,30 @@
+comment(  The cummings version of the cummings parser)
+comment( Commas are optional at the zero-nesting level. )
+
+variable( lparen, \( ),  variable( L_PAREN, lparen)
+variable( rparen, \) ),  variable( R_PAREN, rparen)
+variable( comma,  \, ),  variable( COMMA,   comma)
+
+function ( parser,
+    return( 
+	variable( c, GETC),
+	while( 1, variable(rval, doparse( c))),
+	rval)
+    )
+
+comment( there was bug\, two actually: 
+	1. let the parser handle the balanced parens and turning off
+	   the "attributed" state.
+	2. the compiler needs to reset the local variable list.)
+
+comment(  PARSER in the bag\, now let's get DOPARSE! )
+
+function( doparse, 
+        args(c), 
+	return(variable(C, skipspace(c)),
+	if( equal(c,lParen), L_PAREN,
+	if( equal(c,rParen), R_PAREN,
+	if( equal(c,comma),  COMMA,   gettoken(c))
+	))))
+				
+comment( ... )

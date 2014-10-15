@@ -28,7 +28,7 @@ Motivation now includes
 
 * to test: 
 
-   $ cd src
+   $ cd tst
    $ eec testdataNNN.eec    # leaves STDERR in testdataNNN.err
                             # tees STDOUT to   testdataNNN.out
 
