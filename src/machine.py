@@ -15,28 +15,25 @@
 import parser
 
 def minArgs( nargs):
-    """returns minimum number of permissible arguments or None
-    from a argspec defined above.
+    """returns integer minimum number of permissible arguments
+    or None from an argspec defined above.
     """
-    print 'minArgs ' + str(nargs)
     return nargs[0]
 
 def maxArgs( nargs):
-    """returns maaximum number of permissible argments or None
-    from an argspec defined above.
+    """returns integer maximum number of permissible argments
+    or None from an argspec defined above.
     """
     t = nargs[-1]
-    print 'maxArgs ' + str(t)
-    if t == '':
+    if t == '*':
         # unlimited number
         return None
     else:
         return t
 
 def speArgs( nargs):
+    """Detects open-ended (varargs) 
     """
-    """
-    print 'speArgs ' + str(len(nargs))
     if len(nargs) < 3:
         # n, or m,n
         return None
@@ -54,25 +51,41 @@ class Frame(object):
     def __init__(self, name, parent):
         """Create the frame for the next token"""
 
-        nargs = parser.cummings[name][0].split(",")
+        nargs = parser.cummings[name][0]
 
         self.name    = name
         self.parent  = parent
+        self.slot    = None
         self.mina    = minArgs(nargs)
         self.maxa    = maxArgs(nargs)
         self.argr    = speArgs(nargs)
         self.handler = parser.handler[parser.cummings[name][1]]
+        if not parent == None:
+            self.slot    = parent.getParentSlot()
+
         self.args    = []
+        print str(self)
 
     def insertArg(self, arg):
         """Insert an arg, checking for room in the
         permissible range"""
         nargs = len(self.args)
+
         if nargs < self.maxa or self.maxa == None:
             self.args.append(arg)
         else:
             msg = str(nargs) + ' > ' + str( self.maxa)
             raise ValueError( self.name + ' arg violation ' + msg)
+
+    def setParent(self, parent):
+        """Allows the parent frame to attach separately
+        """
+        self.parent = parent
+
+    def getParentSlot(self):
+        """returns the arg# which receives the update
+        """
+        return len(self.args)
 
     def evaluate(self):
         """if the minimum arg count and any special arg handling, eg. 
@@ -80,44 +93,35 @@ class Frame(object):
         """
         nargs = len(self.args)
 
-        t1   = (self.argr != None)
-        t2   = (self.mina <= nargs)               #  or self.mina == None:
-
-        msg  = 'nargs, mina, maxa, argr, t1, t2'
-        msg  = 'nargs, mina, t2'
-        msg += ', ' + str(nargs) 
-        msg += ', ' + str(self.mina) 
-        # msg += ', ' + str(self.maxa) 
-        # msg += ', ' + str(self.argr) 
-        # msg += ', ' + str(t1)
-        msg += ', ' + str(t2)
-        print msg
-
-        if t1:
+        if self.argr != None:
             if self.argr(self.args):
                 self.parent = self.handler( name, handler, args)
             else:
                 msg = str(nargs) + ' violates constraint ' + str( self.maxa)
                 raise ValueError( self.name + ' arg violation ' + msg)
 
-        elif t2:
-            self.parent = self.handler( name, handler, args)
+        elif self.mina <= nargs or self.mina == None:
+            # this is where it happens!!
+            print 'Handle:===\n', str(self)
+            self.parent = self.handler( self.name, self.args)
+            print 'Parent: ===\n', str(self.parent)
         else:
             msg = str(nargs) + ' > ' + str( self.maxa)
             raise ValueError( self.name + ' arg violation ' + msg)
             
     def __str__(self):
         """show the object"""
-        rtn  = '<'  + self.name 
-        rtn += ', ' + str(self.parent)
-        rtn += ', ' + str(self.mina)
-        rtn += ', ' + str(self.maxa)
-        rtn += ', ' + str(self.argr)
-        rtn += ', ' + str(self.handler)
-        rtn += ', ' + str(self.args)
-        rtn += '>'
+        rtn  =   'Name:    ' + self.name 
+        # rtn += '\nParent:  ' + str(self.parent)
+        rtn += '\nSlot:    ' + str(self.slot)
+        rtn += '\nMina:    ' + str(self.mina)
+        rtn += '\nMaxa:    ' + str(self.maxa)
+        rtn += '\nArgr:    ' + str(self.argr)
+        rtn += '\nHandler: ' + str(self.handler)
+        rtn += '\nArgs:    ' + str(self.args)
+        rtn += '\n---------'
+       
         return rtn
-
 
 
 

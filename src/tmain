@@ -9,29 +9,37 @@ import parser
 
 # print dir(machine)
 # print dir(parser)
+# print 'datastructure: ', dir(datastructure)
 
 # print "="*52
 # print parser.cummings
 # print parser.handler
 
-def framer( name, parent, slot, *args):
 
-    c = machine.Frame(name, parent, slot)
-    # print "="*52
-    # print c
-    # print "="*52
+def bigLine( msg, n):
+
+    l = len(msg)
+    f = (n - (l+2))/2
+    b = "="*f
+    print b, msg, b
+
+def framer( name, parent, *args):
+
+    c = machine.Frame(name, parent)
 
     for a in args:
         # print a
         c.insertArg(a)
         
-    print "="*52
+    bigLine('Frame of C', 80)
     print str(c)
-    print "="*52
+
+    bigLine('Evaluate C', 80)
 
     c.evaluate()
 
-thisFrame = Frame('interpretr', None)
-print thisFrame
+
+
+thisFrame = machine.Frame('interpreter', None)
 
 framer( 'comment', thisFrame, 'this is a comment', 'this is another')

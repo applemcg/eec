@@ -84,15 +84,14 @@
 # 
 # usage
 # =====
-# 
-# This parser reads the standard in and named file arguments of cummings
-# source from the command line to produce a line-at-a-time ACTION, token
-# pairs on the stdout further capable of code generation in a target
-# language.
+#
+#  This parser reads the standard input for cummings source to produce
+#  a token-at-a-time behavior
+#  ... as such, a work in progress
 # 
 
 import sys
-from datastructure import *
+import datastructure 
 
 # ------------------------------------------------------------ handlers	--
 #
@@ -120,6 +119,8 @@ def definition( cmmd, nargs):
 #
 def empty( cmmd, nargs):
     """handler stub"""
+    print str(cmmd)
+    print 'throwing away args: ', nargs
 
 def evaluation( cmmd, nargs):
     """handler stub"""
@@ -140,6 +141,12 @@ def localexec( cmmd, nargs):
     """handler stub"""
 
 #
+# ------------------------------------------- M	--
+#
+def machine( cmmd, nargs):
+    """handler stub"""
+
+#
 # ------------------------------------------------------------ builtins	--
 #
 
@@ -154,38 +161,41 @@ handler = {
     'io'         : io,
     'localargs'  : localargs,
     'localexec'  : localexec,
+    'machine'    : machine,
     ''           : None
 }
 
 cummings = {
-#                         #args  handlerName       characteristics
-    'args'             : [ '0,',  'localargs'],  # variable number
-    'assert'           : [ '2,4,','decision'],   # boolean, false message, ...
-    'comment'          : [ '0,',  'empty'],      # gobble input
-    'concatenate'      : [ '2,',  'evaluation'], # strings, .. a, b, c,
-    'constant'         : [ '2',   'definition'], # immutable
-    'equal'            : [ '2',   'boolean'],    # a == b
-    'expr'             : [ '1',   'evaluation'], # arithmatic expression
-    'for'              : [ '3',   'decision'],   # arg, list, body, .. return
-    'function'         : [ '2,3', 'definition'], # name[, args], return
-    'greater or equal' : [ '2',   'boolean'],    # a >= b: 
-    'greater than'     : [ '2',   'boolean'],    # a > b
-    'if'               : [ '2,3', 'decision'],   # boolean ,iftrue[, else]
-    'less or equal'    : [ '2',   'boolean'],    # a <= b: 
-    'less than'        : [ '2',   'boolean'],    # a < b
-    'list'             : [ '0,',  'collection'], # itema, itemb, ...
-    'not equal'        : [ '2',   'boolean'],    # a != b, string or number
-    'print'            : [ '0,2', 'io'],         # assumes stdout, string, newline
-    'printf'           : [ '1,',  'io'],         # format, or filehandle, format, arg, ...
-    'return'           : [ '0,',  'localexec'],  # stmt, stmt, ...
-    'variable'         : [ '2',   'definition'], # 
-    'while'            : [ '2',   'decision'],   # boolean, codeblock, e.g. return
-    ''                 : [ '0',   'empty']       # end of list place-holder
+#                           #args     handlerName     characteristics
+#                          --------  ------------     --------------------------
+    'args'             : [ [0,'*'],  'localargs'],  # variable number
+    'assert'           : [ [2,4,'*'],'decision'],   # boolean, false message, ...
+    'class'            : [ [2,3],    'definition'], # name [, class list], members
+    'comment'          : [ [0,'*'],  'empty'],      # gobble input
+    'concatenate'      : [ [1,'*'],  'evaluation'], # strings, .. a, b, c,
+    'constant'         : [ [2],      'definition'], # name, immutable
+    'equal'            : [ [2],      'boolean'],    # a == b
+    'expr'             : [ [1],      'evaluation'], # arithmatic expression
+    'for'              : [ [3],      'decision'],   # arg, list, body, .. return
+    'function'         : [ [2,3],    'definition'], # name [, args], return
+    'greater or equal' : [ [2],      'boolean'],    # a >= b: 
+    'greater than'     : [ [2],      'boolean'],    # a > b
+    'if'               : [ [2,3],    'decision'],   # boolean ,iftrue[, else]
+    'interpreter'      : [ [0],      'machine'],    # boolean ,iftrue[, else]
+    'less or equal'    : [ [2],      'boolean'],    # a <= b: 
+    'less than'        : [ [2],      'boolean'],    # a < b
+    'list'             : [ [0,'*'],  'collection'], # itema, itemb, ...
+    'not equal'        : [ [2],      'boolean'],    # a != b, string or number
+    'print'            : [ [0,2],    'io'],         # assumes stdout, string, newline
+    'printf'           : [ [0,'*'],  'io'],         # format, or filehandle, format, arg, ...
+    'return'           : [ [0,'*'],  'localexec'],  # stmt, stmt, ...
+    'variable'         : [ [2],      'definition'], # name, value
+    'while'            : [ [2],      'decision'],   # boolean, codeblock, e.g. return
+    ''                 : [ [0],      'empty']       # end of list place-holder
     }
 
 #  where #args are describe in machine.py
 
-g_mem = []              # memory: constants, variables (incl lists), functions
 g_nest = 0
 
 def handlerFor(collect):
@@ -210,7 +220,6 @@ def nests(n):
 def deliver( element, collect):
 
     print '%-6s %2d %12s %s' % ( element, nests(0), handlerFor(collect), collect)
-
 
 def tokenis( collect, n, next):
 
@@ -237,6 +246,13 @@ def tokenis( collect, n, next):
 
     return ''
 
+def openToken( collect):
+    """open a frame for the collected token, 
+    save the current token's frame argument as the parent of the new frame
+    """
+
+    if collect in cummings:
+        frame = Frame(collect,"")    
 
 def interpreter(line):
 
@@ -275,8 +291,6 @@ def interpreter(line):
             continue
 
         collect += c
-
-g_frame   = Stack()      # the runtime stack
 
 def rt_frame ():
     print '========='

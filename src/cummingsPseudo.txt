@@ -1,0 +1,32 @@
+
+cummings (in python) pseudo code
+
+for each token in the input stream:
+
+    if the token is a syntax element "(,)"
+
+         perform the expected behavior:
+            '(' open a new frame,
+            ',' expect the next argument
+            ')' execute the command in the current frame,
+                leaving the result in the parent's arg slot
+
+
+    else if the token is currently undefined:
+
+        if the state does NOT expects a new token
+
+            raise a parser error, UNDEFINED token
+
+        else ( it was so,)
+            
+            save the token a new definition 
+                 list( variable, constant, function, ...)
+
+    else ( the token was defined, so):
+
+        save use the current frame's argument slot, 
+
+	stack a new frame, saving the parent's arg slot as (parent, slot#)
+
+       

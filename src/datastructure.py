@@ -16,7 +16,7 @@ class Queue(object):
     def remove(self):
         """removes the  head from  the list, restores  the list  with the
         former head removed, and  returns the head.  Raises ValueError
-        if list is empty
+        if list is empty.
         """
 
         if len (self.vals) < 1:
@@ -49,6 +49,14 @@ class Stack(object):
         """e can be any type -- can't it?
         and stores at the end"""
         self.vals.append(e)
+
+    def peek(self):
+        """inspect the top of the stack without removing it.
+        """
+        if len (self.vals) < 1:
+            raise ValueError('Stack is empty')
+        else:
+            return self.vals[-1]
 
     def remove(self):
         """removes the head from the list,
