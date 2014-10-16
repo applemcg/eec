@@ -64,7 +64,6 @@ class Frame(object):
             self.slot    = parent.getParentSlot()
 
         self.args    = []
-        print str(self)
 
     def insertArg(self, arg):
         """Insert an arg, checking for room in the
@@ -102,9 +101,7 @@ class Frame(object):
 
         elif self.mina <= nargs or self.mina == None:
             # this is where it happens!!
-            print 'Handle:===\n', str(self)
             self.parent = self.handler( self.name, self.args)
-            print 'Parent: ===\n', str(self.parent)
         else:
             msg = str(nargs) + ' > ' + str( self.maxa)
             raise ValueError( self.name + ' arg violation ' + msg)

@@ -4,3 +4,5 @@
 .*.err
 *.err
 *.pyc
+.x
+

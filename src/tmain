@@ -3,6 +3,9 @@
 import os
 import sys
 
+def f_stderr(msg):
+    sys.stderr.write( msg + '\n')
+
 import datastructure
 import machine
 import parser
@@ -21,25 +24,26 @@ def bigLine( msg, n):
     l = len(msg)
     f = (n - (l+2))/2
     b = "="*f
-    print b, msg, b
+    f_stderr(  b + " " +  msg + " " + b)
 
 def framer( name, parent, *args):
 
     c = machine.Frame(name, parent)
 
     for a in args:
-        # print a
         c.insertArg(a)
         
     bigLine('Frame of C', 80)
-    print str(c)
+    # print str(c)
 
     bigLine('Evaluate C', 80)
 
     c.evaluate()
 
+def main (thisFrame):
+
+    framer( 'comment', thisFrame, 'this is a comment', 'this is another')
+    framer( 'print', thisFrame, 'Hello World!')
 
 
-thisFrame = machine.Frame('interpreter', None)
-
-framer( 'comment', thisFrame, 'this is a comment', 'this is another')
+main( machine.Frame('interpreter', None))

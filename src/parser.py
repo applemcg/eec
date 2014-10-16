@@ -91,7 +91,6 @@
 # 
 
 import sys
-import datastructure 
 
 # ------------------------------------------------------------ handlers	--
 #
@@ -119,8 +118,10 @@ def definition( cmmd, nargs):
 #
 def empty( cmmd, nargs):
     """handler stub"""
-    print str(cmmd)
-    print 'throwing away args: ', nargs
+
+    sys.stderr.write( str(cmmd))
+    sys.stderr.write('throwing away args: ' + str(nargs))
+
 
 def evaluation( cmmd, nargs):
     """handler stub"""
@@ -128,8 +129,32 @@ def evaluation( cmmd, nargs):
 #
 # ------------------------------------------- I	--
 #
+def io_print(*args):
+    sys.stderr.write('\nio_print: ' + str(*args))
+    msg = '\n'
+    l   = len(args)
+    if l > 0:
+        msg = args[0][0]
+        sys.stderr.write( msg +'\n')
+    print msg
+
+def io_printf(fmt,*args):
+    print fmt, args 
+
+io_actions = {
+    'print' : io_print,
+    'printf': io_printf
+}
+
 def io( cmmd, nargs):
     """handler stub"""
+
+    sys.stderr.write('\ncmmd: ' + cmmd)
+    sys.stderr.write('\nnargs: ' + str(nargs))
+    try:
+        io_actions[cmmd]( nargs)
+    except KeyError:
+        print 'Unavailable IO Action: ', cmmd
 
 #
 # ------------------------------------------- L	--
