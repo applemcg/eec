@@ -12,10 +12,13 @@
 #     n,m,   n,m,m+i*(m-n),... 0 <= i <= ...
 #
 
+import parser
+
 def minArgs( nargs):
     """returns minimum number of permissible arguments or None
     from a argspec defined above.
     """
+    print 'minArgs ' + str(nargs)
     return nargs[0]
 
 def maxArgs( nargs):
@@ -23,6 +26,7 @@ def maxArgs( nargs):
     from an argspec defined above.
     """
     t = nargs[-1]
+    print 'maxArgs ' + str(t)
     if t == '':
         # unlimited number
         return None
@@ -32,6 +36,7 @@ def maxArgs( nargs):
 def speArgs( nargs):
     """
     """
+    print 'speArgs ' + str(len(nargs))
     if len(nargs) < 3:
         # n, or m,n
         return None
@@ -48,17 +53,15 @@ class Frame(object):
 
     def __init__(self, name, parent):
         """Create the frame for the next token"""
-        global cummings
-        global handler
 
-        nargs = cummings[name][0].split(",")
+        nargs = parser.cummings[name][0].split(",")
 
         self.name    = name
         self.parent  = parent
         self.mina    = minArgs(nargs)
         self.maxa    = maxArgs(nargs)
         self.argr    = speArgs(nargs)
-        self.handler = handler[cummings[name][1]]
+        self.handler = parser.handler[parser.cummings[name][1]]
         self.args    = []
 
     def insertArg(self, arg):
@@ -76,14 +79,28 @@ class Frame(object):
         even, triplets, ... is reached evaluate the frame with the handler
         """
         nargs = len(self.args)
-        if self.argr != None:
+
+        t1   = (self.argr != None)
+        t2   = (self.mina <= nargs)               #  or self.mina == None:
+
+        msg  = 'nargs, mina, maxa, argr, t1, t2'
+        msg  = 'nargs, mina, t2'
+        msg += ', ' + str(nargs) 
+        msg += ', ' + str(self.mina) 
+        # msg += ', ' + str(self.maxa) 
+        # msg += ', ' + str(self.argr) 
+        # msg += ', ' + str(t1)
+        msg += ', ' + str(t2)
+        print msg
+
+        if t1:
             if self.argr(self.args):
                 self.parent = self.handler( name, handler, args)
             else:
                 msg = str(nargs) + ' violates constraint ' + str( self.maxa)
                 raise ValueError( self.name + ' arg violation ' + msg)
 
-        elif nargs >= self.mina or self.mina == None:
+        elif t2:
             self.parent = self.handler( name, handler, args)
         else:
             msg = str(nargs) + ' > ' + str( self.maxa)
@@ -91,24 +108,15 @@ class Frame(object):
             
     def __str__(self):
         """show the object"""
-        str  = '<'  + self.name 
-        str += ', ' + str(self.parent)
-        str += ', ' + str(self.mina)
-        str += ', ' + str(self.maxa)
-        str += ', ' + str(self.argr)
-        str += ', ' + str(self.handler)
-        str += ', ' + str(self.args)
-        str += '>'
-        return str
-
-def framer( name, parent, *args):
-
-    c = Frame(name, parent)
-    for a in args:
-        c.insert(a)
-        
-    print str(c)
-    c.evaluate()
+        rtn  = '<'  + self.name 
+        rtn += ', ' + str(self.parent)
+        rtn += ', ' + str(self.mina)
+        rtn += ', ' + str(self.maxa)
+        rtn += ', ' + str(self.argr)
+        rtn += ', ' + str(self.handler)
+        rtn += ', ' + str(self.args)
+        rtn += '>'
+        return rtn
 
 
 
