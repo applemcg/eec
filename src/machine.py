@@ -59,7 +59,8 @@ class Frame(object):
         self.mina    = minArgs(nargs)
         self.maxa    = maxArgs(nargs)
         self.argr    = speArgs(nargs)
-        self.handler = parser.handler[parser.cummings[name][1]]
+        self.hnam    = parser.cummings[name][1]
+        self.handler = parser.handler[self.hnam]
         if not parent == None:
             self.slot    = parent.getParentSlot()
 
@@ -75,6 +76,12 @@ class Frame(object):
         else:
             msg = str(nargs) + ' > ' + str( self.maxa)
             raise ValueError( self.name + ' arg violation ' + msg)
+
+    def getName(self):
+        return self.name
+        
+    def getHandleName(self):
+        return self.hnam
 
     def setParent(self, parent):
         """Allows the parent frame to attach separately
@@ -114,7 +121,7 @@ class Frame(object):
         rtn += '\nMina:    ' + str(self.mina)
         rtn += '\nMaxa:    ' + str(self.maxa)
         rtn += '\nArgr:    ' + str(self.argr)
-        rtn += '\nHandler: ' + str(self.handler)
+        rtn += '\nHandler: ' + str(self.hnam)
         rtn += '\nArgs:    ' + str(self.args)
         rtn += '\n---------'
        

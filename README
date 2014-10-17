@@ -28,9 +28,12 @@ Motivation now includes
 
 * to test: 
 
-   $ cd tst
-   $ eec testdataNNN.eec    # leaves STDERR in testdataNNN.err
-                            # tees STDOUT to   testdataNNN.out
+   $ cd src
+   $ cat ../tst/testdataNNN.eec ... | tmain
+   #  OR
+   $ cat ... | tmain {file} - ...
+
+
 
 ### Development practice:
 

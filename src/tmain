@@ -10,6 +10,9 @@ import datastructure
 import machine
 import parser
 
+# https://docs.python.org/2/library/fileinput.html#module-fileinput
+import fileinput 
+
 # print dir(machine)
 # print dir(parser)
 # print 'datastructure: ', dir(datastructure)
@@ -25,6 +28,52 @@ def bigLine( msg, n):
     f = (n - (l+2))/2
     b = "="*f
     f_stderr(  b + " " +  msg + " " + b)
+
+def tokenizer(line):
+
+    empty  = ' \t\n'
+    escape = '\\'
+    state  = ''
+    open   = '('
+    close  = ')'
+    separ  = ','
+
+    stream = []
+
+    collect = ''
+    for c in line:
+        
+        if state == 'escape':
+            collect += c
+            state = ''
+            continue
+            
+        if c in empty and not collect:
+            continue
+                
+        if c == escape:
+            state = 'escape'
+            continue
+                    
+        if c == open or c == close or c == separ:
+
+            stream.append( collect)
+            stream.append( c)
+            collect = ''
+
+        else:
+            collect += c
+
+    return stream
+
+
+def inputStream():
+    tokens = []
+    for line in fileinput.input():
+        tokens.append( tokenizer(line))
+
+    return sum(tokens, [])
+
 
 def framer( name, parent, *args):
 
@@ -46,4 +95,6 @@ def main (thisFrame):
     framer( 'print', thisFrame, 'Hello World!')
 
 
-main( machine.Frame('interpreter', None))
+# main( machine.Frame('interpreter', None))
+
+print inputStream() 

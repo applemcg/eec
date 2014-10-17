@@ -130,12 +130,9 @@ def evaluation( cmmd, nargs):
 # ------------------------------------------- I	--
 #
 def io_print(*args):
-    sys.stderr.write('\nio_print: ' + str(*args))
-    msg = '\n'
-    l   = len(args)
-    if l > 0:
+    msg = ''
+    if len(args) > 0:
         msg = args[0][0]
-        sys.stderr.write( msg +'\n')
     print msg
 
 def io_printf(fmt,*args):
@@ -278,78 +275,6 @@ def openToken( collect):
 
     if collect in cummings:
         frame = Frame(collect,"")    
-
-def interpreter(line):
-
-    empty  = ' \t\n'
-    escape = '\\'
-    state  = ''
-    open   = '('
-    close  = ')'
-    separ  = ','
-
-    global collect
-    
-    for c in line:
-        
-        if state == 'escape':
-            collect += c
-            state = ''
-            
-        if c in empty and not collect:
-            continue
-                
-        if c == escape:
-            state = 'escape'
-            continue
-                    
-        if c == open:
-            collect = tokenis( collect,  1, 'OPEN')
-            continue
-
-        if c == close:
-            collect = tokenis( collect, -1, 'CLOSE')
-            continue
-
-        if c == separ:
-            collect = tokenis( collect,  0, 'SEPAR')
-            continue
-
-        collect += c
-
-def rt_frame ():
-    print '========='
-    print g_frame
-    print '========='
-
-def rt_runtime ():
-    print "*************************"
-    print len(g_runtime)
-    print "*************************"
-
-def rt_close( ):
-    g_frame =  g_runtime.pop()
-    rt_frame()
-
-def rt_frameArg( arg ):
-    g_frame.append( arg)
-    rt_frame ()
-
-def rt_stack( cmmd, args, handler):
-    """
-    push cmmd, args, handler on the frame list,
-    holding a place in the fram for the args,
-    push the frame stack on the runtime
-    """
-    actual = []     # the actual args
-    g_frame.insert( [cmmd, args, handler])
-    rt_runtime ()
-
-def rt_init():
-
-    global collect
-    rt_stack('python', 0, interpreter)
-    collect = ''
 
 def main():
     """
