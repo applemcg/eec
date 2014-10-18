@@ -34,9 +34,8 @@ def builtinBehavior( token, frame, thisFrame):
     else:
         raise KeyError( token + ' is NOT a Builtin: "(.)"')
 
-def toStderr( msg):
+def toStderr( msg):   sys.stderr.write(msg + '\n')
 
-    sys.stderr.write(msg + '\n')
         
 def currentScope( token):
     """ 
@@ -50,10 +49,12 @@ def currentScope( token):
 def expectingNewToken( frame):
     """is true for 'definition' handlers
     """
-    name = frame.getName()
+    name     = frame.getName()
     handName = frame.getHandleName() 
-    print 'name, handName: ', name, handName
-    return handName == 'definition'
+    rtn      = handName == 'definition'
+
+    toStderr( str(rtn) + ' = expectingNewToken,name ' + name )
+    return rtn 
 
 def defineNew( token, frame):
     """creates, but does not stack, a frame for the

@@ -14,6 +14,8 @@
 
 import parser
 
+def toStderr( msg):   sys.stderr.write(msg + '\n')
+
 def minArgs( nargs):
     """returns integer minimum number of permissible arguments
     or None from an argspec defined above.
@@ -50,22 +52,27 @@ class Frame(object):
 
     def __init__(self, name, parent):
         """Create the frame for the next token"""
+        
+        if name in parser.cummings:
+            
+            nargs = parser.cummings[name][0]
+            
+            self.name    = name
+            self.parent  = parent
+            self.slot    = None
+            self.mina    = minArgs(nargs)
+            self.maxa    = maxArgs(nargs)
+            self.argr    = speArgs(nargs)
+            self.hnam    = parser.cummings[name][1]
+            self.handler = parser.handler[self.hnam]
+            if not parent == None:
+                self.slot    = parent.getParentSlot()
+                
+            self.args    = []
 
-        nargs = parser.cummings[name][0]
-
-        self.name    = name
-        self.parent  = parent
-        self.slot    = None
-        self.mina    = minArgs(nargs)
-        self.maxa    = maxArgs(nargs)
-        self.argr    = speArgs(nargs)
-        self.hnam    = parser.cummings[name][1]
-        self.handler = parser.handler[self.hnam]
-        if not parent == None:
-            self.slot    = parent.getParentSlot()
-
-        self.args    = []
-
+        else:
+            raise KeyError( 'time to get a frame for ' + name)
+                
     def insertArg(self, arg):
         """Insert an arg, checking for room in the
         permissible range"""
