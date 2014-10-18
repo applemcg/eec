@@ -59,9 +59,7 @@ class Stack(object):
             return self.vals[-1]
 
     def remove(self):
-        """removes the head from the list,
-        restores the list with the former head removed,
-        and returns the head.
+        """pops the top element from the stack,
         Raises ValueError if the stack is empty"""
         if len (self.vals) < 1:
             raise ValueError('Stack is empty')

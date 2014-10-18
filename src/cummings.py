@@ -12,30 +12,34 @@ import datastructure
 import machine
 import parser
 
-def builtinBehavior( token, frame, thisFrame):
+def toStderr( msg):   sys.stderr.write(msg + '\n')
+
+def builtinBehavior( token, frame, thisFrame, execution):
     """handles behavior of the very few eec syntax elements
     '(' -- opens a new frame,
     ',' -- moves to the next argument, and
-    ')' -- executes, closes, and pops the frame
+    ')' -- executes the frame and pops the execution stack
     """
-    print 'frame     ', str(frame)
-    print 'thisFrame ', str(thisFrame)
-    print 'token     ', token
+    toStderr( 'frame     ' + str(frame))
+    toStderr( 'thisFrame ' + str(thisFrame))
+    toStderr( 'token     ' + token)
+
     if token == '(':
-        print 'handle open'
+        toStderr( 'handle open')
         return frame
     elif token == ',':
-        print 'handle argument'
+        toStderr( 'handle argument')
         return thisFrame
     elif token == ')':
-        print 'handle close this is busy'
+        toStderr( 'handle close this is busy')
         frame.evaluate()
-        return frame.pop()
+        rtn = execution.remove()
+        toStderr(str(rtn.getName()) + ' = builtin POP ')
+        return rtn
     else:
-        raise KeyError( token + ' is NOT a Builtin: "(.)"')
+        raise KeyError( token + ' is NOT a Builtin: "(.)"' )
 
 def toStderr( msg):   sys.stderr.write(msg + '\n')
-
         
 def currentScope( token):
     """ 
@@ -82,14 +86,18 @@ def eectokenizer(line):
     stream = []
 
     collect = ''
+    defer   = ''
+
     for c in line:
-        
+        t = len(collect)
+        r = len(defer)
+        toStderr(' '*24 + c + ' ' + str(t)  + ' ' + str(r) )
         if state == 'escape':
             collect += c
             state = ''
             continue
             
-        if c in empty and not collect:
+        if c in empty and not len(collect):
             continue
                 
         if c == escape:
@@ -101,9 +109,20 @@ def eectokenizer(line):
             stream.append( collect)
             stream.append( c)
             collect = ''
+            defer   = ''
+            continue
+
+        if c in empty:
+            # defer empty characters, for next non-empty
+            defer += c
+
+        elif len(defer):
+            collect += defer
+            collect += c
+            defer    = ''
 
         else:
-            collect += c
+            collect +=c
 
     return stream
 
@@ -132,10 +151,14 @@ execution.insert( frame)   # FRAME is the outer definition
 
 for token in inputStream():
 
+    # toStderr( ' '*42 + 'TOKEN: <' + token + '>')
+    toStderr( token + '.')
+    continue
+
     if token in '(,)':
 
         # decides to push on the stack a/o append to args.
-        thisFrame = builtinBehavior(token, frame, thisFrame)
+        thisFrame = builtinBehavior(token, frame, thisFrame, execution)
 
     elif not currentScope( token):
 

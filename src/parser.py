@@ -92,6 +92,9 @@
 
 import sys
 
+def toStderr( msg):   sys.stderr.write(msg + '\n')
+
+#
 # ------------------------------------------------------------ handlers	--
 #
 # ------------------------------------------- B	--
@@ -102,6 +105,13 @@ def boolean( cmmd, nargs):
 #
 # ------------------------------------------- C	--
 #
+def comment( cmmd, nargs):
+    """handler stub"""
+
+    toStderr( str(cmmd))
+    toStderr('throwing away args: ' + str(nargs))
+    
+
 def collection( cmmd, nargs):
     """handler stub"""
 #
@@ -175,6 +185,7 @@ def machine( cmmd, nargs):
 handler = {
 #     Name          handler
     'boolean'    : boolean,
+    'comment'    : comment,
     'collection' : collection,
     'decision'   : decision,
     'definition' : definition,
@@ -193,7 +204,7 @@ cummings = {
     'args'             : [ [0,'*'],  'localargs'],  # variable number
     'assert'           : [ [2,4,'*'],'decision'],   # boolean, false message, ...
     'class'            : [ [2,3],    'definition'], # name [, class list], members
-    'comment'          : [ [0,'*'],  'empty'],      # gobble input
+    'comment'          : [ [0,'*'],  'comment'],    # gobble input
     'concatenate'      : [ [1,'*'],  'evaluation'], # strings, .. a, b, c,
     'constant'         : [ [2],      'definition'], # name, immutable
     'equal'            : [ [2],      'boolean'],    # a == b

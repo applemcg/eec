@@ -1,9 +1,9 @@
 comment(  The cummings version of the cummings parser)
 comment( Commas are optional at the zero-nesting level. )
 
-variable( lparen, \( ),  variable( L_PAREN, lparen)
-variable( rparen, \) ),  variable( R_PAREN, rparen)
-variable( comma,  \, ),  variable( COMMA,   comma)
+variable( lparen, \( )
+variable( rparen, \) )
+variable( comma,  \, )
 
 function ( parser,
     return( 

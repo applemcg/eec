@@ -15,8 +15,7 @@
 import parser
 import sys
 
-def toStderr( msg):   
-    sys.stderr.write(msg + '\n')
+def toStderr( msg):   sys.stderr.write(msg + '\n')
 
 def minArgs( nargs):
     """returns integer minimum number of permissible arguments

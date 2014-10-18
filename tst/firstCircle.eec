@@ -1,11 +1,17 @@
+    
+
+
     comment  ( firstCircle.eec, July 4, 2012, modified Oct 17, 2014 )
 
     constant ( PI, 3.1415926 )
     print    ( PI)
+    constant ( TwoPI, multiply (2, PI))
 
-    comment  ( the next objective: include an expression evaluator )
-    comment  (   e.g. eec( 2 * PI * r) )
-    comment  ( and ALSO, allow multi-line comments )
+
+    comment  ( the next objective: include an expression evaluator
+                 e.g. eec( 2 * PI * r) )
+               ALSO, allow multi-line comments and embedded ()’s
+             )
 
     print    ( calculate the circumference for a circle of radius 12)
     set      ( r, 12 )
@@ -19,18 +25,18 @@
 
     comment  ( NOW with FUNCTIONS)
 
-    constant( space, \  )
+    constant ( space, \  )
 
-    function( circumference, r,
+    function ( circumference, r,
         multiply( TwoPI, r)
     }
-    function( circ example, r,
+    function ( circ example, r,
 
        print( circumference of circle of radius, space, r, space, 
               circumference( r))
     )
 
-    circ example( 2)  
+    circ example(  2)  
     circ example( 13)  
-    circ example( 8.8)  
+    circ example(  8.8)  
  
