@@ -13,8 +13,10 @@
 #
 
 import parser
+import sys
 
-def toStderr( msg):   sys.stderr.write(msg + '\n')
+def toStderr( msg):   
+    sys.stderr.write(msg + '\n')
 
 def minArgs( nargs):
     """returns integer minimum number of permissible arguments
@@ -52,27 +54,37 @@ class Frame(object):
 
     def __init__(self, name, parent):
         """Create the frame for the next token"""
-        
-        if name in parser.cummings:
-            
-            nargs = parser.cummings[name][0]
-            
-            self.name    = name
-            self.parent  = parent
-            self.slot    = None
-            self.mina    = minArgs(nargs)
-            self.maxa    = maxArgs(nargs)
-            self.argr    = speArgs(nargs)
-            self.hnam    = parser.cummings[name][1]
-            self.handler = parser.handler[self.hnam]
-            if not parent == None:
-                self.slot    = parent.getParentSlot()
-                
-            self.args    = []
 
-        else:
-            raise KeyError( 'time to get a frame for ' + name)
-                
+        self.name    = name
+        self.parent  = parent
+        self.slot    = None
+
+        if not parent == None:
+            self.slot    = parent.getParentSlot()
+
+        if not name in parser.cummings:
+            try:
+                name = parent.getHandleName()
+                # make sure "empty" has something to offer here
+
+            except AttributeError:
+                print str(parent)
+                print name + ' has no parent' 
+
+            except KeyError:
+                print str(parent)
+
+        toStderr( name)
+        nargs = parser.cummings[name][0]
+        
+        self.mina    = minArgs(nargs)
+        self.maxa    = maxArgs(nargs)
+        self.argr    = speArgs(nargs)
+        self.hnam    = parser.cummings[name][1]
+        self.handler = parser.handler[self.hnam]
+        
+        self.args    = []
+        
     def insertArg(self, arg):
         """Insert an arg, checking for room in the
         permissible range"""

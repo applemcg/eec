@@ -62,7 +62,7 @@ def defineNew( token, frame):
     it returns the frame to the environment, waiting 
     for either a PAREN or COMMA
     """
-    rtn = machine.Frame( token, None)
+    rtn = machine.Frame( token, frame)
     print str(rtn)
 
     return rtn
