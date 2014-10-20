@@ -10,7 +10,7 @@ import fileinput
 
 import datastructure
 import machine
-import parser
+import builtin
 
 def toStderr( msg):   sys.stderr.write(msg + '\n')
 
@@ -44,7 +44,7 @@ def toStderr( msg):   sys.stderr.write(msg + '\n')
 def currentScope( token):
     """ 
     """
-    rtn = token in parser.cummings
+    rtn = token in builtin.tokens:
 
     toStderr(str(rtn) + ' = currentScope ' +  token )
 
@@ -53,11 +53,14 @@ def currentScope( token):
 def expectingNewToken( frame):
     """is true for 'definition' handlers
     """
-    name     = frame.getName()
-    handName = frame.getHandleName() 
-    rtn      = handName == 'definition'
-
-    toStderr( str(rtn) + ' = expectingNewToken,name ' + name )
+    name    = frame.getName()
+    handler = frame.getHandler() 
+    #  since definitions and comments DONT know whats coming! 
+    rtn     = (
+                handler == parser.definition or
+                handler == parser.comment
+              )
+    toStderr( str(rtn) + ' = expectingNewToken name: ' + name )
     return rtn 
 
 def defineNew( token, frame):
@@ -89,9 +92,11 @@ def eectokenizer(line):
     defer   = ''
 
     for c in line:
-        t = len(collect)
-        r = len(defer)
-        toStderr(' '*24 + c + ' ' + str(t)  + ' ' + str(r) )
+
+        # t = len(collect)
+        # r = len(defer)
+        # toStderr(' '*24 + c + ' ' + str(t)  + ' ' + str(r) )
+
         if state == 'escape':
             collect += c
             state = ''
@@ -151,10 +156,8 @@ execution.insert( frame)   # FRAME is the outer definition
 
 for token in inputStream():
 
-    # toStderr( ' '*42 + 'TOKEN: <' + token + '>')
-    toStderr( token + '.')
-    continue
-
+    toStderr( ' '*42 + 'TOKEN: <' + token + '>')
+    
     if token in '(,)':
 
         # decides to push on the stack a/o append to args.
@@ -166,13 +169,13 @@ for token in inputStream():
 
         if expectingNewToken( frame):
 
-            raise KeyError( token + ' not found')
+            # current frame holds the operative defining word
+
+            thisFrame = machine.Frame( token, frame)
+            print str(thisFrame)
 
         else:
-
-            # the stack frame tells what the operative 
-            # defining word holds
-            thisFrame = defineNew( token, frame)
+            raise KeyError( token + ' not found')
 
     else:
 
@@ -180,7 +183,6 @@ for token in inputStream():
         frame = machine.Frame( token, frame)
         execution.insert( frame)
 
-
-    #
-    # ------------------------------------- end of Main	--
-    #
+#
+# ------------------------------------- end of Main	--
+#

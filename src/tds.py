@@ -2,6 +2,13 @@
 # ./tds.py
 
 from datastructure import *
+import builtin
+
+envir = builtin.eecBuiltin()
+for e in envir:
+    print e
+
+exit ()
 
 s1 = Stack()
 s1.insert( 'me')

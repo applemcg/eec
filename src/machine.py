@@ -44,6 +44,10 @@ def speArgs( nargs):
         # m, n, n+i*(n-m), ... 0 <= i <= ...
         return 'function handling ' + str(nargs[0]) + ', ' + str(nargs[1])
 
+def okToAppend( argspec, nargs):
+    maxa = maxArgs(argspec)
+    return (nargs < maxa or maxa == None)
+
 class Frame(object):
     """A Frame  is a unit of data  for an eec object.  It  holds the name
     text  string or  None  for local  instantiations, the  permissible
@@ -57,14 +61,18 @@ class Frame(object):
         self.name    = name
         self.parent  = parent
         self.slot    = None
+        
+        isParent = not parent == None
+        toStderr('Frame.init: ' + name + ' parent: ' + str(isParent))
+        if isParent:
 
-        if not parent == None:
             self.slot    = parent.getParentSlot()
 
         if not name in parser.cummings:
             try:
-                name = parent.getHandleName()
-                # make sure "empty" has something to offer here
+
+                name = parent.getName()
+                toStderr('Frame.init: ' + name )
 
             except AttributeError:
                 print str(parent)
@@ -100,6 +108,9 @@ class Frame(object):
         
     def getHandleName(self):
         return self.hnam
+
+    def getHandler(self):
+        return self.handler
 
     def setParent(self, parent):
         """Allows the parent frame to attach separately

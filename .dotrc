@@ -12,6 +12,7 @@ etf ()
 dot_init ()
 {
     dot_help
-    [[ -d src ]] && pushd src
+    [[ -d src ]] && cd src
+    comment EDIT on $(grep -n 'EDIT MARK' *.py)
 }
 dot_init 1>&2

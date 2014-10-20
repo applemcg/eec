@@ -106,8 +106,8 @@ def boolean( cmmd, nargs):
 # ------------------------------------------- C	--
 #
 def comment( cmmd, nargs):
-    """handler stub"""
-
+    """ throw out the comment's args
+    """
     toStderr( str(cmmd))
     toStderr('throwing away args: ' + str(nargs))
     
@@ -120,8 +120,35 @@ def collection( cmmd, nargs):
 def decision( cmmd, nargs):
     """handler stub"""
 
+def definition_class(name, *args):
+    """handler stub"""
+
+def definition_constant(name, *args):
+    """handler stub"""
+
+    # EDIT MARK -- add constant definition
+
+def definition_variable(name, *args):
+    """handler stub"""
+
+def definition_function(name, *args):
+    """handler stub"""
+
+definition_actions = {
+    'class'      : definition_class,
+    'constant'   : definition_constant,
+    'variable'   : definition_variable,
+    'function'   : definition_function
+}
+
 def definition( cmmd, nargs):
     """handler stub"""
+
+    toStderr( str(cmmd))
+    try:
+        definition_actions[cmmd]( nargs)
+    except KeyError:
+        print 'Unavailable Definition Action: ', cmmd
 
 #
 # ------------------------------------------- E	--
@@ -154,10 +181,10 @@ io_actions = {
 }
 
 def io( cmmd, nargs):
-    """handler stub"""
 
-    sys.stderr.write('\ncmmd: ' + cmmd)
-    sys.stderr.write('\nnargs: ' + str(nargs))
+    toStderr('\ncmmd: ' + cmmd)
+    toStderr('\nnargs: ' + str(nargs))
+
     try:
         io_actions[cmmd]( nargs)
     except KeyError:

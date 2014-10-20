@@ -1,8 +1,9 @@
-*~
+*[~#]*
 .byebye
 .git_usage
 .*.err
 *.err
 *.pyc
 .x
-
+*.pdf
+*.html

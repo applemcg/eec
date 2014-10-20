@@ -1,7 +1,10 @@
-constant( 1) constant( 2)
+constant( 1, 1) 
+constant( 2, 2)
 variable( a, 1)
 variable( b, 2)
+
 print( add( a(), b() ))
+
 comment(   Compile Time: 
   variable   pushes the word onto the stack
   \(    takes an address off the stack and

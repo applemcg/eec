@@ -1,0 +1,109 @@
+
+## A language research project
+
+I'm looking  for Computer Science  researchers to contribute  to, lead
+development of  a new computer  language, which I call  _cummings_ for
+its spare syntax.   I've been developing it since 2006,  had a cycling
+copy in 2012 in Tcl, and  am re-crafting it in Python.  I'm completing
+MIT's edX 6.00.1x -- Intro to CS in Python.  My experience is detailed
+below, other than to say i'm a software professional for 30+ years and
+recently retired.  
+
+I've called this language _cummings_ in behalf of the poet eecummings,
+whose spare  style guides the  language ideas.  By inviting  others to
+join the development, i realize i give up "control", so at the outset,
+here are the "invariants":
+
+* spare syntax:  Only parenthesis, comma, and the escaping back-slash
+* tokens (names) may include spaces.
+* operations are names, not symbols, 
+* totally functional (not to exclude object orientation)
+* the language name: _cummings_, and the suffix of a cummings source
+  code:  _eec_
+
+ALL  else is  open  for  inclusion. For  example,  i  imagine all  the
+reserved keywords would have representations in any readily translated
+language,  and once  we have  a credible  english representation,  the
+extension to other roman-alphbet languages is merely an exercise.  For
+example, a cummings comment is:
+  
+        comment ( ... )
+
+and in spanish:
+
+        commentario ( ... )
+
+and _en englese_ this would be built:
+
+        function ( commentario, args( *), comment ( args))
+        comment( --                                 finnish	--)
+        function ( kommentti, args( *), comment ( args)) 
+
+so, with this feature, a spanish version of cummings would simply be:
+
+        $ es_cummings () { cummings espanol.eec $*; }
+
+My  view of  the  language, at  the moment  is  _typeless_, e.g.  i've
+considerable `awk` experience, where  "everything is a string", unless
+you treat it like a number, which it behaves as when needed.
+
+Not being the great student of object languages, i appreciate the use
+of class definitions and the useful data structures.  I expect this is
+where the facilities of a research department could most contribute.
+
+### Where is it useful
+
+I would hope  that we could build considerable libraries  to model the
+facilities  available in  the current  language frontier.   Being most
+familiar with python and tcl, i  see every reason to include the `os`,
+`file` and `sys`, ... interfaces in a consistent fashion.
+
+This  language  is  not  meant  to challenge  any  of  today's  system
+languages (i.   e. C, C++,  C#, Java, ...)  but fit squarely  into the
+"scripting" space.   A companion view, goal,  is to place this  as the
+training  language  of  choice.   There is  no  language  today  whose
+instructors don't feel  the need to apologize for  the language syntax
+unless they are  the author.  As a shell practitioner,  i wrestle with
+the need for a programming language in the administration space. Maybe
+cummings narrows the gap a bit.
+
+### My credentials
+
+I'm a retired MTS from AT&T Bell Labs, followed by two years at Nokia,
+broadband, then  teaching Math  (algebra and geometry)  at Benedictine
+Academy, Elizabeth,  NJ, ultimately retiring after  technical training
+on  Wall St,  employed  by Fidessa,  who  supplies trading  platforms,
+market data, and a global trading  network to 2000 banks and financial
+services firms.
+
+In  that later  position  I trained  company  consultants and  service
+personnel in our  Introduction to Tcl, the  Infrastructure Services (in
+Tcl), and the  Java API to our algorithmic services.   At Bell Labs, I
+was  a  contributing  member   of  the  IEEE  P1003.[123]  committees,
+standardizing the  Operating System Interface, the  Command Interface,
+and committee member of "Dot 3", the Test Methods Standard.
+
+As a Bell Labs MTS,  I hold two US Patents, the more prominent  being
+US# 5,559,520   _Wireless  Information System  for Acquiring Location
+Related Information_.
+
+* Bachelor of Science: MIT, Mechanical Engineering
+* Master of Engineering: Catholic Univ of America
+
+### Publications
+
+* Github:  http://github.com/applemcg/eec  -- current source archive
+
+* Cummings Design Guide: http://mcgowans.org/eec/cummings.html
+
+* Shell Functions: http://leanpub.com/shellfunctions -- an introductory
+  book on the practice of shell functions.
+
+* GPS Patent: http://www.google.com/patents/US5559520 -- with ~ 300 citations
+
+* Software Assembly Line. IEEE Tools Fair '83: http://arxiv.org/abs/1006.2155
+
+* MS Paper: CUA '70: Lunar Gravitational Assist for Interplanetary Missions
+
+
+
