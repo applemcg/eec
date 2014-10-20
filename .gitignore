@@ -4,6 +4,7 @@
 .*.err
 *.err
 *.pyc
-.x
+.?
 *.pdf
 *.html
+doc/tmp
