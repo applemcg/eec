@@ -5,6 +5,7 @@ from datastructure import *
 import builtin
 
 envir = builtin.eecBuiltin()
+
 for e in envir:
     print e
 

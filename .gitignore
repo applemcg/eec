@@ -8,3 +8,4 @@
 *.pdf
 *.html
 doc/tmp
+doc/*.html

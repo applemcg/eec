@@ -2,15 +2,35 @@
 ## A language research project
 
 I'm looking for Computer Science  researchers to contribute to or lead
-development of  a new computer  language, which i call  _cummings_ for
-its spare syntax.  I've been developing  it since 2006.  In 2012 i had
+development of  a new computer  language, which I call  _cummings_ for
+its spare syntax.  I've been developing  it since 2006.  In 2012 I had
 a cycling copy in Tcl, and am re-crafting it in Python.  My experience
-is detailed below,  other than to say i'm a  software professional for
+is detailed below,  other than to say I'm a  software professional for
 30+ years and recently retired.
 
-I  call this  language _cummings_  in behalf  of the  poet eecummings,
+### Where is it useful
+
+As a technical  trainer (in Tcl, Java, and a  proprietary language: see
+below), I'd  like to  see a  syntax-free language.   Language learners
+encounter  syntactic  hurdles  which  impede  learning  not  just  the
+language, but more importantly, good programming principles.  Language
+trainers won't have to apologize for cummings syntax.
+
+Cummings doesn't challenge today's system languages (i.e.  C, C++, C#,
+Java, ...)  but fits squarely into  the "scripting" space.  As a shell
+practitioner,   I    wrestle   with    the   need   to    bridge   the
+scripting-programming gap. Maybe cummings can help.
+
+### The project
+
+I hope we could build  libraries to gather common facilities available
+in scripting  languages.  Being  familiar with Python  and Tcl,  I see
+every  reason  to  include  the  `os`,  `sys`,  `file`  and  `string`,
+... interfaces in a consistent fashion.
+
+I call this  language _cummings_  in behalf  of the  poet eecummings,
 whose spare style motivates the language ideas.  By inviting others to
-contribute, i realize i give up  "control", so at the outset, here are
+contribute, I realize I give up  "control", so at the outset, here are
 the "invariants":
 
 * spare syntax:  Only parenthesis, comma, and the escaping back-slash.
@@ -20,52 +40,27 @@ the "invariants":
 * the language name: _cummings_, and the suffix of a cummings source
   code:  _eec_.
 
-All  else is  open  for  inclusion. For  example,  i  imagine all  the
-reserved keywords would have representations in any readily translated
-language,  and once  we have  a credible  english representation,  the
-extension  to other  roman-alphabet languages  is merely  an exercise.
-For example, a cummings comment is:
+All else is  open for inclusion: class  definition, language elements,
+debug  facilities, etc.  But simplicity  is  the key:  For example,  a
+_cummings_ comment is:
   
         comment ( ... )
 
-and in spanish:
+and the programmer's birth announcement, the `Hello World!` program:
 
-        commentario ( ... )
-
-and _en englese_ this would be built:
-
-        function ( commentario, args( *), comment ( args))
-        comment( --                                 finnish	--)
-        function ( kommentti, args( *), comment ( args)) 
-
-so, with this feature, a spanish version of cummings would be:
-
-        $ es_cummings () { cummings espanol.eec $*; }
+        function( hello, args (), print ( Hello World! ))
+        hello()          comment ( invokes the function )
 
 My view of the language, at the moment is _typeless_, not unlike `awk`
 where "everything is a string", unless you treat it like a number, and
 it behaves as expected.   More cummings descriptions are  found in the
 references.
 
-Not being a great student of object languages, i appreciate the use of
+Not being a great student of object languages, I appreciate the use of
 class definitions and useful data  structures.  I expect this is where
 the facilities of a research department could most contribute.
 
-### Where is it useful
-
-I hope we could build  libraries to gather common facilities available
-in scripting  languages.  Being  familiar with Python  and Tcl,  i see
-every  reason  to  include  the  `os`,  `sys`,  `file`  and  `string`,
-... interfaces in a consistent fashion.
-
-cummings does  not challenge today's  system languages (i.e.   C, C++,
-C#, Java, ...)  but fits squarely into the "scripting" space.  Because
-of cummings' simple, straight-forward appearance, i can see its use as
-a training language.   As a trainer, cummings offers  a "no apologies"
-syntax.  As  a shell practitioner, i  wrestle with the need  to bridge
-the scripting-programming gap. Maybe cummings can help.
-
-### My credentials
+## My credentials
 
 I'm a former  Member of Technical Staff from AT&T  Bell Labs, followed
 by  two years  at Nokia,  broadband, then  teaching Math  (algebra and
@@ -74,14 +69,14 @@ years of  technical training on Wall  St.  I was employed  by Fidessa,
 who  supplies trading  platforms, market  data, and  a global  trading
 network to 2000 banks and financial services firms.
 
-In that position  i trained company consultants  and service personnel
+In that position  I trained company consultants  and service personnel
 in our Introduction to Tcl,  the Infrastructure Services (in Tcl), and
-the  Java API  to our  algorithmic services.   At Bell  Labs, i  was a
+the  Java API to our  algorithmic services.   At Bell  Labs, I was a
 voting member  of the  IEEE P1003.[123] committees,  standardizing the
 Operating  System Interface,  the Command  Interface, and  a committee
 member of .3, the Test Methods Standard.
 
-With others  at Bell Labs, i  hold two US Patents,  the more prominent
+With others  at Bell Labs, I hold two US Patents,  the more prominent
 being  US#  5,559,520  _Wireless   Information  System  for  Acquiring
 Location Related Information_. (Sept 24, 1996)
 

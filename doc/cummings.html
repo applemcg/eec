@@ -521,6 +521,9 @@ noscript {display:none;} /* Fixes a feature in Firefox 1.5.0.2 where print previ
 </div>
 <!--POST-SHADOWAREA-->
 <div id="storeArea">
+<div title="6 October 2014" creator="MartyMcGowan" modifier="MartyMcGowan" created="201410061306" tags="journal" changecount="1">
+<pre>I'll be busy for a few days with an edX assignment.</pre>
+</div>
 <div title="CodeSample" creator="MartyMcGowan" modifier="MartyMcGowan" created="201409301359" modified="201409301407" changecount="7">
 <pre>This is the familiar //factorial// expressed in ''cummings''.
 {{{
@@ -743,10 +746,10 @@ def handler(collect):
 
 }}}</pre>
 </div>
-<div title="DefaultTiddlers" creator="MartyMcGowan" modifier="MartyMcGowan" created="201409291959" modified="201409301450" changecount="6">
-<pre>[[Invitation]]
-[[PriorImplementation]]
-[[CodeSample]]</pre>
+<div title="DefaultTiddlers" creator="MartyMcGowan" modifier="MartyMcGowan" created="201409291959" modified="201410241411" changecount="7">
+<pre>[[ReadingList]]
+[[CodeSample]]
+[[Invitation]]</pre>
 </div>
 <div title="GettingStarted" creator="MartyMcGowan" modifier="MartyMcGowan" created="201409291932" changecount="1">
 <pre>To get started with this blank [[TiddlyWiki]], you'll need to modify the following tiddlers:
@@ -756,32 +759,30 @@ def handler(collect):
 You'll also need to enter your username for signing your edits: &lt;&lt;option txtUserName&gt;&gt;
 </pre>
 </div>
-<div title="Invitation" creator="MartyMcGowan" modifier="MartyMcGowan" created="201409291911" modified="201409301454" tags="journal" changecount="9">
+<div title="Invitation" creator="MartyMcGowan" modifier="MartyMcGowan" created="201409291911" modified="201410030158" tags="journal" changecount="11">
 <pre>!!One-time invitation
-You are receiving this invitation as a member of the Fall session of MIT's edX 6.00.1x, Intro to Computer Science with Python
+For some years (since '06) I've had an idea about writing a language whose syntax is as sparse as you can make it.   It is necessarily an interpreted language somewhere between a shell and python-like (Perl, PHP,...).  At the time I got the idea, I was teaching Tcl, which supplied some of the ideas.   Python adds important new ideas.
 
-For some years (since '06) I've had an idea about writing a languages whose syntax is as 
-sparse as you can make it.   It is necessarily an interpreted language somewhere between a shell and languages similar to python.  At the time I got the idea, I was teaching Tcl, which supplied some of the ideas.   Now with Python, a few important new ideas are creeping in.
-
-I'm inviting you to join to implement this language with a Python interpreter as the language engine, at least for the time being.   I'll be posting the current parser on my account on [[github|http://github.com/applemcg]] for anyone who expresses an interest.   You can reach me at [[MartyMcGowan]].
+I'm inviting you to join in implementing this language with a Python interpreter as the language engine, at least for the time being.   I'll be posting the current parser on my account on [[github|http://github.com/applemcg/eec]] should you express an interest.   You can reach me at [[MartyMcGowan]].
 
 Before plunging in, you may want to read the current CommentHeaderBlock from the current parser.   
 
 There is quite a bit of detail, and quite a bit obsolete in the notes on the [[PriorImplementation]]
 
-This is a re-start.
+This is a re-start of the earlier project.
 </pre>
 </div>
-<div title="MainMenu" creator="MartyMcGowan" modifier="MartyMcGowan" created="201409291916" modified="201409301339" changecount="4">
+<div title="MainMenu" creator="MartyMcGowan" modifier="MartyMcGowan" created="201409291916" modified="201410031109" changecount="5">
 <pre>&lt;&lt;tiddler DefaultTiddlers&gt;&gt;
 -----
+SelfRef
 MainMenu
 DefaultTiddlers
 MartyMcGowan</pre>
 </div>
-<div title="MartyMcGowan" creator="MartyMcGowan" modifier="MartyMcGowan" created="201409301335" tags="contact" changecount="1">
+<div title="MartyMcGowan" creator="MartyMcGowan" modifier="MartyMcGowan" created="201409301335" modified="201410041359" tags="contact" changecount="2">
 <pre>[[email|mailto:mcgowan@alum.mit.edu]]
-socially: applemcg</pre>
+socially: [[applemcg|http://applemcg.wordpress.com/2014/10/03/socially-speaking/]]</pre>
 </div>
 <div title="PriorImplementation" creator="MartyMcGowan" modifier="MartyMcGowan" created="201409292010" modified="201409301453" changecount="8">
 <pre>The historical companion:  [[eeCummings|./eeCummings.html]]
@@ -793,6 +794,26 @@ A few things need mention:
 * built-in ''names'' are subject to negotiation:  e.g. //set// vs. //variable// for one, and also could //define// substitute for both //function// and //constant//, since presumably those are both immutable, and 
 * the long names in the code sample are alternate, or redundant definitions of shorter names, which show the instructional value of multi-word tokens.
 * I'd really appreciate collaborators.</pre>
+</div>
+<div title="ReadingList" creator="MartyMcGowan" modifier="MartyMcGowan" created="201410241411" tags="contents, reading" changecount="1">
+<pre>This ReadingList is a guided Table of Contents:
+*PriorImplementation -- in '12, I had a working version in Tcl.  for personal reasons, like moving, I had it on the shelf.  Now, after taking a Python course in MIT's edX, I'm happily recasting it in Python.
+*RuntimeHandler -- as i rebuild, the first architectural feature I face is the runtime handler, or outer interpreter.  This one captures the evolving requirements and developments.</pre>
+</div>
+<div title="RuntimeHandler" creator="MartyMcGowan" modifier="MartyMcGowan" created="201410241402" modified="201410241414" tags="interpreter, state, comment, constant, variable, function, class" changecount="3">
+<pre>Let's develop the specifications for a RuntimeHandler.
+
+At this moment, I recognize two modes of behavior or states: //immediate//, and //deferred//.   The immediate mode is entered now, as the tokens are being read.  The deferred mode or state is when the interpreter is laying down code for later execution.    
+
+In the outer interpreter, every function is //immediate//, of the defining words:   ''constant, variable, function'', and ''class'',  the latter two set the state to //deferred// until the containing frame is closed.
+
+A question that immediately comes to mind:  //Do comments always behave as immediate?//  i.e. a ''comment'' may be discarded while defining a function
+
+</pre>
+</div>
+<div title="SelfRef" creator="MartyMcGowan" modifier="MartyMcGowan" created="201410031108" modified="201410031143" changecount="2">
+<pre>This file is online at: http://mcgowans.org/eec/cummings.html
+or OFFline at: file:///Users/applemcg/Downloads/cummings.html</pre>
 </div>
 <div title="SiteSubtitle" creator="MartyMcGowan" modifier="MartyMcGowan" created="201409291914" changecount="1">
 <pre>a sparse-syntax interpreter </pre>
