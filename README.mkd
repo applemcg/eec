@@ -1,14 +1,21 @@
-This is the cummings source repostitory.  
-
 ## cummings
 
+This is the cummings source repostitory.  
 cummings is an interpreted computer language.
 
 ### Chief new characteristics are:
 
-* any string, blanks included may be a token, and
-* its purely functional, so that add( this, that) does what you'd
+* any string, blanks included, may be a token, and
+* its purely functional, so that `add( this, that)` does what you'd
    expect
+* only 4 characters: `( , ) \\' figure in the syntax
+
+While it's behavior is little different from many scripting languages,
+it is revolutionary in a few ways:
+
+* strings do not need to be quoted. 
+* strong preferance for mnemonic operators.
+* a "no-apology" syntax. i.e. the lowest learning curve possible
 
 ### Github
 
@@ -32,8 +39,6 @@ Motivation now includes
    $ cat ../tst/testdataNNN.eec ... | tmain
    #  OR
    $ cat ... | tmain {file} - ...
-
-
 
 ### Development practice:
 
