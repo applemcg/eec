@@ -1,12 +1,12 @@
 # README -- Copyright (C) 2012,2014 -- JYATL, Just Yet Another Testing Lab
 
 
-  eec -- eec in Python
+##  eec -- eec in Python
 
   the current problem is "what is the execution environment" for 
 variable storage.  the easy way out is to make everything global.
 
-  some ideas survive from Tcl:
+## some ideas survive from Tcl:
 
                                =>   equivalent
 
@@ -41,7 +41,7 @@ e.g.    set ( a, 1)            =>    set a 1
 	
                                => foreach { item .., in-list, , , , }
 
-challenges arising:
+## challenges arising:
 
     print (a ) vs print (  a trimmed .. ) 
 

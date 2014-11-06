@@ -39,6 +39,7 @@ the "invariants":
 * functional notation (not to exclude object orientation).
 * the language name: _cummings_, and the suffix of a cummings source
   code:  _eec_.
+* smaller is better
 
 All else is  open for inclusion: class  definition, language elements,
 debug  facilities, etc.  But simplicity  is  the key:  For example,  a
