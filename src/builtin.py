@@ -74,25 +74,15 @@ def machine( cmmd, nargs):
 #
 # -------------------------------------------- working handler template	--
 #
-class ee_constant(object):
-
-    def __init__(self, name):
-        self.name  = name
-        self.value = ''
-
-    def assign(self, value):
         
-        
-    
 def defining_class(name, *args):
     """handler stub"""
 
 def executing_constant():                        
-    
+    """handler stub"""
 
 def defining_constant(name, *args):
     """handler stub"""
-     # EDIT MARK -- add constant definition
                         
 def defining_variable(name, *args):
     """handler stub"""
@@ -107,6 +97,12 @@ defining_actions = {
     'function'   : defining_function
 }
                                 
+def bystate( cmmd, nargs):
+    """handler stub"""
+
+def immediate( cmmd, nargs):
+    """handler stub"""
+
 def defining( cmmd, nargs):
     """handler stub"""
     toStderr( str(cmmd))
@@ -129,39 +125,25 @@ def defining( cmmd, nargs):
 #
 #
 
-interpreting = 1
-compiling    = 0
-cummingstate = interpreting
+handler = {
 
-class builtin(object):
-    """a builtin shares a state-aware method for its
-    member words as builtin tokens in the language.
-    a builtin supplies an argument handling specification
-    and it's own method for state-dependent evalution.
-    """
+    'bystate'   : bystate,
+    'defining'  : defining,
+    'immediate' : immediate
+}
 
-    def __init_(self)
-        self.method = method
-        self.builtin = {} 
-
-    def insert(self, token, args, handler):
-        self.builtin[token] = [args, handler]
-
+#
 # . . .+. . . .|. . . .+. . . .*. . . .+. . . .|. . . .+. . . .*. . . \
-
 # -------------------------------------------- cummings language tokens	--
 #
 token = {
     #                      #args     handlerName     characteristics
     #                      --------  ------------    --------------------------
     'args'             : [ [0,'*'],  'bystate'],   # variable numberl
-    'assert'           : [ [2,4,'*'],'bystate'],   # boolean, false message, ...
     'class'            : [ [2,3],    'defining'],  # name [, class list], members
     'comment'          : [ [0,'*'],  'immediate'], # gobble input
-    'concatenate'      : [ [1,'*'],  'bystate'],   # strings, .. a, b, c,
     'constant'         : [ [2],      'defining'],  # name, immutable
     'equal'            : [ [2],      'bystate'],   # a == b
-    'expr'             : [ [1],      'bystate'],   # arithmatic expression
     'for'              : [ [3],      'bystate'],   # arg, list, body, .. return
     'function'         : [ [2,3],    'defining'],  # name [, args], return
     'greater or equal' : [ [2],      'bystate'],   # a >= b: 
@@ -177,16 +159,41 @@ token = {
     'return'           : [ [0,'*'],  'bystate'],   # stmt, stmt, ...
     'variable'         : [ [2],      'defining'],  # name, value
     'while'            : [ [2],      'bystate'],   # boolean, codeblock, e.g. return
-    ''                 : [ [0],      'bystate']    # end of list place-holder
 }
+# --------------------------------------------------- move to functions	--
+#
+#   'assert'           : [ [2,4,'*'],'bystate'],   # boolean, false message, ...
+#   'concatenate'      : [ [1,'*'],  'bystate'],   # strings, .. a, b, c,
+#   'expr'             : [ [1],      'bystate'],   # arithmatic expression
+#
 
-def eetoken(Object):
+interpreting = 1
+compiling    = 0
+cummingstate = interpreting
+
+class old_builtin(object):
+    """a builtin shares a state-aware method for its
+    member words as builtin tokens in the language.
+    a builtin supplies an argument handling specification
+    and it's own method for state-dependent evalution.
+    """
+
+    def __init__(self, name, method):
+        self.name    = namd
+        self.method  = method
+        self.builtin = {} 
+
+    def insert(self, token, args, handler):
+        self.builtin[token] = [args, handler]
+
+
+class eetoken(object):
     """Forth has 'words', and it seems appropriate to call
     the cummings equivalent a 'token', i.e. the elementary
     execution token of the language.  builtins, constants,
     variables, functions, and classes"""
 
-    def __init__(self, name, type)
+    def __init__(self, name, type):
     	self.name = name
         self.type = type
 
@@ -196,22 +203,28 @@ def eetoken(Object):
     def getName(self):
         return self.name
 
-def storage(eetoken):
+class storage(object):
     """either a constant, variable or list"""
     
     def set(self, value):
         self.value = value
 
-    def get(self)
+    def get(self):
 	return self.value
 
-def builtin(eetoken):
+class builtin(eetoken):
     
     def property(self, args, handler):
         self.args    = args
-        self.nandler = handler
+        self.handler = handler
+
+    def getArgs(self):
+        return self.args
+
+    def getHandler(self):
+        return self.handler
     
-def constant(storage):
+class constant(storage):
 
     def __init__(self, name, type, value):
         me = storage(self, name, type)
@@ -219,26 +232,23 @@ def constant(storage):
 
     def set(self, value):
         self.value = self.value
-    
 
+vocabulary = {}
 
- 
-def eecBuiltin ():
+for name, value in token.iteritems():
 
-    import node
-    print dir(node)
+    args  = value[0]
+    hnam  = value[1]
+    hdlr  = handler[hnam]
+    print   name + ' ' + str(args) + ' ' + hnam + ' ' +  str(hdlr)
 
+    vnod  = builtin(name, 'builtin')
 
-    vocabulary = {}
+    vnod.property( args, hdlr)
+    vocabulary[name] = vnod
 
-    for name, value in token.iteritems():
-        args  = value[0]
-        hnam  = value[1]
-        hdlr  = handler[hnam]
-        print   name + ' ' + str(args) + ' ' + hnam + ' ' +  str(hdlr)
+for name in vocabulary:
 
-        vnod  = builtin(name, 'builtin')
-        vnod.property( args, hdlr)
-        vocabulary[name] = vnod
+    print 'type', str(vocabulary[name].getType()), 'name', name
+
         
-    return vocabulary
