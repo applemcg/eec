@@ -9,3 +9,6 @@
 *.html
 doc/tmp
 doc/*.html
+src/.*
+src/ar
+src/dictionary.*

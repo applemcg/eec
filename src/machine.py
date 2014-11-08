@@ -58,19 +58,21 @@ class Frame(object):
     def __init__(self, name, parent):
         """Create the frame for the next token"""
 
+        import cummings
+
         self.name    = name
         self.parent  = parent
         self.slot    = None
         
-        isParent = not parent == None
+        isParent = (not parent == None)
         toStderr('Frame.init: ' + name + ' parent: ' + str(isParent))
         if isParent:
 
             self.slot    = parent.getParentSlot()
 
-        if not name in parser.cummings:
-            try:
+        if not cummings.currentgScope(name):
 
+            try:
                 name = parent.getName()
                 toStderr('Frame.init: ' + name )
 

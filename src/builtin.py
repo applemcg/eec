@@ -7,169 +7,90 @@ __author__  = "Marty McGowan <mailto:mcgowan@alum.mit.edu>"
 import sys
 import machine
 
-def toStderr( msg):   sys.stderr.write(msg + '\n')
-
+# def toStderr( msg):   sys.stderr.write(msg + '\n')
 #
 # ------------------------- builtin cummings definitions, code handlers	--
 #
 
+def args( cmmd, nargs):
+    """ handler stub"""
 
 def boolean( cmmd, nargs):
-    """handler stub"""
-    
+    """ handler stub"""
+
+def class( cmmd, nargs):
+    """ handler stub"""
+
 def comment( cmmd, nargs):
-    """ throw out the comment's args
-    """
-    toStderr( str(cmmd))
-    toStderr('throwing away args: ' + str(nargs))
-        
-def collection( cmmd, nargs):
-    """handler stub"""
-                
-def decision( cmmd, nargs):
-    """handler stub"""
-#
-def empty( cmmd, nargs):
-    """handler stub"""
-        
-    sys.stderr.write( str(cmmd))
-    sys.stderr.write('throwing away args: ' + str(nargs))
-        
-def evaluation( cmmd, nargs):
-    """handler stub"""
-        
-def io_print(*args):
-    msg = ''
-    if len(args) > 0:
-        msg = args[0][0]
-        print msg
-            
-def io_printf(fmt,*args):
-    print fmt, args 
-        
-    
-io_actions = {
-    'print' : io_print,
-    'printf': io_printf
-}
-                                                            
-def io( cmmd, nargs):
-    toStderr('\ncmmd: ' + cmmd)
-    toStderr('\nnargs: ' + str(nargs))
-        
-    try:
-        io_actions[cmmd]( nargs)
-    except KeyError:
-            print 'Unavailable IO Action: ', cmmd
+    """ handler stub"""
 
-def localargs( cmmd, nargs):
-    """handler stub"""
+def constant( cmmd, nargs):
+    """ handler stub"""
 
-def localexec( cmmd, nargs):
-    """handler stub"""
+def for( cmmd, nargs):
+    """ handler stub"""
 
-def machine( cmmd, nargs):
-    """handler stub"""
+def function( cmmd, nargs):
+    """ handler stub"""
 
+def if( cmmd, nargs):
+    """ handler stub"""
+
+def list( cmmd, nargs):
+    """ handler stub"""
+
+def print( cmmd, nargs):
+    """ handler stub"""
+
+def return( cmmd, nargs):
+    """ handler stub"""
+
+def variable( cmmd, nargs):
+    """ handler stub"""
+
+def while( cmmd, nargs):
+    """ handler stub"""
 #
 # -------------------------------------------- working handler template	--
-#
-        
-def defining_class(name, *args):
-    """handler stub"""
-
-def executing_constant():                        
-    """handler stub"""
-
-def defining_constant(name, *args):
-    """handler stub"""
-                        
-def defining_variable(name, *args):
-    """handler stub"""
-                            
-def defining_function(name, *args):
-    """handler stub"""
-                                
-defining_actions = {
-    'class'      : defining_class,
-    'constant'   : defining_constant,
-    'variable'   : defining_variable,
-    'function'   : defining_function
-}
-                                
-def bystate( cmmd, nargs):
-    """handler stub"""
-
-def immediate( cmmd, nargs):
-    """handler stub"""
-
-def defining( cmmd, nargs):
-    """handler stub"""
-    toStderr( str(cmmd))
-    try:
-        defining_actions[cmmd](cummingstate, nargs)
-    except KeyError:
-        print 'Unavailable Definition Action: ', cmmd
-#
-# . . .+. . . .|. . . .+. . . .*. . . .+. . . .|. . . .+. . . .*. . . \
+# 
 # --------------------------------------------- handler characteristics	--
-# 
-# * immediate -- like a comment, inside a definition or not, it
-#   executes on the closing right paren
-# 
-# * defining -- it reserves memory for its instructions a/o data.
-# 
-# * bystate -- think of the global block as a compiled thread, laying down
-#   code which is executed as if it were a comment. implies a STATE of the
-#   interpreter.
 #
-#
-
-handler = {
-
-    'bystate'   : bystate,
-    'defining'  : defining,
-    'immediate' : immediate
-}
-
 #
 # . . .+. . . .|. . . .+. . . .*. . . .+. . . .|. . . .+. . . .*. . . \
 # -------------------------------------------- cummings language tokens	--
 #
 token = {
-    #                      #args     handlerName     characteristics
-    #                      --------  ------------    --------------------------
-    'args'             : [ [0,'*'],  'bystate'],   # variable numberl
-    'class'            : [ [2,3],    'defining'],  # name [, class list], members
-    'comment'          : [ [0,'*'],  'immediate'], # gobble input
-    'constant'         : [ [2],      'defining'],  # name, immutable
-    'equal'            : [ [2],      'bystate'],   # a == b
-    'for'              : [ [3],      'bystate'],   # arg, list, body, .. return
-    'function'         : [ [2,3],    'defining'],  # name [, args], return
-    'greater or equal' : [ [2],      'bystate'],   # a >= b: 
-    'greater than'     : [ [2],      'bystate'],   # a > b
-    'if'               : [ [2,3],    'bystate'],   # boolean ,iftrue[, else]
-    'interpreter'      : [ [0],      'immediate'], # boolean ,iftrue[, else]
-    'less or equal'    : [ [2],      'bystate'],   # a <= b: 
-    'less than'        : [ [2],      'bystate'],   # a < b
-    'list'             : [ [0,'*'],  'bystate'],   # itema, itemb, ...
-    'not equal'        : [ [2],      'bystate'],   # a != b, string or number
-    'print'            : [ [0,2],    'bystate'],   # assumes stdout, string, newline
-    'printf'           : [ [0,'*'],  'bystate'],   # format, or filehandle, format, arg, ...
-    'return'           : [ [0,'*'],  'bystate'],   # stmt, stmt, ...
-    'variable'         : [ [2],      'defining'],  # name, value
-    'while'            : [ [2],      'bystate'],   # boolean, codeblock, e.g. return
+    #                      argspec     handler        characteristics
+    #                      --------  ------------  --------------------------
+    'args'             : [ [0,'*'],  ee_args],     # variable number
+    'boolean'          : [ [2],      ee_boolean],  # name [, class list], members
+    'class'            : [ [2,3],    ee_class],    # name [, class list], members
+    'comment'          : [ [0,'*'],  ee_comment],  # gobble input
+    'constant'         : [ [2],      ee_constant], # name, immutable
+    'for'              : [ [3],      ee_for],      # arg, list, body, .. return
+    'function'         : [ [2,3],    ee_function], # name [, args], return
+    'if'               : [ [2,3],    ee_if],       # boolean ,iftrue[, else]
+    'list'             : [ [0,'*'],  ee_list],     # itema, itemb, ...
+    'print'            : [ [0,2],    ee_print],    # assumes stdout, string, newline
+    'return'           : [ [0,'*'],  ee_return],   # stmt, stmt, ...
+    'variable'         : [ [2],      ee_variable], # name, value
+    'while'            : [ [2],      ee_while],    # boolean, codeblock, e.g. return
 }
+#    compare 'token' to ../tst/starting.eec
 # --------------------------------------------------- move to functions	--
 #
 #   'assert'           : [ [2,4,'*'],'bystate'],   # boolean, false message, ...
 #   'concatenate'      : [ [1,'*'],  'bystate'],   # strings, .. a, b, c,
 #   'expr'             : [ [1],      'bystate'],   # arithmatic expression
+#   'equal'            : [ [2],      'bystate'],   # a == b
+#   'greater or equal' : [ [2],      'bystate'],   # a >= b: 
+#   'greater than'     : [ [2],      'bystate'],   # a > b
+#   'interpreter'      : [ [0],      ee_interpreter], # boolean ,iftrue[, else]
+#   'less or equal'    : [ [2],      'bystate'],   # a <= b: 
+#   'less than'        : [ [2],      'bystate'],   # a < b
+#   'not equal'        : [ [2],      'bystate'],   # a != b, string or number
+#   'printf'           : [ [0,'*'],  'bystate'],   # format, or filehandle, format, arg, ...
 #
-
-interpreting = 1
-compiling    = 0
-cummingstate = interpreting
 
 class old_builtin(object):
     """a builtin shares a state-aware method for its
@@ -185,7 +106,6 @@ class old_builtin(object):
 
     def insert(self, token, args, handler):
         self.builtin[token] = [args, handler]
-
 
 class eetoken(object):
     """Forth has 'words', and it seems appropriate to call
@@ -233,22 +153,26 @@ class constant(storage):
     def set(self, value):
         self.value = self.value
 
-vocabulary = {}
+def builtinVocab():
+    """returns the builtin vocabulary to the runtime environment"""
 
-for name, value in token.iteritems():
+    vocabulary = {}
 
-    args  = value[0]
-    hnam  = value[1]
-    hdlr  = handler[hnam]
-    print   name + ' ' + str(args) + ' ' + hnam + ' ' +  str(hdlr)
+    for name, value in token.iteritems():
 
-    vnod  = builtin(name, 'builtin')
+        args  = value[0]
+        hdlr  = value[1]
+        print   name + ' ' + str(args) + ' ' +  str(hdlr)
 
-    vnod.property( args, hdlr)
-    vocabulary[name] = vnod
+        vnod  = builtin(name)
 
-for name in vocabulary:
+        vnod.property( args, hdlr)
+        vocabulary[name] = vnod
 
-    print 'type', str(vocabulary[name].getType()), 'name', name
+    for name in vocabulary:
 
-        
+        print 'type', str(vocabulary[name].getType()), 'name', name
+
+    return vocabulary
+
+

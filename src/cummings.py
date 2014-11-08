@@ -14,37 +14,12 @@ import builtin
 
 def toStderr( msg):   sys.stderr.write(msg + '\n')
 
-def builtinBehavior( token, frame, thisFrame, execution):
-    """handles behavior of the very few eec syntax elements
-    '(' -- opens a new frame,
-    ',' -- moves to the next argument, and
-    ')' -- executes the frame and pops the execution stack
-    """
-    toStderr( 'frame     ' + str(frame))
-    toStderr( 'thisFrame ' + str(thisFrame))
-    toStderr( 'token     ' + token)
-
-    if token == '(':
-        toStderr( 'handle open')
-        return frame
-    elif token == ',':
-        toStderr( 'handle argument')
-        return thisFrame
-    elif token == ')':
-        toStderr( 'handle close this is busy')
-        frame.evaluate()
-        rtn = execution.remove()
-        toStderr(str(rtn.getName()) + ' = builtin POP ')
-        return rtn
-    else:
-        raise KeyError( token + ' is NOT a Builtin: "(.)"' )
-
 def toStderr( msg):   sys.stderr.write(msg + '\n')
         
 def currentScope( token):
     """ 
     """
-    rtn = token in builtin.tokens:
+    rtn = token in vocabulary
 
     toStderr(str(rtn) + ' = currentScope ' +  token )
 
@@ -131,7 +106,7 @@ def eectokenizer(line):
 
     return stream
 
-def inputStream():
+def commandLineFileTokens():
     """reads STDIN and named files from argv[1:],
     treating a filename - as an alias for STDIN,
     returning the cummings tokens in a flattend list
@@ -142,47 +117,70 @@ def inputStream():
         tokens.append( eectokenizer(line))
 
     return sum(tokens, [])
+
+def nextToken():
+    """return the next token from the command line files.
+    this will get more clever when we can:
+      a. include files, and 
+      b. executed defined functions, ..."""
+    return commandLineFileTokens()
+
+def ee_interpreter():
+    """the main loop. the default execution token.
+    exits when all tokens are read and executed"""
+    
+    for token in nextToken():
+
+        toStderr( ' '*42 + 'TOKEN: <' + token + '>')
+    
+        if token == '(':
+            toStderr( 'handle open')
+            thisFrame = frame
+        elif token == ',':
+            toStderr( 'handle argument')
+            thisFrame = thisFrame
+        elif token == ')':
+            toStderr( 'handle close this is busy')
+            frame.evaluate()
+            rtn = execution.remove()
+            toStderr(str(rtn.getName()) + ' = builtin POP ')
+            thisFrame =  rtn
+
+            # decides to push on the stack a/o append to args.
+            # thisFrame = behavior(token, frame, thisFrame, execution)
+
+        elif not currentScope( token):
+
+            frame = execution.peek()
+
+            if expectingNewToken( frame):
+
+                # current frame holds the operative defining word
+
+                thisFrame = machine.Frame( token, frame)
+                print str(thisFrame)
+
+            else:
+                raise KeyError( token + ' not found')
+
+        else:
+
+            # the token is defined, so...
+            frame = machine.Frame( token, frame)
+            execution.insert( frame)
+
 #
 # ------------------------------------------------ Main	--
 #
+import builtin
 
-thisFrame = machine.Frame('interpreter', None)
+def startup(name, args, hdlr, vocabulary):
 
-execution = datastructure.Stack()
-frame     = thisFrame      # THISFRAME is the working definition
+    interp           = builtin.builtin(name)
+    interp.property( args, hdlr)
+    runtime          = Frame(name, None)    
+    vocabulary[name] = interp
+    return (runtime, vocabulary)
 
-execution.insert( frame)   # FRAME is the outer definition
-                           #  frame( ..., thisframe [().]*, ...
+(runtime, vocabulary) = startup( 'interpreter', [0], ee_interpreter, builtin.Vocab())
 
-for token in inputStream():
-
-    toStderr( ' '*42 + 'TOKEN: <' + token + '>')
-    
-    if token in '(,)':
-
-        # decides to push on the stack a/o append to args.
-        thisFrame = builtinBehavior(token, frame, thisFrame, execution)
-
-    elif not currentScope( token):
-
-        frame = execution.peek()
-
-        if expectingNewToken( frame):
-
-            # current frame holds the operative defining word
-
-            thisFrame = machine.Frame( token, frame)
-            print str(thisFrame)
-
-        else:
-            raise KeyError( token + ' not found')
-
-    else:
-
-        # the token is defined, so...
-        frame = machine.Frame( token, frame)
-        execution.insert( frame)
-
-#
-# ------------------------------------- end of Main	--
-#
