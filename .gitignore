@@ -4,6 +4,7 @@
 .*.err
 *.err
 *.pyc
+*.txt
 .?
 *.pdf
 *.html
@@ -12,3 +13,4 @@ doc/*.html
 src/.*
 src/ar
 src/dictionary.*
+src/cummings

@@ -3,11 +3,9 @@
 
 > Author: Marty McGowan, mcgowan@alum.mit.edu
 
-This is the python-based cummings language parser.
-
 ## cummings
 
-The language is as syntax-free as  one can make it.  This 0.06 version
+The language is as syntax-free as  one can make it.  this 0.06 version
 parses cummings input into its four syntactic components:
 
         TOKEN
@@ -24,76 +22,73 @@ In the language, it is only possible to escape the syntactic elements:
         left paren   -- the OPEN 
         right paren  -- the CLOSE
 
-the escape  character may  be used to  capture other characters  int a
+the escape  character may  be used to  capture other characters  in a
 literal definition.  (see below)
 
-a major feature of the language permits spaces in a token.
+A major feature of the language permits spaces in a token.
 
 ## tokens
 
-A  Token is  the longest  sequence of  (possibly  escaped) characters,
+A  token is  the longest  sequence of  (possibly  escaped) characters,
 trimmed of its leading and trailing spaces, otherwise delimited by the
-non-space syntactic elements.  For parsing purposes a tab character is
+non-space syntactic elements.  for parsing purposes a tab character is
 treated as a space.  so, for example,
 
-        define ( TAB , \{literal tab} )   
-        define( ascii tab, TAB)
+        define ( TAB , \{literal tab} )       define( ascii tab, TAB)
 
-taken together, where "{literal tab}" is the single tab character, are
-two definitions of the tab character
+where `{literal tab}` is the  single tab character are two definitions
+of the tab character.
 
 ## syntax
 
-The language syntax will look quite a bit like lisp or scheme, in that
-the function or operator appears first, followed by it's arguments:
+The language syntax looks quite a bit like lisp or scheme, in that the
+function  or  operator  appears  first, followed  by  it's  arguments.
+arguments  may   be  familiar  single-word  tokens   or  the  cummings
+innovation of  the multi-word token.  this example  shows a multi-word
+function name.
 
         any named function ( arg, two-word arg, ... )
 
-where  arguments may be  familiar single-word  tokens or  tne cummings
-innovation of  the multi-word token.  This example  shows a multi-word
-function name.
-
 ## philosophy
 
-the language  design builds  the idea that  all language  features are
-invoked, not  by syntax,  but by a  word of meaningful  sematics.  i'm
-troubled by the modern profusion  of what i'm calling syntactic noise.
-e.g. python's substring operations  string[x:y] or the object notation
-of object.method( arg, ...).  The former is better represented:
+The  language is  built on  the idea  that all  language  features are
+invoked not by  syntax, but by meaningful semantics.   i'm troubled by
+the modern  profusion of what  i call syntactic noise.   e.g. python's
+substring   operations  `string[x:y]`  or   the  object   notation  of
+`object.method( arg, ...)`.  The former is better represented:
 
-         substring( string, x, x)    comment ( and the latter)
-         method( object, arg, ...)
+         substring( string,  x, y)     comment  ( and the  latter)
+         method(    object, arg, ...)
 
-there's  little excuse  with today's  smart editors  to  require noisy
-syntax, when the same helper could supply a simple mnemonic.  the user
-will quickly realize the need for quotation marks is greatly reduced:
+Today's smart editors reduce the  need for noisy syntax, when the same
+helper could supply a simple  mnemonic.  
 
-         define( message, this message is available for timely display. )
+The user will quickly realize  the need for quotation marks is greatly
+reduced:
+    
+         define( message,    this message is available for timely display. )
 
-escaping leading or trailing spaces will retain them.
+Leading  and trailing  spaces  are trimmed  unless escaped.   rigorous
+application of simple rules leaves little room for syntactic mistakes.
 
-## cummings (in python) pseudo code
+## cummings pseudo code
 
-for each token in the input stream:
+For each token in the input stream:
 
-* if the token is a syntax element "(,)"
+* if the token is a syntax element "(,)", then perform the expected behavior:
 
-       * perform the expected behavior:
-
-            * '(' open a new frame,
-            * ',' expect the next argument
-            * ')' execute the command in the current frame,
-                  leaving the result in the parent's arg slot
-
+      * '(' open a new frame,
+      * ',' expect the next argument
+      * ')' execute the command in the current frame,
+            leaving the result in the parent's arg slot
 
 * else if the token is currently undefined:
 
-
-      * if the state does NOT expects a new token
-            raise a parser error, UNDEFINED token
+      * if the state does NOT expect a new token, then raise a parser error, UNDEFINED token
       * else ( it was so,)
-            save the token a new definition 
-                 list( variable, constant, function, ...)
+            save the token a new definition , e.g.
+
+                list( variable, constant, function, ...)
 
 * else ( the token was defined, so):
 
@@ -102,4 +97,4 @@ for each token in the input stream:
 
 ## wildest dreams
 
-that **cummings**  becomes the introductory programming language of choice.
+That **cummings**  becomes the introductory programming language of choice.

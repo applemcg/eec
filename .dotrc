@@ -13,6 +13,6 @@ dot_init ()
 {
     dot_help
     [[ -d src ]] && cd src
-    comment EDIT on $(grep -n 'EDIT MARK' *.py)
+    echo EDIT on $(grep -n 'EDIT MARK' *.py) | tr '#' '\n' 1>&2
 }
 dot_init 1>&2

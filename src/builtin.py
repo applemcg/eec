@@ -12,43 +12,43 @@ import machine
 # ------------------------- builtin cummings definitions, code handlers	--
 #
 
-def args( cmmd, nargs):
+def ee_args( cmmd, nargs):
     """ handler stub"""
 
-def boolean( cmmd, nargs):
+def ee_boolean( cmmd, nargs):
     """ handler stub"""
 
-def class( cmmd, nargs):
+def ee_class( cmmd, nargs):
     """ handler stub"""
 
-def comment( cmmd, nargs):
+def ee_comment( cmmd, nargs):
     """ handler stub"""
 
-def constant( cmmd, nargs):
+def ee_constant( cmmd, nargs):
     """ handler stub"""
 
-def for( cmmd, nargs):
+def ee_for( cmmd, nargs):
     """ handler stub"""
 
-def function( cmmd, nargs):
+def ee_function( cmmd, nargs):
     """ handler stub"""
 
-def if( cmmd, nargs):
+def ee_if( cmmd, nargs):
     """ handler stub"""
 
-def list( cmmd, nargs):
+def ee_list( cmmd, nargs):
     """ handler stub"""
 
-def print( cmmd, nargs):
+def ee_print( cmmd, nargs):
     """ handler stub"""
 
-def return( cmmd, nargs):
+def ee_return( cmmd, nargs):
     """ handler stub"""
 
-def variable( cmmd, nargs):
+def ee_variable( cmmd, nargs):
     """ handler stub"""
 
-def while( cmmd, nargs):
+def ee_while( cmmd, nargs):
     """ handler stub"""
 #
 # -------------------------------------------- working handler template	--
@@ -85,7 +85,6 @@ token = {
 #   'equal'            : [ [2],      'bystate'],   # a == b
 #   'greater or equal' : [ [2],      'bystate'],   # a >= b: 
 #   'greater than'     : [ [2],      'bystate'],   # a > b
-#   'interpreter'      : [ [0],      ee_interpreter], # boolean ,iftrue[, else]
 #   'less or equal'    : [ [2],      'bystate'],   # a <= b: 
 #   'less than'        : [ [2],      'bystate'],   # a < b
 #   'not equal'        : [ [2],      'bystate'],   # a != b, string or number
@@ -153,7 +152,7 @@ class constant(storage):
     def set(self, value):
         self.value = self.value
 
-def builtinVocab():
+def Vocab():
     """returns the builtin vocabulary to the runtime environment"""
 
     vocabulary = {}
@@ -164,7 +163,7 @@ def builtinVocab():
         hdlr  = value[1]
         print   name + ' ' + str(args) + ' ' +  str(hdlr)
 
-        vnod  = builtin(name)
+        vnod  = builtin(name,value)
 
         vnod.property( args, hdlr)
         vocabulary[name] = vnod

@@ -66,11 +66,13 @@ class Frame(object):
         
         isParent = (not parent == None)
         toStderr('Frame.init: ' + name + ' parent: ' + str(isParent))
+        # EDIT MARK.  time to referee the NODE and the FRAME.
+        #   see the picture.
         if isParent:
 
             self.slot    = parent.getParentSlot()
 
-        if not cummings.currentgScope(name):
+        if not cummings.currentScope(name):
 
             try:
                 name = parent.getName()
@@ -84,6 +86,7 @@ class Frame(object):
                 print str(parent)
 
         toStderr( name)
+
         nargs = parser.cummings[name][0]
         
         self.mina    = minArgs(nargs)
