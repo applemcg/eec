@@ -11,6 +11,7 @@ import fileinput
 import datastructure
 import machine
 import builtin
+import stackframe
 
 def toStderr( msg):   sys.stderr.write(msg + '\n')
         
@@ -44,7 +45,7 @@ def defineNew( token, frame):
     it returns the frame to the environment, waiting 
     for either a PAREN or COMMA
     """
-    rtn = machine.Frame( token, frame)
+    rtn = stackframe.Frame( token, frame)
     print str(rtn)
 
     return rtn
@@ -108,7 +109,7 @@ def startup(name, args, hdlr):
     #
     interp           = builtin.builtin(name, hdlr)
     interp.property( args, hdlr)
-    runtime          = machine.Frame(name, hdlr)    
+    runtime          = stackframe.Frame(name, hdlr)    
     vocabulary[name] = interp
     return runtime
 
