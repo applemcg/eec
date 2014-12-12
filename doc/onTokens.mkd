@@ -1,6 +1,7 @@
 <head>
 <style>
 table, th, td {
+    center;
     border: 1px solid black;
 }
 </style>
@@ -9,14 +10,12 @@ table, th, td {
 ## on the cummings token and scope
 
 Two problems present themselves in  the cummings token.  First, in the
-language:  _what part  of speech  are  the defining  words?_ i.e.  the
+language: _what part of speech  are the defining words?_, namely those
 functions  which   define  a  new  cummings  function.    And,  as  an
 implementation  feature:  _what are  the  rules  to  determine when  a
 undefined token may appear?_
 
-A third paragraph takes up the subject of language issue _scope_.
-
-
+A third paragraph takes up the subject of language _scope_.
 
 ### defining words, part of speech
 
@@ -56,19 +55,32 @@ language.
 
 ### undefined tokens allowed
 
-Where may an undefined token appear:
+An undefined token may appear in one of two conditions: those prepared
+to accept the tokan as a  defined name, and those whose status is best
+described  as "indifferent".   The former,  the defining  tokens here,
+whose first argument is a new  defined name, need to record the tokens
+origin:  it's   name,  type,  _vocabulary_,  and   source  file.   The
+indifferent words need not record these tokens.  Any tokent going into
+the  vocabulary   of  known  tokens  will  also   save  it's  defining
+conditions.
 
-* **comment** -- any token
-* defining tokens -- first argument
-      * **define**
-      * **set**, may be a string, number, or `list`
-      * **bind**, same as `set`
-      * **collect**
-      * **mold** will look a lot like `define`
-* **list** -- any token 
-* function defining tokens
-      * **take** -- list of input arguments
-      * **use** -- list of local variables
+#### defining tokens -- first argument
+
+For the time being, lets call these tokens _collectors_
+
+* **define**  -- a function
+* **set**     -- a variable may be a string, number, or `list`
+* **bind**    -- a constant, otherwise same as `set`
+* **collect** -- a class and its members
+* **mold**    -- a template will look a lot like `define`
+
+#### other tokens, not requring saving location
+
+* **comment**   -- any token
+* **docstring** -- an alias for `comment`, for now
+* **list**      -- any tokens, which may be defined, but needn't
+* **take**      -- list of input arguments
+* **use**       -- list of local variables
 
 A function now looks like:
 
@@ -118,12 +130,44 @@ they should be.  The developer is freed from the task of knowing which
 features  are  defined  in  what  files, given  a  proper  information
 structure  derived from  the  code.  The  challenge  of avoiding  name
 conflict  is  easier  to   solve  than  "where's  that  class/function
-defined".
+defined". 
 
+An  idea: since  we've just  specified  the location  of a  previously
+undefined token,  we have a  means to capture the  addditional defined
+tokens.   For  example,  while  a  **comment**'s token  or  tokens  is
+necessarily  undefined, there is  no interest  in saving  the token(s)
+definition location.  Nor the tokens  in a **list**, nor those which a
+function  **take**s or  **use**s.  See  the distinction  above.  Which
+leads to the idea of _vocabulary_
 
+### vocabulary
 
-One of the 
-       
+The  `vocabulary` is  the list  (or  dictionary, in  python terms)  of
+`words`  available  to  the  program   at  any  moment  in  time.   It
+necessarily  changes   as  `collectors`  add  tokens   to  the  active
+vocablulary.  Like  most languages,  cummings has a  **global** scope.
+Unless altered by **collect**ing  classes, any _collector_ is added to
+the  global  scope.   The  vocabulary   then,  is  best  viewed  as  a
+hierarchical namespace, with any  class hanging from the global space,
+and any class which inherits sub-classes brings along its members, and
+recursively their sub-classes.
+
+A  `word`,   instantiated  by  a  `collector`,  has   access  to  that
+collector's `vocabulary`.
+
+### glossary
+
+These words are invariably used in a particular manner, described here:
+
+* **collector** --  one of the  handful of `words` which  define new
+  `words`.
+* **token** -- any legal cummings  single character string, made up of
+  the handfull  of syntax elements,  the builtin `words`,  and `words`
+  defined by the `collectors`
+* **vocabulary**  --  current   hierarchical  collection  of  all  the
+  available `words`.
+* **word**  -- a `token` in the `vocabulary`
+
 ### references
 
   [m4]: http://en.wikipedia.org/wiki/M4_(computer_language)

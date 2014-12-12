@@ -1,9 +1,10 @@
-function( factorial,
+
+define ( factorial,
     docstring(
         returns the factorial of a
 	non-negative integer argument
     )
-    args( n),
+    take( n),
     return( 
  	 if( 1st less than 2nd (n, 2), 1,
 	     multiply( n,
@@ -12,15 +13,12 @@ function( factorial,
           )
      )
 )
-function( append space,
-	  args( msg),
+define ( append space,
+	  take( msg),
 	  return( concatenate( msg, \ ))
 )
-function ( as, args( m), return( append space( m)))
+define  ( as, take( m), return( append space( m)))
 
-print  ( concatenate( 
-
-       as( factorial of), as( str( n)), factorial( n)
-))
+print  (  as( factorial of), as( str( n)), factorial( n))
 
 

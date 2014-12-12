@@ -35,7 +35,7 @@ def ee_include( cmmd, nargs):
 def ee_list( cmmd, nargs):
     """ handler stub"""
 
-def ee_modl( cmmd, nargs):
+def ee_mold( cmmd, nargs):
     """ handler stub"""
 
 def ee_print( cmmd, nargs):
@@ -52,11 +52,8 @@ def ee_take( cmmd, nargs):
 
 def ee_while( cmmd, nargs):
     """ handler stub"""
-#
-# -------------------------------------------- working handler template	--
-# 
-# --------------------------------------------- handler characteristics	--
-#
+    """ handler stub"""
+
 #
 # . . .+. . . .|. . . .+. . . .*. . . .+. . . .|. . . .+. . . .*. . . \
 # -------------------------------------------- cummings language tokens	--
@@ -64,7 +61,6 @@ def ee_while( cmmd, nargs):
 token = {
     #                      argspec     handler        characteristics
     #                      --------  ------------  --------------------------
-
     'bind'             : [ [2],      ee_bind],     # name, immutable
     'collect'          : [ [2,3],    ee_collect],  # name [, class list], members
     'comment'          : [ [0,'*'],  ee_comment],  # gobble input

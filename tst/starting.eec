@@ -15,7 +15,7 @@ comment ( these variables may be changed)
 
   set ( all variable names, version of memory)
 
-  set ( all function names, set)
+  set ( all define  names, set)
 
   set ( included file list, starting.eec)
 

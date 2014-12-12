@@ -22,12 +22,12 @@
     unset    ( Circumference of the circle )
 
     constant ( space, \  )
-    function ( pad, s, concatenate ( space, string(s), space))
+    define  ( pad, s, concatenate ( space, string(s), space))
 
-    function ( circumference, r,
+    define  ( circumference, r,
         multiply( TwoPI, r)
     }
-    function ( circ example, r,
+    define  ( circ example, r,
 
        print ( circumference of circle of radius, pad( r)
                circumference( r))

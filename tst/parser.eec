@@ -5,7 +5,7 @@ variable( lparen, \( )
 variable( rparen, \) )
 variable( comma,  \, )
 
-function ( parser,
+define  ( parser,
     return( 
 	variable( c, GETC),
 	while( 1, variable(rval, doparse( c))),
@@ -19,8 +19,8 @@ comment( there was bug\, two actually:
 
 comment(  PARSER in the bag\, now let's get DOPARSE! )
 
-function( doparse, 
-        args(c), 
+define ( doparse, 
+        take(c), 
 	return(variable(C, skipspace(c)),
 	if( equal(c,lParen), L_PAREN,
 	if( equal(c,rParen), R_PAREN,

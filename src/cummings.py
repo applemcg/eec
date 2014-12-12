@@ -63,13 +63,15 @@ def ee_interpreter():
     for token in inputstream.nextToken():
 
         toStderr( ' '*42 + 'TOKEN: <' + token + '>')
-    
+
         if token == '(':
             toStderr( 'handle open')
             thisFrame = frame
+
         elif token == ',':
             toStderr( 'handle argument')
             thisFrame = thisFrame
+
         elif token == ')':
             toStderr( 'handle close this is busy')
             frame.evaluate()
@@ -77,10 +79,14 @@ def ee_interpreter():
             toStderr(str(rtn.getName()) + ' = builtin POP ')
             thisFrame =  rtn
 
+        elif currentScope( token):        
+
+            # the token is defined, so...
+            frame = machine.Frame( token, frame)
+            execution.insert( frame)
+        else:
             # decides to push on the stack a/o append to args.
             # thisFrame = behavior(token, frame, thisFrame, execution)
-
-        elif not currentScope( token):
 
             frame = execution.peek()
 
@@ -93,12 +99,6 @@ def ee_interpreter():
 
             else:
                 raise KeyError( token + ' not found')
-
-        else:
-
-            # the token is defined, so...
-            frame = machine.Frame( token, frame)
-            execution.insert( frame)
 
 #
 # ------------------------------------------------ Main	--
