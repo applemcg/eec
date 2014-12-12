@@ -1,3 +1,7 @@
+# inputstream.py
+
+__license__ = """Copyright (C) 2014, Marty McGowan, All rights reserved."""
+__author__  = "Marty McGowan <mailto:mcgowan@alum.mit.edu>"
 
 def eectokenizer(line):
     """parses the cummings tokens from a 
@@ -6,15 +10,16 @@ def eectokenizer(line):
     """
     empty  = ' \t\n'
     escape = '\\'
-    state  = ''
+    state  = empty
     open   = '('
     close  = ')'
     separ  = ','
+    nada   = '' 
 
     stream = []
 
-    collect = ''
-    defer   = ''
+    collect = nada
+    defer   = nada
 
     for c in line:
 
@@ -22,24 +27,25 @@ def eectokenizer(line):
         # r = len(defer)
         # toStderr(' '*24 + c + ' ' + str(t)  + ' ' + str(r) )
 
-        if state == 'escape':
+        if state == escape:
             collect += c
-            state = ''
+            state = empty
             continue
             
         if c in empty and not len(collect):
+            # trim the leading space
             continue
                 
         if c == escape:
-            state = 'escape'
+            state = escape
             continue
 
         if c == open or c == close or c == separ:
 
             stream.append( collect)
             stream.append( c)
-            collect = ''
-            defer   = ''
+            collect = nada
+            defer   = nada
             continue
 
         if c in empty:
@@ -49,7 +55,7 @@ def eectokenizer(line):
         elif len(defer):
             collect += defer
             collect += c
-            defer    = ''
+            defer    = nada
 
         else:
             collect +=c

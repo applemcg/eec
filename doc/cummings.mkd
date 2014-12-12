@@ -5,45 +5,44 @@
 
 ## cummings
 
-The language is as syntax-free as  one can make it.  this 0.06 version
-parses cummings input into its four syntactic components:
+Cummings is as  syntax-free a language as one can  make it.  This 0.07
+version parses  cummings input into its four  syntactic components and
+handles a single escape mechanism, the backslash. The syntax items:
 
         TOKEN
         OPEN
         SEPARATOR
         CLOSE
 
-as well  as recognizing its  single escape mechanism,  the backslash.
-
-In the language, it is only possible to escape the syntactic elements:
+In cummings, it is only possible to escape the syntactic elements:
 
         space        -- see following note
         comma        -- the separator
         left paren   -- the OPEN 
         right paren  -- the CLOSE
+        backslash    -- the backslash character itself
 
-the escape  character may  be used to  capture other characters  in a
+The escape  character may  be used to  capture other characters  in a
 literal definition.  (see below)
 
-A major feature of the language permits spaces in a token.
+A major feature of the language permits blank space in a token.
 
 ## tokens
 
 A  token is  the longest  sequence of  (possibly  escaped) characters,
-trimmed of its leading and trailing spaces, otherwise delimited by the
-non-space syntactic elements.  for parsing purposes a tab character is
-treated as a space.  so, for example,
+trimmed of its leading and  trailing space, otherwise delimited by the
+non-space syntactic elements.  Tab  character and newlines are treated
+as space.  so, for example, two definitions of the tab character:
 
         define ( TAB , \{literal tab} )       define( ascii tab, TAB)
 
-where `{literal tab}` is the  single tab character are two definitions
-of the tab character.
+where `{literal tab}` is a single tab character.
 
 ## syntax
 
 The language syntax looks quite a bit like lisp or scheme, in that the
 function  or  operator  appears  first, followed  by  it's  arguments.
-arguments  may   be  familiar  single-word  tokens   or  the  cummings
+Arguments  may   be  familiar  single-word  tokens   or  the  cummings
 innovation of  the multi-word token.  this example  shows a multi-word
 function name.
 
@@ -52,8 +51,8 @@ function name.
 ## philosophy
 
 The  language is  built on  the idea  that all  language  features are
-invoked not by  syntax, but by meaningful semantics.   i'm troubled by
-the modern  profusion of what  i call syntactic noise.   e.g. python's
+invoked not by  syntax, but by meaningful semantics.   I'm troubled by
+the modern  profusion of what  I call syntactic noise.   e.g. python's
 substring   operations  `string[x:y]`  or   the  object   notation  of
 `object.method( arg, ...)`.  The former is better represented:
 
@@ -68,7 +67,7 @@ reduced:
     
          define( message,    this message is available for timely display. )
 
-Leading  and trailing  spaces  are trimmed  unless escaped.   rigorous
+Leading  and trailing  spaces  are trimmed  unless escaped.   Rigorous
 application of simple rules leaves little room for syntactic mistakes.
 
 ## cummings pseudo code
@@ -78,17 +77,17 @@ For each token in the input stream:
 * if the token is a syntax element "(,)", then perform the expected behavior:
 
       * '(' open a new frame,
-      * ',' expect the next argument
+      * ',' anticipate the next argument
       * ')' execute the command in the current frame,
             leaving the result in the parent's arg slot
 
 * else if the token is currently undefined:
 
       * if the state does NOT expect a new token, then raise a parser error, UNDEFINED token
-      * else ( it was so,)
+      * else ( it was undefined and for example appears as teh 1st argument to defining functions) so,
             save the token a new definition , e.g.
 
-                list( variable, constant, function, ...)
+                set ( variable, value )
 
 * else ( the token was defined, so):
 
@@ -98,3 +97,4 @@ For each token in the input stream:
 ## wildest dreams
 
 That **cummings**  becomes the introductory programming language of choice.
+

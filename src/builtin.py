@@ -1,6 +1,5 @@
 # 
 
-__version__ = "0.0 builtin.py"
 __license__ = """Copyright (C) 2014, Marty McGowan, All rights reserved."""
 __author__  = "Marty McGowan <mailto:mcgowan@alum.mit.edu>"
 
@@ -12,31 +11,31 @@ import machine
 # ------------------------- builtin cummings definitions, code handlers	--
 #
 
-def ee_args( cmmd, nargs):
+def ee_bind( cmmd, nargs):
     """ handler stub"""
 
-def ee_boolean( cmmd, nargs):
-    """ handler stub"""
-
-def ee_class( cmmd, nargs):
+def ee_collect( cmmd, nargs):
     """ handler stub"""
 
 def ee_comment( cmmd, nargs):
     """ handler stub"""
 
-def ee_constant( cmmd, nargs):
-    """ handler stub"""
-
 def ee_for( cmmd, nargs):
     """ handler stub"""
 
-def ee_function( cmmd, nargs):
+def ee_define( cmmd, nargs):
     """ handler stub"""
 
 def ee_if( cmmd, nargs):
     """ handler stub"""
 
+def ee_include( cmmd, nargs):
+    """ handler stub"""
+
 def ee_list( cmmd, nargs):
+    """ handler stub"""
+
+def ee_modl( cmmd, nargs):
     """ handler stub"""
 
 def ee_print( cmmd, nargs):
@@ -45,7 +44,10 @@ def ee_print( cmmd, nargs):
 def ee_return( cmmd, nargs):
     """ handler stub"""
 
-def ee_variable( cmmd, nargs):
+def ee_set( cmmd, nargs):
+    """ handler stub"""
+
+def ee_take( cmmd, nargs):
     """ handler stub"""
 
 def ee_while( cmmd, nargs):
@@ -62,24 +64,27 @@ def ee_while( cmmd, nargs):
 token = {
     #                      argspec     handler        characteristics
     #                      --------  ------------  --------------------------
-    'args'             : [ [0,'*'],  ee_args],     # variable number
-    'boolean'          : [ [2],      ee_boolean],  # name [, class list], members
-    'class'            : [ [2,3],    ee_class],    # name [, class list], members
+
+    'bind'             : [ [2],      ee_bind],     # name, immutable
+    'collect'          : [ [2,3],    ee_collect],  # name [, class list], members
     'comment'          : [ [0,'*'],  ee_comment],  # gobble input
-    'constant'         : [ [2],      ee_constant], # name, immutable
+    'define'           : [ [2,5],    ee_define],   # name [docstring, take, use], return
     'for'              : [ [3],      ee_for],      # arg, list, body, .. return
-    'function'         : [ [2,3],    ee_function], # name [, args], return
     'if'               : [ [2,3],    ee_if],       # boolean ,iftrue[, else]
+    'include'          : [ [1],      ee_include],  # filename
     'list'             : [ [0,'*'],  ee_list],     # itema, itemb, ...
+    'mold'             : [ [2,5],    ee_mold],     # name [docstring, take, use], template
     'print'            : [ [0,2],    ee_print],    # assumes stdout, string, newline
     'return'           : [ [0,'*'],  ee_return],   # stmt, stmt, ...
-    'variable'         : [ [2],      ee_variable], # name, value
+    'set'              : [ [2],      ee_set],      # name, value
+    'take'             : [ [0,'*'],  ee_take],     # variable number
     'while'            : [ [2],      ee_while],    # boolean, codeblock, e.g. return
 }
 #    compare 'token' to ../tst/starting.eec
 # --------------------------------------------------- move to functions	--
 #
 #   'assert'           : [ [2,4,'*'],'bystate'],   # boolean, false message, ...
+#   'boolean'          : [ [2],      ee_boolean],  # name [, class list], members
 #   'concatenate'      : [ [1,'*'],  'bystate'],   # strings, .. a, b, c,
 #   'expr'             : [ [1],      'bystate'],   # arithmatic expression
 #   'equal'            : [ [2],      'bystate'],   # a == b

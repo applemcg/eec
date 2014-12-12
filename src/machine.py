@@ -1,4 +1,8 @@
-#
+# machine.py
+
+__license__ = """Copyright (C) 2014, Marty McGowan, All rights reserved."""
+__author__  = "Marty McGowan <mailto:mcgowan@alum.mit.edu>"
+
 # ------------------------------------------------- the argspec	--
 # #args 
 #

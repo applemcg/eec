@@ -1,0 +1,132 @@
+<head>
+<style>
+table, th, td {
+    border: 1px solid black;
+}
+</style>
+</head>
+
+## on the cummings token and scope
+
+Two problems present themselves in  the cummings token.  First, in the
+language:  _what part  of speech  are  the defining  words?_ i.e.  the
+functions  which   define  a  new  cummings  function.    And,  as  an
+implementation  feature:  _what are  the  rules  to  determine when  a
+undefined token may appear?_
+
+A third paragraph takes up the subject of language issue _scope_.
+
+
+
+### defining words, part of speech
+
+The defining word defines  a _function, variable, constant, template,_
+or  a  _class_.   After  some  deliberation, I  feel  those  **nouns**
+identify what  it is, e.g. a  _variable_ contains a name  and a value.
+The value  may be a data  type such as  a string, number, or  list, or
+another defined token.  But the  defining function must be a **verb**.
+So, rather than  _function_ as the defining token,  the word is simply
+_define_.  Any of these defining functions might use _define_ as their
+defining name,  but, for two reasons  at least, I  choose _define_ for
+the function.  Here's the brief list:
+
+<table> <tr> <th>    function
+  </td><td>               defining verb 
+  </th> </tr> <tr> <td> function 
+  </td><td>                  define 
+  </td> </tr> <tr> <td> variable
+  </td><td>                  set 
+  </td> </tr> <tr> <td> constant 
+  </td><td>                  bind 
+  </td> </tr> <tr> <td> class 
+  </td><td>                  collect 
+  </td> </tr> <tr> <td> template 
+  </td><td>                  mold 
+  </td> </tr>
+</table>
+
+The difference between a constant and a variable is suggested by their
+defining word.  A  variable may be **set** repeatedly  at any time.  A
+constant may  **bind** only once.   I considered using  **fix** before
+settling  on **bind**.   Problematic  at  the moment  is  the idea  of
+**mold** for a  template.  The idea here is  to **mold** a _template_.
+A template is a macro definition in other languages.  The design is by
+no  means complete,  but the  model  in my  mind is  the [m4][]  macro
+language.
+
+### undefined tokens allowed
+
+Where may an undefined token appear:
+
+* **comment** -- any token
+* defining tokens -- first argument
+      * **define**
+      * **set**, may be a string, number, or `list`
+      * **bind**, same as `set`
+      * **collect**
+      * **mold** will look a lot like `define`
+* **list** -- any token 
+* function defining tokens
+      * **take** -- list of input arguments
+      * **use** -- list of local variables
+
+A function now looks like:
+
+      define ( function name, 
+          docstring ( returns:  c - (a + b)) 
+          take( a, b, c),
+          use( m),
+          set (m, add(a, b))
+          return (subtract( c, m))
+      )
+      ... 
+          ... function name( foo, bar, zot)
+
+### language scope
+
+I put the subject of **class** definitions into the realm of _software
+engineering_.   Why?  It  deals  with the  question:  what tokens  are
+currently  visible  to the  code  reader?   Commonly,  this is  called
+_scope_.  In  python, the way to refer  to a function which  is not in
+the same file  as the user is  to use the file name,  less it's **py**
+suffix.  e.g.
+
+       import source
+       import widgets
+       ...
+       source.function( arg, .... )  
+       #  and
+       this = widgets.Class( ... )   
+
+given  that `function`  and  `Class` are  defined  in `source.py`  and
+`widgets.py` respectively.
+
+Cummings  is making this  easier.  An  **include** function  reads the
+contents  of  its  file  argument  into the  current  environment,  so
+**class** definitions are available to  the code as if they were local
+to the current file.  The example in cummings looks like:
+
+       include( source.eec)
+       include( widget.eec)
+       ... 
+       function ( arg, ...)
+       comment ( and, since "gizmo" may be in either 'source" or "widget" ) 
+       set ( this, gizmo( Class ( ... )))
+
+Simple enough.   Functions and class  names are global. Which  is what
+they should be.  The developer is freed from the task of knowing which
+features  are  defined  in  what  files, given  a  proper  information
+structure  derived from  the  code.  The  challenge  of avoiding  name
+conflict  is  easier  to   solve  than  "where's  that  class/function
+defined".
+
+
+
+One of the 
+       
+### references
+
+  [m4]: http://en.wikipedia.org/wiki/M4_(computer_language)
+        "m4 (computer langauge) -- a general purpose macro processor"
+
+* [m4][]

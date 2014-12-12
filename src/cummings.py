@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 
+__version__ = "cummings 0.07"
+__license__ = "Copyright (C) 2014, Marty McGowan, All rights reserved."
+__author__  = "Marty McGowan <mailto:mcgowan@alum.mit.edu>"
+
 # ------------------------------------ python libraries	--
 
 import os
