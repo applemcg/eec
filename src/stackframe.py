@@ -4,6 +4,7 @@
 
 import parser
 import sys
+# import cummings
 
 def toStderr( msg):   sys.stderr.write(msg + '\n')
 
@@ -16,8 +17,6 @@ class Frame(object):
 
     def __init__(self, name, parent):
         """Create the frame for the next token"""
-
-        import cummings
 
         self.name    = name
         self.parent  = parent

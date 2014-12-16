@@ -3,6 +3,16 @@
 __license__ = """Copyright (C) 2014, Marty McGowan, All rights reserved."""
 __author__  = "Marty McGowan <mailto:mcgowan@alum.mit.edu>"
 
+# ------------------------------------ python libraries	--
+
+import fileinput
+import os.path
+import sys
+
+def nestlevel( c, n):
+    return c
+
+    
 def eectokenizer(line):
     """parses the cummings tokens from a 
     line of text, returning the tokens in a list
@@ -15,6 +25,8 @@ def eectokenizer(line):
     close  = ')'
     separ  = ','
     nada   = '' 
+    nests  = 0
+    nestc  = { open: 1, separ: 0, close: -1 }
 
     stream = []
 
@@ -43,7 +55,9 @@ def eectokenizer(line):
         if c == open or c == close or c == separ:
 
             stream.append( collect)
-            stream.append( c)
+
+            nests += nestc[c]
+            stream.append( nestlevel(c, nests))
             collect = nada
             defer   = nada
             continue
@@ -68,16 +82,61 @@ def commandLineFileTokens():
     returning the cummings tokens in a flattend list
     """
     # https://docs.python.org/2/library/fileinput.html
+
     tokens = []
+    fname  = sys.argv[1]
+    if (not os.path.isfile(fname)):
+        fname = "stdin"
+
     for line in fileinput.input():
         tokens.append( eectokenizer(line))
 
-    return sum(tokens, [])
+    stream( sum(tokens, []), fname)
 
 def nextToken():
     """return the next token from the command line files.
     this will get more clever when we can:
       a. include files, and 
       b. executed defined functions, ..."""
-    return commandLineFileTokens()
+    
+    return stream.current.getToken()
+
+class stream(object):
+    """to return cummings tokens from input files.
+    these may include other files and token streams.
+    the prev is the parent stream, the one invoking
+    the new stream"""
+
+    # http://www.diveintopython.net/object_oriented_framework/class_attributes.html
+    current = None
+
+    def __init__(self, tokens, file):
+
+        self.tokens            = tokens
+        self.file              = file
+        self.next              = 0
+        self.prev              = self.__class__.current
+        self.__class__.current = self
+
+    def getFile(self):
+        return self.__class__.current.file
+
+    def getToken(self):
+
+        next = self.next
+        self.next += 1
+
+        try:
+            return self.tokens[next]
+
+        except:
+            if (self.prev):
+                self.__class__.current = self.prev
+                return self.prev.getToken()
+
+            else:
+                exit ()
+
+
+    
 

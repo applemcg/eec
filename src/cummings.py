@@ -8,7 +8,7 @@ __author__  = "Marty McGowan <mailto:mcgowan@alum.mit.edu>"
 
 import os
 import sys
-import fileinput
+
 
 # -------------------------------------------- cummings	--
 
@@ -16,6 +16,7 @@ import datastructure
 import machine
 import builtin
 import stackframe
+import inputstream
 
 def toStderr( msg):   sys.stderr.write(msg + '\n')
         
@@ -54,25 +55,44 @@ def defineNew( token, frame):
 
     return rtn
 
+# hide the implementation.  i'm considering handing back tokens
+# from the parser signalling the nesting depth.  e.g.:
+#   f ( a, b( c), d) => f ( a, b (( c )) , d )
+# this would allow nested comments, for one thing. easily
+# detected, or displayed parentheis imbalance.
+# 
+def t_open ( token):
+    return token == '('
+
+def t_separate( token):
+    return token == ','
+
+def t_close( token):
+    return token == ')'
+
 def ee_interpreter():
     """the main loop. the default execution token.
     exits when all tokens are read and executed"""
 
-    import inputstream
-    
-    for token in inputstream.nextToken():
+    while true:
 
+        try:
+            token = intputstream.nextToken()
+
+        except:
+            exit()
+        
         toStderr( ' '*42 + 'TOKEN: <' + token + '>')
 
-        if token == '(':
+        if t_open( token):
             toStderr( 'handle open')
             thisFrame = frame
 
-        elif token == ',':
+        elif t_separate( token):
             toStderr( 'handle argument')
             thisFrame = thisFrame
 
-        elif token == ')':
+        elif t_close( token):
             toStderr( 'handle close this is busy')
             frame.evaluate()
             rtn = execution.remove()
@@ -117,7 +137,8 @@ def startup(name, args, hdlr):
     vocabulary[name] = interp
     return runtime
 
-vocabulary = builtin.Vocab()
-runtime    = startup( 'interpreter', [0], ee_interpreter)
+vocabulary  = builtin.Vocab()
+inputstream.commandLineFileTokens();
+runtime     = startup( 'interpreter', [0], ee_interpreter)
 
 
