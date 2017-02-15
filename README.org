@@ -1,0 +1,45 @@
+#+TITLE:     Cummings
+#+INCLUDE:   ./orgHeader.org
+
+This is the cummings source repostitory.  cummings is an interpreted
+computer language, best used as the 'no-apology' introduction to
+programming.
+
+* Language Features:
+
+1. any string, blanks included, may be a token, and
+1. its purely functional, so that /add( this, that)/ does what you'd
+   expect
+1. the syntax uses only 4 characters: "("  ","  ")" and "\"
+
+While it's behavior is little different from many scripting languages,
+it is revolutionary in a few ways:
+
+1. a string need not be quoted. 
+1. a strong preferance for mnemonic operators.
+1. a "no-apology" syntax. i.e. the lowest learning curve possible
+
+* Current activity
+
+1. bringing in the working kernel, described in the link.
+1. time
+
+* Status
+
+to test:
+#+BEGIN_SRC
+   $ cd src
+   $ cat ../tst/testdataNNN.eec ... | tmain #  OR
+   $ ...
+   $ cat ... | tmain {file} - ...
+#+END_SRC
+
+* Development practice:
+
+1. shell functions in **bin/eeclib**
+
+My email address: [[mailto:mcgowan@alum.mit.edu][mcgowan@alum.mit.edu]]
+See http://mcgowans.org/eec/cummings.html for the master README.
+
+
+
