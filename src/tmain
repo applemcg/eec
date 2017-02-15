@@ -6,9 +6,9 @@ import sys
 def f_stderr(msg):
     sys.stderr.write( msg + '\n')
 
-import datastructure
-import machine
-import parser
+# import datastructure
+# import machine
+# import parser
 
 # https://docs.python.org/2/library/fileinput.html#module-fileinput
 import fileinput 
